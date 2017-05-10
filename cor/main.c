@@ -14,4 +14,12 @@ int		main(int argc, char **argv)
 
 	create_data(&data);
 	check_flags(argc, argv, &data);
+
+	if (data.fl.flags > 0)
+	{
+		ft_printf("flags: %i\n", data.fl.flags);
+	}
+
+	return (0);
+
 }

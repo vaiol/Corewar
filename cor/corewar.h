@@ -16,7 +16,7 @@ typedef struct	s_fl
 
 typedef struct	s_data
 {
-
+	int			index;
 	t_fl		fl;
 
 }				t_data;

@@ -15,6 +15,8 @@ char	*get_arg(t_data *data, int argc, char **argv)
 {
 	char *arg;
 
+	arg = NULL;
+
 	if (data->index >= argc)
 		return (NULL);
 	while (argv[data->index][0] != '-')
