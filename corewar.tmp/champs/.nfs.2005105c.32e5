@@ -1,23 +1,5 @@
+.name %1"123"
 .comment "mama ama kriminal"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.name "123"
-
 
 start:
     sti     r1, %:copy, %1
