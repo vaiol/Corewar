@@ -3,9 +3,13 @@ NAME    = corewar
 CFLAGS  = -Wall -Wextra -Werror
 CC      = gcc
 
-SRCS    =   main.c \
+SRCS    =   error_handler.c \
+            get_files.c \
             get_flags.c \
-            error_handler.c
+            main.c \
+            utils.c
+
+
 
 OBJS    = $(SRCS:.c=.o)
 
