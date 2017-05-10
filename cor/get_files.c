@@ -6,6 +6,7 @@ void	check_size(int fd, t_data *data, int num)
 	int		real_size;
 
 	size = lseek(fd, 0, SEEK_END);
+	lseek(fd, 0, SEEK_SET);
 	if (size < 0)
 		error_handler("Error : file is not valid");
 

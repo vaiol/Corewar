@@ -2,25 +2,16 @@
 #ifndef COREWAR_H
 # define COREWAR_H
 
+# include "../op.h"
 # include "../libft/libft.h"
-# include "../libft/get_next_line/get_next_line.h"
-# include "../libft/ft_printf/ft_printf.h"
-
 # include <fcntl.h>
 
-# define MAX_ARGS_NUMBER			4
-# define MAX_PLAYERS				4
-# define MEM_SIZE				(4*1024)
-# define IDX_MOD					(MEM_SIZE / 8)
-# define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 
-# define PROG_NAME_LENGTH		(128)
-# define COMMENT_LENGTH			(2048)
 
 typedef struct	s_champ
 {
-	size_t		size;
-	char		*code;
+	size_t			size;
+	char			*code;
 
 }				t_champ;
 
