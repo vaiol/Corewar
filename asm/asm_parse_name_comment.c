@@ -9,7 +9,7 @@ static int 	get_name(char *file, int i, t_file_struct *content, int flag)
 	{
 		i++;
 		j = 0;
-		while (file[i + j] != '"')
+		while (file[i + j] && file[i + j] != '"')
 			j++;
 		if (flag)
 			content->comment = ft_strsub(file, (unsigned)i, (size_t)j);
@@ -26,9 +26,9 @@ int		asm_validate_name(char *file, int i, t_file_struct *content)
 	int		j;
 
 	i = asm_skip_empty_lines(file, i);
-	if ((j = asm_compare_str(file + i, ".name")))
+	if ((j = asm_compare_str(file + i, NAME_CMD_STRING)))
 		return (get_name(file, i + j, content, 0));
-	else if ((j = asm_compare_str(file + i, ".comment")))
+	else if ((j = asm_compare_str(file + i, COMMENT_CMD_STRING)))
 		return (get_name(file, i + j, content, 1));
 	return (i);
 }

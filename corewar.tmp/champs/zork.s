@@ -1,5 +1,5 @@
 .name "zork"
-.comment "just a basic living prog"
+.comment "1234567854325678909876545678904657890"
 
 #st
 #ld %1, r2
@@ -11,9 +11,6 @@ live:
     live %1
     fork %:live
 
-start_copy:
-
-    zjmp: %:start_copy
 
 
 

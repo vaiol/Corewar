@@ -7,7 +7,7 @@ char *asm_generate_string(char **file)
 
 	i = 0;
 	str = ft_strdup("");
-	while (file[i])
+	while (file && file[i])
 	{
 		str = ft_strfjoin(str, file[i], BOTH);
 		i++;
