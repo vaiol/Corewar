@@ -5,7 +5,7 @@ int		asm_compare_str(char *str, char *str2)
 	int	i;
 	int	j;
 
-	i = asm_skip_empty_lines(str, 0);
+	i = asm_skip_spaces(str, 0);
 	j = 0;
 	while (str[i] == str2[j])
 	{

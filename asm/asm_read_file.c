@@ -13,7 +13,7 @@ static char		**remove_comments(char **file)
 		j = 0;
 		while (file[i][j])
 		{
-			if (file[i][j] == '#')
+			if (file[i][j] == COMMENT_CHAR)
 			{
 				file[i][j] = '\0';
 				break ;
@@ -31,7 +31,6 @@ char			**asm_read_file(char *file_name)
 	char	*file_content;
 	off_t	size;
 	int		fd;
-	ssize_t	g;
 
 	if ((fd = open(file_name, O_RDONLY)) == -1)
 	{

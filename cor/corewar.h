@@ -7,7 +7,6 @@
 # include <fcntl.h>
 
 
-
 typedef struct	s_champ
 {
 //	size_t			size;
