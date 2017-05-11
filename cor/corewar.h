@@ -10,8 +10,11 @@
 
 typedef struct	s_champ
 {
-	size_t			size;
-	char			*code;
+//	size_t			size;
+//	char			*code;
+	int				nb;
+	char			*program;
+	t_file_struct	*file;
 
 }				t_champ;
 

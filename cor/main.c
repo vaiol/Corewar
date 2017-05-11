@@ -26,37 +26,38 @@ int		main(int argc, char **argv)
 	get_files(&data, argv);
 
 
-	t_file_struct file;
-
-
-	size_t i;
-	size_t shift = sizeof(unsigned int);
-
-	i = 0;
-	while (i < PROG_NAME_LENGTH)
-	{
-		file.prog_name[i] = data.champs[0].code[i + shift];
-		i++;
-	}
-	shift = i + shift + sizeof(file.prog_size) + 3;
-	file.prog_size = (unsigned)data.champs[0].code[shift];
-	shift++;
-	i = 0;
-	while (i < COMMENT_LENGTH)
-	{
-		file.comment[i] = data.champs[0].code[i + shift];
-		i++;
-	}
-	file.program = (char *)malloc(sizeof(char) * (file.prog_size + 1));
-	shift = i + shift + 4;
-	i = 0;
-	while (i < file.prog_size)
-	{
-		file.program[i] = data.champs[0].code[i + shift];
-		i++;
-	}
-	ft_printf("name: %s\ncomment: %s\nsize: %u\nprogram: ", file.prog_name, file.comment, file.prog_size);
-	ft_print_memory(file.program, file.prog_size);
+//	t_file_struct file;
+//
+//
+//	size_t i;
+//	size_t shift = sizeof(unsigned int);
+//
+//	i = 0;
+//	while (i < PROG_NAME_LENGTH)
+//	{
+//		file.prog_name[i] = data.champs[0].code[i + shift];
+//		i++;
+//	}
+//	shift = i + shift + sizeof(file.prog_size) + 3;
+//	file.prog_size = (unsigned)data.champs[0].code[shift];
+//	shift++;
+//	i = 0;
+//	while (i < COMMENT_LENGTH)
+//	{
+//		file.comment[i] = data.champs[0].code[i + shift];
+//		i++;
+//	}
+//	file.program = (char *)malloc(sizeof(char) * (file.prog_size + 1));
+//
+//	shift = i + shift + 4;
+//	i = 0;
+//	while (i < file.prog_size)
+//	{
+//		file.program[i] = data.champs[0].code[i + shift];
+//		i++;
+//	}
+//	ft_printf("name: %s\ncomment: %s\nsize: %u\nprogram: ", file.prog_name, file.comment, file.prog_size);
+//	ft_print_memory(file.program, file.prog_size);
 
 
 
