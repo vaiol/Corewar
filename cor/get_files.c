@@ -1,103 +1,83 @@
 #include "corewar.h"
 
-//void	check_size(int fd, t_data *data, int num)
-//{
-//	off_t	size;
-//	int		real_size;
-//
-//	size = lseek(fd, 0, SEEK_END);
-//	lseek(fd, 0, SEEK_SET);
-//	if (size < 0)
-//		error_handler("Error : file is not valid");
-//
-//	real_size = (size_t)size - PROG_NAME_LENGTH - COMMENT_LENGTH;
-//	ft_printf("%i\n", real_size);
-//
-//	if (real_size < 0)
-//		error_handler("Error : champ is not valid");
-//
-//	if (real_size > CHAMP_MAX_SIZE)
-//		error_handler("Error : champion is too large");
-//	data->champs[num].size = (size_t)size;
-//}
-
-void	check_magic(t_file_struct *file, char *content, size_t shift)
+void	check_magic(t_champ *champ, char *content, size_t shift)
 {
-	file->magic = (unsigned)content[shift];
+	champ->magic = (unsigned)content[shift];
+
+
 
 	// compare with COREWAR_EXEC_MAGIC ?
 
 }
 
-int		check_prog_name(t_file_struct *file, char *content, size_t shift)
+int		check_prog_name(t_champ *champ, char *content, size_t shift)
 {
 	size_t i;
 
-	file->prog_name = ft_strnew(PROG_NAME_LENGTH);
+//	champ->prog_name = ft_strnew(PROG_NAME_LENGTH);
 	i = 0;
 	while (i < PROG_NAME_LENGTH)
 	{
-		file->prog_name[i] = content[i + shift];
+		champ->prog_name[i] = content[i + shift];
 		i++;
 	}
-	if (!file->prog_name)
-		error_handler("Error : No champion name");
+//	if (!champ->prog_name)
+//		error_handler("Error : No champion name");
 	return (i);
 }
 
-void	check_prog_size(t_file_struct *file, char *content, size_t shift)
+void	check_prog_size(t_champ *champ, char *content, size_t shift)
 {
-	file->prog_size = (unsigned)content[shift];
-	if (file->prog_size > CHAMP_MAX_SIZE)
+	champ->prog_size = (unsigned)content[shift];
+	if (champ->prog_size > CHAMP_MAX_SIZE)
 		error_handler("Error : champion is too large");
 }
 
-int		check_comment(t_file_struct *file, char *content, size_t shift)
+int		check_comment(t_champ *champ, char *content, size_t shift)
 {
 	size_t i;
 
-	file->comment= ft_strnew(COMMENT_LENGTH);
 	i = 0;
 	while (i < COMMENT_LENGTH)
 	{
-		file->comment[i] = content[i + shift];
+		champ->comment[i] = content[i + shift];
 		i++;
 	}
-	if (!file->comment)
-		error_handler("Error : No champion comment");
+//	if (!champ->comment)
+//		error_handler("Error : No champion comment");
 	return (i);
 }
 
-void	check_program(t_file_struct *file, char *content, size_t shift, t_champ *champ)
+void	check_program(t_champ *champ, char *content, size_t shift)
 {
 	size_t i;
 
 	i = 0;
-	champ->program = ft_strnew(file->prog_size + 1);
-	while (i < file->prog_size)
+	champ->program = ft_strnew(champ->prog_size + 1);
+	while (i < champ->prog_size)
 	{
 		champ->program[i] = content[i + shift];
 		i++;
 	}
 }
 
-void	champ_check(t_file_struct *file, char *content, t_champ *champ)
+void	champ_check(t_champ *champ, char *content)
 {
 
 	size_t i;
 	size_t shift;
 
 	shift = sizeof(unsigned int);
-	check_magic(file, content, shift);
-	i = check_prog_name(file, content, shift);
-	shift = i + shift + sizeof(file->prog_size) + 3;
-	check_prog_size(file, content, shift);
-	i = check_comment(file, content, shift);
+	check_magic(champ, content, shift);
+	i = check_prog_name(champ, content, shift);
+	shift = i + shift + sizeof(champ->prog_size) + 3;
+	check_prog_size(champ, content, shift);
+	i = check_comment(champ, content, shift);
 	shift = i + shift + 4;
-	check_program(file, content, shift, champ);
+	check_program(champ, content, shift);
 /////////////////////////////////////////////////////
-	ft_printf("name: %s\ncomment: %s\nsize: %u\nprogram: ", file->prog_name, file->comment, file->prog_size);
-	ft_print_memory(champ->program, file->prog_size);
+	ft_printf("name: %s\ncomment: %s\nsize: %u\nprogram: ", champ->prog_name, champ->comment, champ->prog_size);
+	ft_print_memory(champ->program, champ->prog_size);
 }
 
 void	manage_file(t_data *data, char *argv, int nb)
@@ -120,7 +100,7 @@ void	manage_file(t_data *data, char *argv, int nb)
 
 	data->champs->nb = nb;
 
-	champ_check(data->champs[nb].file, content, &data->champs[nb]);
+	champ_check(&data->champs[nb], content);
 	free(content);
 }
 
@@ -130,6 +110,7 @@ void	get_files(t_data *data, char **argv)
 	int i;
 	int	nb;
 
+//	count_files(data, argv);
 	count_files(data, argv);
 	if (data->count == 0)
 		error_handler("Error : No players");
