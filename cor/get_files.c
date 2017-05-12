@@ -2,7 +2,6 @@
 
 void	check_magic(t_champ *champ, char *content, size_t shift)
 {
-
 	char	magic_hex[5];
 
 	int i = 0;

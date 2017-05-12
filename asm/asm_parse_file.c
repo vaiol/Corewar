@@ -10,6 +10,9 @@ static int		validation(char *file, t_file_struct *content)
 	i = asm_validate_name(file, i, content);
 	if (i == -1)
 		return (-1);
+	i = asm_parse_operations(file, i, content);
+	if (i == -1)
+		return (-1);
 	return (i);
 }
 
