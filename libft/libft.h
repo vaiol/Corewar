@@ -29,6 +29,7 @@ typedef enum	e_free
 	BOTH
 }				t_free;
 
+int             ft_memcmp(const void *s1, const void *s2, size_t n);
 void			*ft_memset(void *b, int c, size_t len);
 int				ft_isalpha(int c);
 int				ft_isdigit(int c);

@@ -74,27 +74,25 @@ int			get_operation(char *file, int i, t_operation *op)
 	return (i);
 }
 
+void		print_op(t_operation *op)
+{
+	ft_printf("%s: %s ->\t", op->label, op->name);
+	for (int j = 0; op->args && op->args[j]; j++)
+		ft_printf("'%s' ", op->args[j]);
+	ft_printf("\n");
+}
+
 int			asm_parse_operations(char *file, int i, t_file_struct *content)
 {
 	t_operation	*op;
 
 	op = create_operation();
 	i = get_operation(file, i, op);
-
-	ft_printf("%s: %s ->\t", op->label, op->name);
-	for (int j = 0; op->args && op->args[j]; j++)
-		ft_printf("'%s' ", op->args[j]);
-	ft_printf("\n");
+	print_op(op);
 
 	op = create_operation();
-//	i++;
 	i = get_operation(file, i, op);
-
-	ft_printf("%s: %s ->\t", op->label, op->name);
-	for (int j = 0; op->args && op->args[j]; j++)
-		ft_printf("'%s' ", op->args[j]);
-	ft_printf("\n");
-
+	print_op(op);
 	return (i);
 }
 

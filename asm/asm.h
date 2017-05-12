@@ -6,6 +6,15 @@
 # include <fcntl.h>
 
 
+typedef struct		s_file_struct
+{
+	unsigned int	magic;
+	char			*prog_name;
+	unsigned int	prog_size;
+	char			*comment;
+	char			*program;
+}					t_file_struct;
+
 typedef struct		s_operation
 {
 	char			*name;

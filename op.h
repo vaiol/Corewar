@@ -45,15 +45,6 @@ typedef char	t_arg_type;
 # define COMMENT_LENGTH (2048)
 # define COREWAR_EXEC_MAGIC 0xea83f3
 
-typedef struct		s_file_struct
-{
-	unsigned int	magic;
-	char			*prog_name;
-	unsigned int	prog_size;
-	char			*comment;
-	char			*program;
-}					t_file_struct;
-
 typedef struct		s_op
 {
 	char			*name;
