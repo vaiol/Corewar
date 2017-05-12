@@ -1,6 +1,5 @@
 #include "corewar.h"
 
-
 int		get_magic(unsigned char *str)
 {
 	int magic;
@@ -26,7 +25,7 @@ void	check_magic(t_champ *champ, char *content)
 	magic[i] = '\0';
 	champ->magic = get_magic(magic);
 	if (COREWAR_EXEC_MAGIC != champ->magic)
-		error_handler("Error : Wrong magic number");
+		champ_error_handler("Wrong magic number", champ->file_name);
 }
 
 int		check_prog_name(t_champ *champ, char *content, size_t shift)
@@ -40,7 +39,7 @@ int		check_prog_name(t_champ *champ, char *content, size_t shift)
 		i++;
 	}
 	if (!champ->prog_name[0])
-		error_handler("Error : No champion name");
+		champ_error_handler("No champion name", champ->file_name);
 	return (i);
 }
 
@@ -48,7 +47,7 @@ void	check_prog_size(t_champ *champ, char *content, size_t shift)
 {
 	champ->prog_size = (unsigned)content[shift];
 	if (champ->prog_size > CHAMP_MAX_SIZE)
-		error_handler("Error : champion is too large");
+		champ_error_handler("Is too large", champ->file_name);
 }
 
 int		check_comment(t_champ *champ, char *content, size_t shift)
@@ -62,7 +61,7 @@ int		check_comment(t_champ *champ, char *content, size_t shift)
 		i++;
 	}
 	if (!champ->comment[0])
-		error_handler("Error : No champion comment");
+		champ_error_handler("No champion comment", champ->file_name);
 	return (i);
 }
 
@@ -105,18 +104,19 @@ void	manage_file(t_data *data, char *argv, int nb)
 	char 	*content;
 
 	if ((fd = open(argv, O_RDONLY)) == -1)
-		error_handler("Error : cannot open file");
+		champ_error_handler("Cannot open file", argv);
 
 	size = lseek(fd, 0, SEEK_END);
 	lseek(fd, 0, SEEK_SET);
 	if (size < 0)
-		error_handler("Error : file is not valid");
+		champ_error_handler("File is not valid", argv);
 
 	content = ft_strnew((size_t)size);
 	read(fd, content, (size_t)size);
 //	content[(size_t)size] = '\0'; // ????
 
 	data->champs->nb = nb;
+	data->champs->file_name = argv;
 
 	champ_check(&data->champs[nb], content);
 	free(content);

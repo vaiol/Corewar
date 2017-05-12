@@ -19,13 +19,13 @@
 typedef struct	s_champ
 {
 	int				nb;
+	char			*file_name;
 	unsigned int	magic;
 	char			prog_name[PROG_NAME_LENGTH + 1];
 	unsigned int	prog_size;
 	char			comment[COMMENT_LENGTH + 1];
 	char			*program;
 }				t_champ;
-
 
 typedef struct	s_fl
 {
@@ -44,6 +44,7 @@ typedef struct	s_data
 // error_handler
 
 void			error_handler(char *str);
+void			champ_error_handler(char *str, char *champion);
 
 // get_flags
 
