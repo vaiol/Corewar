@@ -1,49 +1,34 @@
 #include "corewar.h"
 
-void	check_magic(t_champ *champ, char *content, size_t shift)
+
+int        get_magic(unsigned char *str)
 {
-	char	magic_hex[5];
+	int        magic;
+
+	magic = str[0] << 24;
+	magic += str[1] << 16;
+	magic += str[2] << 8;
+	magic += str[3];
+	return (magic);
+}
+
+void	check_magic(t_champ *champ, char *content)
+{
+	unsigned char	magic[4];
 
 	int i = 0;
 
 	while (i < 4)
 	{
-		magic_hex[i] = content[i];
+		magic[i] = content[i];
 		i++;
 	}
-	magic_hex[i] = '\0';
+	magic[i] = '\0';
 
+	champ->magic = get_magic(magic);
 
-	int res;
-	res = ft_memcmp(magic_hex, (void *)COREWAR_EXEC_MAGIC, 3);
-	ft_printf("res = %i\n", res);
-
-
-
-	ft_printf("hex : %s\n", magic_hex);
-
-	champ->magic = (unsigned)content[0];
-
-
-
-
-
-	ft_printf("magic: %u\n", champ->magic);
-	ft_printf("Magic: %u\n", COREWAR_EXEC_MAGIC);
-
-	// compare with COREWAR_EXEC_MAGIC ?
-
-	if (COREWAR_EXEC_MAGIC == champ->magic)
-	{
-		ft_printf("Done\n");
-	}
-	else
-	{
-		ft_printf("Wrong\n");
-	}
-
-	shift++;
-
+	if (COREWAR_EXEC_MAGIC != champ->magic)
+		error_handler("Error : Wrong magic number");
 }
 
 int		check_prog_name(t_champ *champ, char *content, size_t shift)
@@ -104,7 +89,7 @@ void	champ_check(t_champ *champ, char *content)
 	size_t shift;
 
 	shift = sizeof(unsigned int);
-	check_magic(champ, content, shift);
+	check_magic(champ, content);
 	i = check_prog_name(champ, content, shift);
 	shift = i + shift + sizeof(champ->prog_size) + 3;
 	check_prog_size(champ, content, shift);
