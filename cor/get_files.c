@@ -2,11 +2,48 @@
 
 void	check_magic(t_champ *champ, char *content, size_t shift)
 {
-	champ->magic = (unsigned)content[shift];
+
+	char	magic_hex[5];
+
+	int i = 0;
+
+	while (i < 4)
+	{
+		magic_hex[i] = content[i];
+		i++;
+	}
+	magic_hex[i] = '\0';
 
 
+	int res;
+	res = ft_memcmp(magic_hex, (void *)COREWAR_EXEC_MAGIC, 3);
+	ft_printf("res = %i\n", res);
+
+
+
+	ft_printf("hex : %s\n", magic_hex);
+
+	champ->magic = (unsigned)content[0];
+
+
+
+
+
+	ft_printf("magic: %u\n", champ->magic);
+	ft_printf("Magic: %u\n", COREWAR_EXEC_MAGIC);
 
 	// compare with COREWAR_EXEC_MAGIC ?
+
+	if (COREWAR_EXEC_MAGIC == champ->magic)
+	{
+		ft_printf("Done\n");
+	}
+	else
+	{
+		ft_printf("Wrong\n");
+	}
+
+	shift++;
 
 }
 
