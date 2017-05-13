@@ -5,16 +5,6 @@
 # include "../op.h"
 # include <fcntl.h>
 
-
-typedef struct		s_file_struct
-{
-	unsigned int	magic;
-	char			*prog_name;
-	unsigned int	prog_size;
-	char			*comment;
-	char			*program;
-}					t_file_struct;
-
 typedef struct		s_operation
 {
 	char			*name;
@@ -22,8 +12,14 @@ typedef struct		s_operation
 	char			*label;
 }					t_operation;
 
-
-
+typedef struct		s_file_struct
+{
+	unsigned int	magic;
+	char			*prog_name;
+	unsigned int	prog_size;
+	char			*comment;
+	t_operation		**ops;
+}					t_file_struct;
 
 char			**asm_read_file(char *file_name);
 
