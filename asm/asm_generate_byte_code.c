@@ -2,7 +2,7 @@
 
 void	print_op(t_operation *op)
 {
-	ft_printf("%s: %s ->\t", op->label, op->name);
+	ft_printf("%s:\t%s\t->\t", op->label, op->name);
 	for (int j = 0; op->args && op->args[j]; j++)
 		ft_printf("'%s' ", op->args[j]);
 	ft_printf("\n");
@@ -10,7 +10,7 @@ void	print_op(t_operation *op)
 
 void	asm_generate_byte_code(t_file_struct *content)
 {
-	if (!content)
+	if (!content || !asm_validate_operations(content))
 		ft_printf("Syntax error!");
 	else
 	{

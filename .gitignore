@@ -40,5 +40,6 @@ cmake-build-debug/
 #MacOS
 .DS_Store
 ._.DS_Store
+.nfs.*
 
 resources/

@@ -10,6 +10,7 @@ typedef struct		s_operation
 	char			*name;
 	char			**args;
 	char			*label;
+	int				index;
 }					t_operation;
 
 typedef struct		s_file_struct
@@ -35,6 +36,7 @@ t_file_struct	*asm_create_content();
 void			asm_generate_byte_code(t_file_struct *content);
 
 char			*asm_generate_string(char **file);
-
+int 			asm_validate_operations(t_file_struct *content);
+int				asm_is_arg(char *arg);
 
 #endif

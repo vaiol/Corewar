@@ -9,6 +9,7 @@ t_operation	*create_operation()
 	op->args = NULL;
 	op->label = NULL;
 	op->name = NULL;
+	op->index = -1;
 	return (op);
 }
 
@@ -34,11 +35,6 @@ void		add_ops(t_file_struct *content, t_operation	*op)
 	content->ops = new_ops;
 }
 
-
-
-
-
-
 int			get_label_name(char *file, int i, t_operation *op)
 {
 	unsigned	j;
@@ -47,7 +43,7 @@ int			get_label_name(char *file, int i, t_operation *op)
 	j = 0;
 	while (ft_strcchr(LABEL_CHARS, file[i + j]))
 		j++;
-	if (file[i + j] == LABEL_CHAR)
+	if (file[i + j] == LABEL_CHAR && j > 0)
 	{
 		op->label = ft_strsub(file, (unsigned)i, j);
 		return (i + j + 1);

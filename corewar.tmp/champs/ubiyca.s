@@ -2,8 +2,8 @@
 .name "123"
 
 copy:   sti     r1, %:copy, %1
-        sti     r1, %:spawn, %1
-        ld      %:4, r3
+        sti     r1, %:spawn, %11
+        ld      %4, r3
 fork:   fork    %:spawn
 copy:   live    %0
         lldi    %:copy, r4, r2
