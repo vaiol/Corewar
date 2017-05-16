@@ -20,5 +20,8 @@ int		main(int argc, char **argv)
 //	check files for size, min/max number and save them to struct arr data->champs;
 	get_files(&data, argv);
 
+//	create_field
+	create_map(&data);
+
 	return (0);
 }
