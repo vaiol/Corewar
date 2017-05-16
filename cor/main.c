@@ -21,7 +21,7 @@ int		main(int argc, char **argv)
 	get_files(&data, argv);
 
 //	create_field
-	create_map(&data);
+	prefill_map(&data);
 
 	return (0);
 }

@@ -3,7 +3,8 @@ NAME    = corewar
 CFLAGS  = -Wall -Wextra -Werror
 CC      = gcc
 
-SRCS    =   error_handler.c \
+SRCS    =   map.c \
+            error_handler.c \
             get_files.c \
             get_flags.c \
             main.c \

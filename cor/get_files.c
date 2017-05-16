@@ -93,8 +93,22 @@ void	champ_check(t_champ *champ, char *content)
 	shift = i + shift + 4;
 	check_program(champ, content, shift);
 /////////////////////////////////////////////////////
-	ft_printf("name: %s\ncomment: %s\nsize: %u\nprogram: ", champ->prog_name, champ->comment, champ->prog_size);
+
+//	print champion info
+
+	ft_printf("name: %s\ncomment: %s\nsize: %u\nstart_pos: %i\nprogram: ", champ->prog_name, champ->comment, champ->prog_size, champ->start_pos);
 	ft_print_memory(champ->program, champ->prog_size);
+}
+
+void	set_start_pos(t_data *data, t_champ *champ, int nb)
+{
+	int x;
+
+	x = MEM_SIZE / data->count;
+
+	champ->start_pos = x * (nb - 1);
+
+//	ft_printf("x = %i\nnb = %i\nx*nb = %i\n", x, nb, x * nb);
 }
 
 void	manage_file(t_data *data, char *argv, int nb)
@@ -116,6 +130,9 @@ void	manage_file(t_data *data, char *argv, int nb)
 //	content[(size_t)size] = '\0'; // ????
 
 	data->champs->nb = nb;
+
+	set_start_pos(data, &data->champs[nb], data->count);
+
 	data->champs->file_name = argv;
 
 	champ_check(&data->champs[nb], content);
