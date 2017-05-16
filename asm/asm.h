@@ -5,6 +5,13 @@
 # include "../op.h"
 # include <fcntl.h>
 
+typedef struct		s_operation
+{
+	char			*name;
+	char			**args;
+	char			*label;
+	int				index;
+}					t_operation;
 
 typedef struct		s_file_struct
 {
@@ -12,18 +19,8 @@ typedef struct		s_file_struct
 	char			*prog_name;
 	unsigned int	prog_size;
 	char			*comment;
-	char			*program;
+	t_operation		**ops;
 }					t_file_struct;
-
-typedef struct		s_operation
-{
-	char			*name;
-	char			**args;
-	char			*label;
-}					t_operation;
-
-
-
 
 char			**asm_read_file(char *file_name);
 
@@ -39,6 +36,7 @@ t_file_struct	*asm_create_content();
 void			asm_generate_byte_code(t_file_struct *content);
 
 char			*asm_generate_string(char **file);
-
+int 			asm_validate_operations(t_file_struct *content);
+int				asm_is_arg(char *arg);
 
 #endif

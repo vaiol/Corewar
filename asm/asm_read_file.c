@@ -39,8 +39,9 @@ char			**asm_read_file(char *file_name)
 	}
 	size = lseek(fd, 0, SEEK_END);
 	lseek(fd, 0, SEEK_SET);
-	file_content = (char *)malloc(sizeof(char) * (size + 1));
+	file_content = (char *)malloc(sizeof(char) * (size + 2));
 	size = read(fd, file_content, (size_t)size);
+	file_content[size++] = '\n';
 	file_content[size] = '\0';
 	result = ft_strsplit(file_content, '\n');
 	free(file_content);

@@ -13,10 +13,10 @@
 	ld	%-15, r3
 	ld	%1, r4
 loop:	add	r3, r4, r3
-	zjmp	%:golive
-	xor	r5, r5, r5
-	zjmp	%:loop
-golive:	live	%1
+	    zjmp	%:golive
+	    xor	r5, r5, r5
+	    zjmp	%:loop
+golive: live	%:golive3
 	ld	%-25, r3
 	ld	%1, r4
 lock:	add	r3, r4, r3
