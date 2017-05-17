@@ -45,7 +45,16 @@ int		check_prog_name(t_champ *champ, char *content, size_t shift)
 
 void	check_prog_size(t_champ *champ, char *content, size_t shift)
 {
-	champ->prog_size = (unsigned)content[shift];
+	content++;
+
+//	This size is always less than real
+
+//	champ->prog_size = (unsigned)content[shift];
+//	if (champ->prog_size > CHAMP_MAX_SIZE)
+//		champ_error_handler("Is too large", champ->file_name);
+
+//	This is correct size;
+	champ->prog_size = champ->real_prog_size - shift;
 	if (champ->prog_size > CHAMP_MAX_SIZE)
 		champ_error_handler("Is too large", champ->file_name);
 }
@@ -88,9 +97,11 @@ void	champ_check(t_champ *champ, char *content)
 	check_magic(champ, content);
 	i = check_prog_name(champ, content, shift);
 	shift = i + shift + sizeof(champ->prog_size) + 3;
-	check_prog_size(champ, content, shift);
+//	check_prog_size(champ, content, shift);
 	i = check_comment(champ, content, shift);
-	shift = i + shift + 4;
+	shift = i + shift + 5;
+	check_prog_size(champ, content, shift);
+
 	check_program(champ, content, shift);
 /////////////////////////////////////////////////////
 
@@ -105,10 +116,7 @@ void	set_start_pos(t_data *data, t_champ *champ, int nb)
 	int x;
 
 	x = MEM_SIZE / data->count;
-
-	champ->start_pos = x * (nb - 1);
-
-//	ft_printf("x = %i\nnb = %i\nx*nb = %i\n", x, nb, x * nb);
+	champ->start_pos = x * (nb);
 }
 
 void	manage_file(t_data *data, char *argv, int nb)
@@ -117,6 +125,12 @@ void	manage_file(t_data *data, char *argv, int nb)
 	off_t	size;
 	char 	*content;
 
+
+
+//
+	ft_printf("NB = %i\n", nb);
+//
+
 	if ((fd = open(argv, O_RDONLY)) == -1)
 		champ_error_handler("Cannot open file", argv);
 
@@ -124,17 +138,15 @@ void	manage_file(t_data *data, char *argv, int nb)
 	lseek(fd, 0, SEEK_SET);
 	if (size < 0)
 		champ_error_handler("File is not valid", argv);
-
+//	Set size;
+//	ft_printf("Rsize %i\n", size - PROG_NAME_LENGTH - COMMENT_LENGTH - 16);
 	content = ft_strnew((size_t)size);
 	read(fd, content, (size_t)size);
 //	content[(size_t)size] = '\0'; // ????
-
 	data->champs->nb = nb;
-
-	set_start_pos(data, &data->champs[nb], data->count);
-
+	set_start_pos(data, &data->champs[nb], nb);
 	data->champs->file_name = argv;
-
+	data->champs[nb].real_prog_size = (size_t)size;
 	champ_check(&data->champs[nb], content);
 	free(content);
 }
@@ -148,11 +160,10 @@ void	get_files(t_data *data, char **argv)
 	if (data->count == 0)
 		error_handler("Error : No players");
 	data->champs = (t_champ *)malloc(sizeof(t_champ) * data->count);
-
+	nb = 0;
 	i = 0;
 	while (argv[++i])
 	{
-		nb = 0;
 		if (argv[i][0] != '-')
 		{
 			manage_file(data, argv[i], nb);

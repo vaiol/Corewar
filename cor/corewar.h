@@ -52,7 +52,16 @@ typedef char	t_arg_type;
 # define COMMENT_LENGTH (2048)
 # define COREWAR_EXEC_MAGIC 0xea83f3
 
-typedef struct	s_champ
+
+typedef struct		s_carr
+{
+	int				index;
+	int				reg[16 + 1];
+
+	struct s_carr	*next;
+}					t_carr;
+
+typedef struct		s_champ
 {
 	int				nb;
 	int				start_pos;
@@ -60,46 +69,51 @@ typedef struct	s_champ
 	unsigned int	magic;
 	char			prog_name[PROG_NAME_LENGTH + 1];
 	unsigned int	prog_size;
+	size_t			real_prog_size;
 	char			comment[COMMENT_LENGTH + 1];
 	char			*program;
-}				t_champ;
 
-typedef struct	s_fl
-{
-	int			flags;
-	int			n;
-}				t_fl;
 
-typedef struct	s_data
+
+}					t_champ;
+
+typedef struct		s_fl
 {
-	int			map[MEM_SIZE + 1];
-	int			index;
-	int			count;
-	t_fl		fl;
-	t_champ		*champs;
-}				t_data;
+	int				flags;
+	int				n;
+}					t_fl;
+
+typedef struct		s_data
+{
+//	unsigned char	map[MEM_SIZE + 1];
+	unsigned char	*map;
+	int				index;
+	int				count;
+	t_fl			fl;
+	t_champ			*champs;
+}					t_data;
 
 
 
 // create_map
 
-void			prefill_map(t_data *data);
+void				prefill_map(t_data *data);
 
 // error_handler
 
-void			error_handler(char *str);
-void			champ_error_handler(char *str, char *champion);
+void				error_handler(char *str);
+void				champ_error_handler(char *str, char *champion);
 
 // get_flags
 
-void			check_flags(int argc, char **argv, t_data *data);
+void				check_flags(int argc, char **argv, t_data *data);
 
 // get_files
 
-void			get_files(t_data *data, char **argv);
+void				get_files(t_data *data, char **argv);
 
 // utils
 
-void			count_files(t_data *data, char **argv);
+void				count_files(t_data *data, char **argv);
 
 #endif
