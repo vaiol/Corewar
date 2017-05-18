@@ -1,29 +1,5 @@
 #include "corewar.h"
 
-int		uchar_to_int(unsigned char *str)
-{
-	int integer;
-
-//	integer = str[0] << 24;
-//	integer += str[1] << 16;
-//	integer += str[2] << 8;
-//	integer += str[3];
-//	integer = str[0] << 24;
-//	integer += str[1] << 16;
-//	integer += 0 << 8;
-//	integer += 0;
-
-	integer = 0 << 24;
-	integer += 0 << 16;
-	integer += str[0] << 8;
-	integer += str[1];
-
-
-//	integer = str[0] << 8;
-//	integer += str[1];
-	return (integer);
-}
-
 void	print_map(t_data *data)
 {
 	int i;
@@ -33,7 +9,18 @@ void	print_map(t_data *data)
 	x = 1;
 	while (i < MEM_SIZE)
 	{
-		ft_printf("%02x ",data->map[i]);
+		if (data->map[i].pn == 5)
+			ft_printf("%s%02x ", BLACK, data->map[i].cell);
+		if (data->map[i].pn == 0)
+			ft_printf("%s%02x ", GREEN, data->map[i].cell);
+		if (data->map[i].pn == 1)
+			ft_printf("%s%02x ", BLUE, data->map[i].cell);
+		if (data->map[i].pn == 2)
+			ft_printf("%s%02x ", RED, data->map[i].cell);
+		if (data->map[i].pn == 3)
+			ft_printf("%s%02x ", CYAN, data->map[i].cell);
+
+//		ft_printf("%s%02x ", RED, data->map[i].cell);
 
 		if (x >= 64)
 		{
@@ -45,61 +32,34 @@ void	print_map(t_data *data)
 	}
 };
 
-
-int hex_to_dec(int nbr) // recursive fn
-{
-	int nConverted = 0; // Clear this for calculation
-	int nQuotient;
-	int nRemainder;
-
-	nQuotient = (nbr / 16);
-	nRemainder = (nbr % 16);
-
-	if ( nQuotient == 0)
-		nConverted = nRemainder;
-	else
-		nConverted = (16 * hex_to_dec(nQuotient) + nRemainder);
-	return (nConverted);
-}
-
 void	fill_map(t_data *data, t_champ *champ)
 {
-
 	int				pos;
 	unsigned int	i;
 
 	pos = champ->start_pos;
-
 	i = 0;
 	while (i < champ->prog_size)
 	{
-		data->map[i + pos] = champ->program[i];
+		data->map[i + pos].pn = champ->nb;
+		data->map[i + pos].cell = champ->program[i];
 		i++;
 	}
+	data->map[pos].carriage = 1;
 }
 
 void	prefill_map(t_data *data)
 {
 	int i;
-	int n;
 
+//	if allocate memory for map
+//	data->map = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE);
 	i = 0;
-
-	data->map = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE);
-
 	while (i < MEM_SIZE)
 	{
-		data->map[i] = 0;
+		data->map[i].pn = 5;
+		data->map[i].cell = 0;
+		data->map[i].carriage = 0;
 		i++;
 	}
-
-	n = 0;
-	while (n < data->count)
-	{
-		fill_map(data, &data->champs[n]);
-		n++;
-	}
-
-//	ft_print_memory(data->map, MEM_SIZE);
-	print_map(data);
 }

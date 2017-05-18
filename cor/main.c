@@ -19,9 +19,24 @@ int		main(int argc, char **argv)
 	check_flags(argc, argv, &data);
 //	check files for size, min/max number and save them to struct arr data->champs;
 	get_files(&data, argv);
+//	create and fill map, create first carriage for champion
+	init_corewar(&data);
 
-//	create_field
-	prefill_map(&data);
+//	game start
+	corewar(&data);
 
 	return (0);
 }
+
+//#include <ncurses.h>
+//
+//int		main()
+//{
+//	initscr();
+//	move(10,30);
+//	printw("Hello world !!!");
+//	refresh(); // обновить
+//	getch(); // ждём нажатия символа
+//	endwin(); // завершение работы с ncurses
+//	return (0);
+//}

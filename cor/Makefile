@@ -3,14 +3,15 @@ NAME    = corewar
 CFLAGS  = -Wall -Wextra -Werror
 CC      = gcc
 
-SRCS    =   map.c \
+SRCS    =   carriage.c \
+            corewar.c \
             error_handler.c \
             get_files.c \
             get_flags.c \
+            init.c \
             main.c \
+            map.c \
             utils.c
-
-
 
 OBJS    = $(SRCS:.c=.o)
 
@@ -20,12 +21,12 @@ $(NAME): $(OBJS)
 	@printf "[CC] libft.a start:\n"
 	@make -C $(LIB)
 	@printf "[CC] libft.a finished successfull!\n"
-	@$(CC) $(SRCS) $(LIB)libft.a -o $(NAME)
+	@$(CC) $(SRCS) -lncurses $(LIB)libft.a -o $(NAME)
 	@printf "[CC] %s\n" $(NAME)
 
 .c.o:
 	@printf "[CC] %s\n" $<
-	@$(CC) $(CFLAGS) -c $<  -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@printf "[RM] objects\n"
