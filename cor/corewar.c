@@ -1,73 +1,6 @@
 
 #include "corewar.h"
 
-//void	nc_print_map(t_data *data)
-//{
-//	int i;
-//	int x;
-//
-//	i = 0;
-//	x = 1;
-//
-//	init_pair(1, COLOR_GREEN, COLOR_BLACK);
-//	init_pair(2, COLOR_BLUE, COLOR_BLACK);
-//	init_pair(3, COLOR_RED, COLOR_BLACK);
-//	init_pair(4, COLOR_CYAN, COLOR_BLACK);
-//	init_pair(5, COLOR_WHITE, COLOR_BLACK);
-//
-//	init_pair(6, COLOR_BLACK, COLOR_GREEN);
-//	init_pair(7, COLOR_BLACK,  COLOR_BLUE);
-//	init_pair(8, COLOR_BLACK, COLOR_RED);
-//	init_pair(9, COLOR_BLACK, COLOR_CYAN);
-//	init_pair(10, COLOR_BLACK, COLOR_WHITE);
-//
-//	while (i < MEM_SIZE)
-//	{
-//		if (data->map[i].pn == 5)
-//		{
-//			attron(COLOR_PAIR(5));
-//			if (data->map[i].carriage == 1)
-//				attron(COLOR_PAIR(10));
-//		}
-//		else if (data->map[i].pn == 0)
-//		{
-//			attron(COLOR_PAIR(1));
-//			if (data->map[i].carriage == 1)
-//				attron(COLOR_PAIR(6));
-//		}
-//		else if (data->map[i].pn == 1)
-//		{
-//			attron(COLOR_PAIR(2));
-//			if (data->map[i].carriage == 1)
-//				attron(COLOR_PAIR(7));
-//		}
-//		else if (data->map[i].pn == 2)
-//		{
-//			attron(COLOR_PAIR(3));
-//			if (data->map[i].carriage == 1)
-//				attron(COLOR_PAIR(8));
-//		}
-//		else if (data->map[i].pn == 3)
-//		{
-//			attron(COLOR_PAIR(4));
-//			if (data->map[i].carriage == 1)
-//				attron(COLOR_PAIR(9));
-//		}
-//
-//		printw("%02x", data->map[i].cell);
-//		attron(COLOR_PAIR(5));
-//		printw(" ");
-//
-//		if (x >= 64)
-//		{
-//			printw("\n");
-//			x = 0;
-//		}
-//		x++;
-//		i++;
-//	}
-//}
-
 void	init_colors(void)
 {
 	init_pair(1, COLOR_GREEN, COLOR_BLACK);
@@ -83,6 +16,32 @@ void	init_colors(void)
 	init_pair(10, COLOR_BLACK, COLOR_WHITE);
 }
 
+void	nc_print_stat(t_data *data, WINDOW *win)
+{
+
+	char *status;
+
+	wclear(win);
+	if (data->print.status == 0)
+		status = "PAUSED";
+	else
+		status = "RUNNING";
+
+	wmove(win, 3, 50 - ((ft_strlen(status) + 7) / 2));
+	wprintw(win, "Status : ", status);
+	if (data->print.status == 0)
+		wattron(win, COLOR_PAIR(3));
+	else
+		wattron(win, COLOR_PAIR(1));
+	wprintw(win, "%s", status);
+
+
+
+	wattroff(win, COLOR_PAIR(5));
+	wmove(win, 5, 50 - (ft_strlen("Cycle :    ") / 2));
+	wprintw(win, "Cycle : %i", data->print.cycle);
+}
+
 void	nc_print_map(t_data *data, WINDOW *win)
 {
 	int i;
@@ -94,11 +53,11 @@ void	nc_print_map(t_data *data, WINDOW *win)
 
 	y = 3;
 
+	wclear(win);
 	wmove(win, 3, 3);
 
 	while (i < MEM_SIZE)
 	{
-
 		if (data->map[i].pn == 5)
 		{
 			wattron(win, COLOR_PAIR(5));
@@ -146,12 +105,8 @@ void	nc_print_map(t_data *data, WINDOW *win)
 	}
 }
 
-void	init_ncurses(t_data *data)
+void	init_ncurses(t_data *data, t_print *print)
 {
-	WINDOW *win_corwar;
-	WINDOW *win_map;
-	WINDOW *win_map_cont;
-
 	int offset_x;
 	int offset_y;
 	int height;
@@ -162,62 +117,117 @@ void	init_ncurses(t_data *data)
 
 	initscr();
 	noecho();
+	curs_set(FALSE);
 	cbreak();
 	start_color();
 
 	init_colors();
 
-	printw("CoreWar v. 0.1  -  Press x to quit...");
+	printw("CoreWar v. 0.1  -  Press 'space' to start/pause. Press 'q' to quit...");
 
 	refresh();
 
 	offset_x = (COLS - width) / 2;
 	offset_y = (LINES - height) / 2;
 
-	win_corwar = newwin(height, width, offset_y, offset_x); // h, w, oy, ox;
-	win_map = newwin(height - 4, width - 100, offset_y + 2, offset_x + 1);
-	win_map_cont = newwin(height - 8, width - 104, offset_y + 3, offset_x + 2);
+	print->win_corwar = newwin(height, width, offset_y, offset_x); // h, w, oy, ox;
+	print->win_map = newwin(height - 8, width - 104, offset_y + 3, offset_x + 2);
+	print->win_stat = newwin(height - 4, 100, offset_y + 2, offset_x + 198);
 
-//	win_corwar = newwin(height, width, 5, 0); // h, w, oy, ox;
-//	win_map = newwin(height - 4, width - 100, 7, 1);
-//	win_map_cont = newwin(height - 8, width - 104, 8, 2);
+	box(print->win_corwar, 0, 0);
 
-	box(win_corwar, 0, 0);
-	box(win_map, 0, 0);
-//	box(win_map_cont, 0, 0);
-
-	nc_print_map(data, win_map_cont);
+	nc_print_map(data, print->win_map);
+	nc_print_stat(data, print->win_stat);
 
 	refresh();
-	wrefresh(win_corwar);
-	wrefresh(win_map);
-	wrefresh(win_map_cont);
-
-	getch(); // ждём нажатия символа
-
-	delwin(win_corwar);
-	delwin(win_map);
-	delwin(win_map_cont);
-
-	endwin(); // завершение работы с ncurses
+	wrefresh(print->win_corwar);
+	wrefresh(print->win_map);
+	wrefresh(print->win_stat);
 }
 
-//void	init_ncurses(t_data *data)
-//{
-//	initscr();
-//	noecho();
-//	start_color();
-//
-//	nc_print_map(data);
-//
-//	move(0, 0); // y, x
-//
-////	printw("Hello world !!!");
-//	refresh(); // обновить
-//	getch(); // ждём нажатия символа
-//	endwin(); // завершение работы с ncurses
-//}
+void	shut_down_nc(t_data *data)
+{
+	delwin(data->print.win_corwar);
+	delwin(data->print.win_map);
+	delwin(data->print.win_stat);
+	endwin();
+}
 
+void	nc_refresh(t_data *data, t_print *print)
+{
+
+	data->print.cycle++;
+
+	nc_print_map(data, print->win_map);
+	nc_print_stat(data, print->win_stat);
+	wrefresh(print->win_map);
+	wrefresh(print->win_stat);
+}
+
+//
+
+void	nc_pause(t_data *data)
+{
+	int key;
+
+	if (data->print.status == 1)
+	{
+		data->print.status = 0;
+		nc_print_stat(data, data->print.win_stat);
+		wrefresh(data->print.win_stat);
+	}
+	key = getch();
+
+	if (key == 'q')
+		shut_down_nc(data);
+	else if (key == ' ')
+		nc_start(data);
+	else
+		nc_pause(data);
+}
+
+void	manage_corewar(t_data *data)
+{
+	int n;
+
+	n = 0;
+	while (n < data->count)
+	{
+		data->map[data->champs[n].carriage->index].carriage = 0;
+		if (data->champs[n].carriage->index >= MEM_SIZE)
+			data->champs[n].carriage->index = -1;
+		data->champs[n].carriage->index++;
+		data->map[data->champs[n].carriage->index].carriage = 1;
+		n++;
+	}
+}
+
+void	nc_start(t_data *data)
+{
+	int quit;
+	int change_status;
+	int key;
+
+	quit = 'o';
+	change_status = '0';
+
+	while (quit != 'q')
+	{
+		if (data->print.status == 0)
+			data->print.status = 1;
+		timeout(100);
+		key = getch();
+		if (key == 'q')
+			quit = key;
+		else if (key == ' ')
+			nc_pause(data);
+//
+		manage_corewar(data);
+//
+		nc_refresh(data, &data->print);
+	}
+	shut_down_nc(data);
+}
 
 void	corewar(t_data *data)
 {
@@ -225,8 +235,8 @@ void	corewar(t_data *data)
 	{
 		if (data->fl.n == 1)
 		{
-			init_ncurses(data);
-//			init_ncurses();
+			init_ncurses(data, &data->print);
+			nc_pause(data);
 		}
 	}
 	else

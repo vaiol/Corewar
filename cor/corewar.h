@@ -6,6 +6,7 @@
 # include "../libft/libft.h"
 # include <fcntl.h>
 # include <ncurses.h>
+# include <stdio.h>
 
 
 # define IND_SIZE 2
@@ -61,12 +62,33 @@ typedef char	t_arg_type;
 # define BLACK "\x1B[30m\0"
 # define EOC "\x1B[0m\0"
 
+
+// corewar windows and stats for ncurses
+typedef struct		s_print
+{
+	WINDOW 			*win_corwar;
+	WINDOW			*win_map;
+	WINDOW			*win_stat;
+	int				cycle_to_die;
+	size_t			cycle;
+	int				status;
+}					t_print;
+
+// corewar rules and stats
+typedef struct		s_rules
+{
+	int				cycle_to_die;
+	size_t			cycle;
+	int				status;
+}					t_rules;
+
 typedef struct		s_map
 {
-//	player number
+//	player number flag
 	int				pn;
+//  carriage flag for visual effect
 	int				carriage;
-//
+//	what inside this mem cell
 	unsigned char   cell;
 }					t_map;
 
@@ -104,15 +126,13 @@ typedef struct		s_fl
 //	main struct
 typedef struct		s_data
 {
-//	map commented for testing map struct
-//	unsigned char	map[MEM_SIZE + 1];
-
-	t_map			map[MEM_SIZE];
-
 	int				index;
 	int				count;
 	t_fl			fl;
 	t_champ			*champs;
+	t_map			map[MEM_SIZE];
+	t_print			print;
+	t_rules			rules;
 }					t_data;
 
 // carriage.c
@@ -122,6 +142,8 @@ typedef struct		s_data
 // corewar
 
 void				corewar(t_data *data);
+void				nc_start(t_data *data);
+void				nc_pause(t_data *data);
 
 // error_handler.c
 
