@@ -62,6 +62,9 @@ typedef char	t_arg_type;
 # define BLACK "\x1B[30m\0"
 # define EOC "\x1B[0m\0"
 
+// game speed (visual update)
+# define NC_SPEED 20
+
 
 // corewar windows and stats for ncurses
 typedef struct		s_print
@@ -82,6 +85,7 @@ typedef struct		s_rules
 	int				status;
 }					t_rules;
 
+// map struct
 typedef struct		s_map
 {
 //	player number flag
@@ -142,8 +146,7 @@ typedef struct		s_data
 // corewar
 
 void				corewar(t_data *data);
-void				nc_start(t_data *data);
-void				nc_pause(t_data *data);
+void				manage_corewar(t_data *data);
 
 // error_handler.c
 
@@ -167,6 +170,32 @@ void				init_corewar(t_data *data);
 void				prefill_map(t_data *data);
 void				fill_map(t_data *data, t_champ *champ);
 void				print_map(t_data *data);
+
+// nc_print.c
+
+void				nc_print_map(t_data *data, WINDOW *win);
+void				nc_print_stat(t_data *data, WINDOW *win);
+
+// nc_print_stat.c
+
+void				print_stat_status(t_data *data, WINDOW *win);
+void				print_stat_cycle(t_data *data, WINDOW *win);
+void				print_num_processes(t_data *data, WINDOW *win);
+void				print_champs(t_data *data, WINDOW *win);
+void				print_rules(t_data *data, WINDOW *win);
+
+// nc_utils.c
+
+void				get_color(int pn, WINDOW *win);
+void				get_carriage_color(int pn, WINDOW *win);
+void				nc_refresh(t_data *data, t_print *print);
+void				shut_down_nc(t_data *data);
+
+// ncurses.c
+
+void				init_ncurses(t_data *data, t_print *print);
+void				nc_start(t_data *data);
+void				nc_pause(t_data *data);
 
 // utils.c
 

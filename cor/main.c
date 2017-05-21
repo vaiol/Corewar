@@ -36,16 +36,3 @@ int		main(int argc, char **argv)
 
 	return (0);
 }
-
-//#include <ncurses.h>
-//
-//int		main()
-//{
-//	initscr();
-//	move(10,30);
-//	printw("Hello world !!!");
-//	refresh(); // обновить
-//	getch(); // ждём нажатия символа
-//	endwin(); // завершение работы с ncurses
-//	return (0);
-//}
