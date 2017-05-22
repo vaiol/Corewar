@@ -3,8 +3,8 @@
 unsigned char	*asm_join(unsigned char *s1, unsigned char *s2, int l1, int l2)
 {
 	unsigned char	*str;
-	size_t	i;
-	size_t	j;
+	int				i;
+	int				j;
 
 	if (!s1 || !s2)
 		return (0);

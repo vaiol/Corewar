@@ -43,8 +43,8 @@ static void	get_index(t_operation *op)
 
 static char	*validate_count_args(t_operation *op)
 {
-	char	*err;
-	int		count;
+	char		*err;
+	unsigned	count;
 
 	count = 0;
 	while (op->args[count])
