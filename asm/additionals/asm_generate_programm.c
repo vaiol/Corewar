@@ -1,6 +1,6 @@
 #include "../asm.h"
 
-void		asm_generate_coding_programm(t_file_struct *content)
+void		asm_generate_programm(t_file_struct *content)
 {
 	int i;
 

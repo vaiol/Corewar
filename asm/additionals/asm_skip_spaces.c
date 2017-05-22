@@ -9,7 +9,7 @@ int		asm_skip_empty_lines(char *str, int i)
 	return (i);
 }
 
-int				asm_skip_spaces(char *str, int i)
+int		asm_skip_spaces(char *str, int i)
 {
 	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v'
 		   || str[i] == '\f' || str[i] == '\r')

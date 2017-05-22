@@ -24,15 +24,15 @@ SRCS    = main.c $(PREF)validate_operations.c $(PREF)read_file.c \
             $(ADD)/$(PREF)create_operation.c \
             $(ADD)/$(PREF)file_name.c \
             $(ADD)/$(PREF)generate_coding_byte.c \
-            $(ADD)/$(PREF)generate_com_coding_str.c \
-            $(ADD)/$(PREF)generate_magic_proglen.c \
+            $(ADD)/$(PREF)asm_generate_programm.c \
+            $(ADD)/$(PREF)asm_get_magic.c \
             $(ADD)/$(PREF)generate_string.c \
             $(ADD)/$(PREF)invalid_type_message.c \
             $(ADD)/$(PREF)is_arg.c \
             $(ADD)/$(PREF)label_exist.c \
             $(ADD)/$(PREF)label_len.c \
             $(ADD)/$(PREF)skip_spaces.c \
-            $(ADD)/$(PREF)strjoin.c \
+            $(ADD)/$(PREF)arrjoin.c \
             $(ADD)/$(PREF)write.c \
             $(ADD)/z_print_op.c
 OBJS    = $(SRCS:.c=.o)

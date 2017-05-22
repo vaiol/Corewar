@@ -46,11 +46,11 @@ char				*asm_label_exist(t_file_struct *content, char *label);
 void		asm_generate_coding_comand(t_file_struct *content);
 char 		*asm_file_name(char *str, char *file_name);
 int		get_label_len(t_file_struct *content, char *label, int index);
-void		asm_generate_magic_proglen(t_file_struct *content, unsigned int n);
+void		asm_get_magic(t_file_struct *content, unsigned int n);
 int	asm_invalid_content(t_file_struct *content);
 void		asm_write(t_file_struct *content, int fd);
 unsigned char	*asm_join(unsigned char *s1, unsigned char *s2, int l1, int l2);
-void		asm_generate_coding_programm(t_file_struct *content);
+void		asm_generate_programm(t_file_struct *content);
 unsigned char	asm_generate_codind_byte(t_operation *op);
 
 

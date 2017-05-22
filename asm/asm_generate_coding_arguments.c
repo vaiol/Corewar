@@ -99,5 +99,5 @@ void		asm_generate_coding_comand(t_file_struct *content)
 		asm_generate_coding_argument(content, coding, i);
 		i++;
 	}
-	asm_generate_coding_programm(content);
+	asm_generate_programm(content);
 }

@@ -22,6 +22,6 @@ unsigned char	asm_generate_codind_byte(t_operation *op)
 		count += 2;
 		i++;
 	}
-	return ((unsigned char) (ft_atoi_base(bytes, 2)));
+	return ((unsigned char)(ft_atoi_base(bytes, 2)));
 }
 

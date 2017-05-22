@@ -14,7 +14,7 @@ void		asm_write(t_file_struct *content, int fd)
 		write(fd, "\0", 1);
 		i++;
 	}
-	asm_generate_magic_proglen(content, (unsigned int)content->count);
+	asm_get_magic(content, (unsigned int)content->count);
 	i = 0;
 	while (i < 4)
 		write(fd, &content->magic[i++], 1);
