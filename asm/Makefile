@@ -24,8 +24,8 @@ SRCS    = main.c $(PREF)validate_operations.c $(PREF)read_file.c \
             $(ADD)/$(PREF)create_operation.c \
             $(ADD)/$(PREF)file_name.c \
             $(ADD)/$(PREF)generate_coding_byte.c \
-            $(ADD)/$(PREF)asm_generate_programm.c \
-            $(ADD)/$(PREF)asm_get_magic.c \
+            $(ADD)/$(PREF)generate_programm.c \
+            $(ADD)/$(PREF)get_magic.c \
             $(ADD)/$(PREF)generate_string.c \
             $(ADD)/$(PREF)invalid_type_message.c \
             $(ADD)/$(PREF)is_arg.c \
