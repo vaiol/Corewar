@@ -8,8 +8,8 @@ t_file_struct	*asm_create_content()
 	content->ops = NULL;
 	content->comment = NULL;
 	content->prog_name = NULL;
-	content->magic = COREWAR_EXEC_MAGIC;
 	content->prog_size = 0;
+	content->file_name = NULL;
+	content->coding_string = NULL;
 	return (content);
-
 }

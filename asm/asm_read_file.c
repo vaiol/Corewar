@@ -1,6 +1,6 @@
 #include "asm.h"
 
-static char		**remove_comments(char **file)
+static char	**remove_comments(char **file)
 {
 	int	i;
 	int j;
@@ -8,7 +8,7 @@ static char		**remove_comments(char **file)
 	if (file == NULL)
 		return (NULL);
 	i = 0;
-	while(file[i])
+	while (file[i])
 	{
 		j = 0;
 		while (file[i][j])
@@ -25,7 +25,7 @@ static char		**remove_comments(char **file)
 	return (file);
 }
 
-char			**asm_read_file(char *file_name)
+char		**asm_read_file(char *file_name)
 {
 	char	**result;
 	char	*file_content;

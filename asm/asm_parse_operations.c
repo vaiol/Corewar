@@ -1,19 +1,6 @@
 #include "asm.h"
 
-
-t_operation	*create_operation()
-{
-	t_operation	*op;
-
-	op = (t_operation *)malloc(sizeof(t_operation));
-	op->args = NULL;
-	op->label = NULL;
-	op->name = NULL;
-	op->index = -1;
-	return (op);
-}
-
-void		add_ops(t_file_struct *content, t_operation	*op)
+static void	add_ops(t_file_struct *content, t_operation	*op)
 {
 	int			i;
 	t_operation	**new_ops;
@@ -35,7 +22,7 @@ void		add_ops(t_file_struct *content, t_operation	*op)
 	content->ops = new_ops;
 }
 
-int			get_label_name(char *file, int i, t_operation *op)
+static int	get_label_name(char *file, int i, t_operation *op)
 {
 	unsigned	j;
 
@@ -58,7 +45,7 @@ int			get_label_name(char *file, int i, t_operation *op)
 		return (-1);
 }
 
-int			get_args(char *file, int i, t_operation *op)
+static int	get_args(char *file, int i, t_operation *op)
 {
 	char		**args;
 	char		*str;
@@ -86,7 +73,7 @@ int			get_args(char *file, int i, t_operation *op)
 	return (i + tmp + 1);
 }
 
-int			get_operation(char *file, int i, t_operation *op)
+static int	get_operation(char *file, int i, t_operation *op)
 {
 	if ((i = get_label_name(file, i, op)) < 0)
 		return (-1);
@@ -101,16 +88,14 @@ int			asm_parse_operations(char *file, int i, t_file_struct *content)
 {
 	t_operation	*op;
 
-	while (1)
+	while (file[i])
 	{
-		op = create_operation();
+		op = asm_create_operation();
 		i = get_operation(file, i, op);
 		if (i < 0)
 			return (-1);
 		add_ops(content, op);
 		i = asm_skip_empty_lines(file, i);
-		if (file[i] == '\0')
-			break;
 	}
 	return (i);
 }
