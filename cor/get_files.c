@@ -1,16 +1,5 @@
 #include "corewar.h"
 
-int		get_magic(unsigned char *str)
-{
-	int magic;
-
-	magic = str[0] << 24;
-	magic += str[1] << 16;
-	magic += str[2] << 8;
-	magic += str[3];
-	return (magic);
-}
-
 void	check_magic(t_champ *champ, char *content)
 {
 	unsigned char	magic[4];
@@ -43,9 +32,9 @@ int		check_prog_name(t_champ *champ, char *content, size_t shift)
 	return (i);
 }
 
-void	check_prog_size(t_champ *champ, char *content, size_t shift)
+void	check_prog_size(t_champ *champ, size_t shift)
 {
-	champ->prog_size = (unsigned)content[shift];
+	champ->prog_size = champ->real_prog_size - shift;
 	if (champ->prog_size > CHAMP_MAX_SIZE)
 		champ_error_handler("Is too large", champ->file_name);
 }
@@ -88,13 +77,24 @@ void	champ_check(t_champ *champ, char *content)
 	check_magic(champ, content);
 	i = check_prog_name(champ, content, shift);
 	shift = i + shift + sizeof(champ->prog_size) + 3;
-	check_prog_size(champ, content, shift);
 	i = check_comment(champ, content, shift);
-	shift = i + shift + 4;
+	shift = i + shift + 5;
+	check_prog_size(champ, shift);
 	check_program(champ, content, shift);
+
 /////////////////////////////////////////////////////
-	ft_printf("name: %s\ncomment: %s\nsize: %u\nprogram: ", champ->prog_name, champ->comment, champ->prog_size);
-	ft_print_memory(champ->program, champ->prog_size);
+//	print champion info
+
+//	ft_printf("name: %s\ncomment: %s\nsize: %u\nstart_pos: %i\n champ_number :%i\nprogram: ", champ->prog_name, champ->comment, champ->prog_size, champ->start_pos, champ->nb);
+//	ft_print_memory(champ->program, champ->prog_size);
+}
+
+void	set_start_pos(t_data *data, t_champ *champ, int nb)
+{
+	int x;
+
+	x = MEM_SIZE / data->count;
+	champ->start_pos = x * (nb);
 }
 
 void	manage_file(t_data *data, char *argv, int nb)
@@ -105,19 +105,16 @@ void	manage_file(t_data *data, char *argv, int nb)
 
 	if ((fd = open(argv, O_RDONLY)) == -1)
 		champ_error_handler("Cannot open file", argv);
-
 	size = lseek(fd, 0, SEEK_END);
 	lseek(fd, 0, SEEK_SET);
 	if (size < 0)
 		champ_error_handler("File is not valid", argv);
-
 	content = ft_strnew((size_t)size);
 	read(fd, content, (size_t)size);
-//	content[(size_t)size] = '\0'; // ????
-
-	data->champs->nb = nb;
+	data->champs[nb].nb = nb;
+	set_start_pos(data, &data->champs[nb], nb);
 	data->champs->file_name = argv;
-
+	data->champs[nb].real_prog_size = (size_t)size;
 	champ_check(&data->champs[nb], content);
 	free(content);
 }
@@ -131,11 +128,10 @@ void	get_files(t_data *data, char **argv)
 	if (data->count == 0)
 		error_handler("Error : No players");
 	data->champs = (t_champ *)malloc(sizeof(t_champ) * data->count);
-
+	nb = 0;
 	i = 0;
 	while (argv[++i])
 	{
-		nb = 0;
 		if (argv[i][0] != '-')
 		{
 			manage_file(data, argv[i], nb);
