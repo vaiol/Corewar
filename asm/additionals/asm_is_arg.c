@@ -1,23 +1,25 @@
-#include "asm.h"
+#include "../asm.h"
 
-static int is_register(char *arg)
+static int	is_register(char *arg)
 {
-	if(arg[0] != 'r' || !ft_isdigit(arg[1]))
+	if (arg[0] != 'r' || !ft_isdigit(arg[1]))
 		return (0);
-	if(!arg[2])
+	if (!arg[2])
 		return (1);
-	if(!ft_isdigit(arg[2]) || arg[3])
+	if (!ft_isdigit(arg[2]) || arg[3])
 		return (0);
 	return (1);
 }
 
-static int is_direction(char *arg)
+static int	is_direction(char *arg)
 {
 	int i;
 
-	if(arg[0] != DIRECT_CHAR)
+	if (arg[0] != DIRECT_CHAR)
 		return (0);
 	i = 1;
+	if (arg[i] == '-')
+		i++;
 	while (arg[i])
 	{
 		if (!ft_isdigit(arg[i]))
@@ -27,11 +29,13 @@ static int is_direction(char *arg)
 	return (1);
 }
 
-static int		is_indirection(char *arg)
+static int	is_indirection(char *arg)
 {
 	int i;
 
 	i = 0;
+	if (arg[i] == '-')
+		i++;
 	while (arg[i])
 	{
 		if (!ft_isdigit(arg[i]))
@@ -41,13 +45,16 @@ static int		is_indirection(char *arg)
 	return (1);
 }
 
-static int		is_label(char *arg)
+static int	is_label(char *arg)
 {
 	int i;
 
-	if(arg[0] != DIRECT_CHAR || arg[1] != LABEL_CHAR)
+	i = 0;
+	if (arg[i] == DIRECT_CHAR)
+		i++;
+	if (arg[i] != LABEL_CHAR)
 		return (0);
-	i = 2;
+	i++;
 	while (arg[i] && ft_strchr(LABEL_CHARS, arg[i]))
 		i++;
 	if (arg[i] != '\0')
@@ -55,9 +62,7 @@ static int		is_label(char *arg)
 	return (1);
 }
 
-
-
-int				asm_is_arg(char *arg)
+int			asm_is_arg(char *arg)
 {
 	if (is_register(arg))
 		return (T_REG);

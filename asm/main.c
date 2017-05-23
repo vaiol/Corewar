@@ -31,7 +31,7 @@ static void		parse_files(char **files)
 		asm_generate_byte_code(asm_parse_content_file(files[i - 1]));
 }
 
-int		main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	if (argc == 1)
 		ft_printf("Not enough files!");

@@ -1,6 +1,6 @@
 #include "../asm.h"
 
-char	*ft_strj(char *s1, char *s2)
+static char	*ft_strj(char *s1, char *s2)
 {
 	char	*str;
 	size_t	i;
@@ -27,7 +27,7 @@ char	*ft_strj(char *s1, char *s2)
 	return (str);
 }
 
-char *asm_generate_string(char **file)
+char		*asm_generate_string(char **file)
 {
 	char *str;
 	int i;

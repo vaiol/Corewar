@@ -14,8 +14,27 @@ LIB     = ../libft/
 NAME    = asm
 CFLAGS  = -Wall -Wextra -Werror
 CC      = gcc
-
-SRCS    = main.c
+PREF     = asm_
+ADD      = additionals
+SRCS    = main.c $(PREF)validate_operations.c $(PREF)read_file.c \
+            $(PREF)parse_file.c $(PREF)parse_operations.c \
+            $(PREF)generate_coding_arguments.c $(PREF)generate_byte_code.c \
+            $(ADD)/$(PREF)compare_str.c \
+            $(ADD)/$(PREF)create_content.c \
+            $(ADD)/$(PREF)create_operation.c \
+            $(ADD)/$(PREF)file_name.c \
+            $(ADD)/$(PREF)generate_coding_byte.c \
+            $(ADD)/$(PREF)generate_programm.c \
+            $(ADD)/$(PREF)get_magic.c \
+            $(ADD)/$(PREF)generate_string.c \
+            $(ADD)/$(PREF)invalid_type_message.c \
+            $(ADD)/$(PREF)is_arg.c \
+            $(ADD)/$(PREF)label_exist.c \
+            $(ADD)/$(PREF)label_len.c \
+            $(ADD)/$(PREF)skip_spaces.c \
+            $(ADD)/$(PREF)arrjoin.c \
+            $(ADD)/$(PREF)write.c \
+            $(ADD)/z_print_op.c
 OBJS    = $(SRCS:.c=.o)
 
 all: $(NAME)

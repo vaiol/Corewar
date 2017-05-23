@@ -56,6 +56,7 @@ char			*ft_strfjoin(char *s1, char *s2, t_free f);
 char			*ft_strtrim(char const *s);
 char			*ft_strcut(char *str, int max_len);
 char			**ft_strsplit(char const *s, char c);
+char			*ft_itoa(int n);
 char			*ft_itoa_base(long long value, int base);
 int				ft_atoi(const char *str);
 double			ft_pow(double base, double ex);
@@ -63,5 +64,6 @@ void			ft_print_memory(const void *addr, size_t size);
 int				ft_printf(const char *restrict format, ...);
 int				get_next_line(const int fd, char **line);
 char			*ft_readfd(int fd);
+int				ft_atoi_base(const char *str, const int base);
 
 #endif
