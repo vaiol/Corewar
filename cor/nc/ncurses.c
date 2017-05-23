@@ -1,7 +1,7 @@
 //
 // Created by Ivan Solomakhin on 5/21/17.
 //
-#include "corewar.h"
+#include "../corewar.h"
 
 void	nc_start(t_data *data)
 {

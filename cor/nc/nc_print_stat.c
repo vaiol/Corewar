@@ -2,7 +2,7 @@
 // Created by Ivan Solomakhin on 5/21/17.
 //
 
-#include "corewar.h"
+#include "../corewar.h"
 
 void	print_stat_status(t_data *data, WINDOW *win)
 {
