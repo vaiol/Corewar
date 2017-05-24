@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   asm_parse_operations.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: astepano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/05/24 15:16:58 by astepano          #+#    #+#             */
+/*   Updated: 2017/05/24 15:17:53 by astepano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "asm.h"
 
-static void	add_ops(t_file_struct *content, t_operation	*op)
+static void	add_ops(t_file_struct *content, t_operation *op)
 {
 	int			i;
 	t_operation	**new_ops;
@@ -36,7 +48,7 @@ static int	get_label_name(char *file, int i, t_operation *op)
 		return (i + j + 1);
 	}
 	else if (file[i + j] == ' ' || file[i + j] == '\t' || file[i + j] == '\v'
-			 || file[i + j] == '\f' || file[i + j] == '\r')
+			|| file[i + j] == '\f' || file[i + j] == '\r')
 	{
 		op->name = ft_strsub(file, (unsigned)i, j);
 		return (i + j + 1);
@@ -99,4 +111,3 @@ int			asm_parse_operations(char *file, int i, t_file_struct *content)
 	}
 	return (i);
 }
-

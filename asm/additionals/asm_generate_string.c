@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   asm_generate_string.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: astepano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/05/24 15:33:38 by astepano          #+#    #+#             */
+/*   Updated: 2017/05/24 15:33:39 by astepano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../asm.h"
 
 static char	*ft_strj(char *s1, char *s2)
@@ -29,8 +41,8 @@ static char	*ft_strj(char *s1, char *s2)
 
 char		*asm_generate_string(char **file)
 {
-	char *str;
-	int i;
+	char	*str;
+	int		i;
 
 	i = 0;
 	str = ft_strdup("");

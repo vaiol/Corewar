@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   asm_validate_operations.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: astepano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/05/24 15:23:33 by astepano          #+#    #+#             */
+/*   Updated: 2017/05/24 15:24:57 by astepano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "asm.h"
 
 static char	*wrong_arg_type(t_operation *op, int i, int arg)
@@ -9,17 +21,17 @@ static char	*wrong_arg_type(t_operation *op, int i, int arg)
 	type = g_op_tab[op->index].args[i];
 	if (arg == T_REG)
 	{
-		if (type == T_DIR || type == T_IND ||  type == (T_DIR | T_IND))
+		if (type == T_DIR || type == T_IND || type == (T_DIR | T_IND))
 			return (asm_invalid_type_message(op, i));
 	}
 	else if (arg == T_DIR)
 	{
-		if (type == T_REG || type == T_IND ||  type == (T_REG | T_IND))
+		if (type == T_REG || type == T_IND || type == (T_REG | T_IND))
 			return (asm_invalid_type_message(op, i));
 	}
 	else if (arg == T_IND)
 	{
-		if (type == T_DIR || type == T_REG ||  type == (T_DIR | T_REG))
+		if (type == T_DIR || type == T_REG || type == (T_DIR | T_REG))
 			return (asm_invalid_type_message(op, i));
 	}
 	return (NULL);

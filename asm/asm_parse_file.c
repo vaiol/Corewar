@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   asm_parse_file.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: astepano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/05/24 15:14:07 by astepano          #+#    #+#             */
+/*   Updated: 2017/05/24 15:14:08 by astepano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "asm.h"
 
 static int		get_name(char *file, int i, t_file_struct *content, int flag)
@@ -33,20 +45,19 @@ static int		parse_name_comment(char *file, int i, t_file_struct *content)
 	return (i);
 }
 
-static int 		validate_name_comment(t_file_struct *content)
+static int		validate_name_comment(t_file_struct *content)
 {
-	if(ft_strlen(content->prog_name) > PROG_NAME_LENGTH)
+	if (ft_strlen(content->prog_name) > PROG_NAME_LENGTH)
 	{
 		ft_printf("ERROR\n");
 		return (0);
 	}
-	if(ft_strlen(content->comment) > COMMENT_LENGTH)
+	if (ft_strlen(content->comment) > COMMENT_LENGTH)
 	{
 		ft_printf("ERROR\n");
 		return (0);
 	}
 	return (1);
-
 }
 
 static int		validation(char *file, t_file_struct *content)
@@ -67,14 +78,12 @@ static int		validation(char *file, t_file_struct *content)
 	return (i);
 }
 
-
 t_file_struct	*asm_parse_content_file(char *file_name)
 {
 	t_file_struct	*content;
 	char			**file;
-	char 			*str;
+	char			*str;
 	int				i;
-
 
 	if (!(file = asm_read_file(file_name)))
 		return (NULL);
