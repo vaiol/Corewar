@@ -27,8 +27,11 @@ void	init_carriage(t_data *data)
 	while (n < data->count)
 	{
 		data->champs[n].carriage = (t_carr *)malloc(sizeof(t_carr));
+		data->champs[n].carriage->pn = n;
 		data->champs[n].carriage->index = data->champs[n].start_pos;
-		r = 0;
+		data->champs[n].carriage->op.cycles = 0;
+		data->champs[n].carriage->reg[0] = n;
+		r = 1;
 		while (r < 17)
 		{
 			data->champs[n].carriage->reg[r] = 0;

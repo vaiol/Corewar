@@ -10,11 +10,13 @@ SRCS    =   carriage.c \
             get_flags.c \
             init.c \
             main.c \
+            manage_function.c \
             map.c \
             nc/nc_print.c \
             nc/nc_print_stat.c \
             nc/nc_utils.c \
             nc/ncurses.c \
+            parse_function.c \
             utils.c
 
 OBJS    = $(SRCS:.c=.o)

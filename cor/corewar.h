@@ -63,7 +63,7 @@ typedef char	t_arg_type;
 # define EOC "\x1B[0m\0"
 
 // game speed (visual update)
-# define NC_SPEED 20
+# define NC_SPEED 100
 
 # define TRUE 1
 # define FALSE 0
@@ -134,7 +134,13 @@ typedef struct		s_map
 //	carriage struct
 typedef struct		s_carr
 {
+	int				pn;
 	int				index;
+//
+	char			*binary;
+	int				t_ind;
+	int 			arg_type[3];
+//
 	int				reg[16 + 1];
 
 	t_op			op;
@@ -202,6 +208,11 @@ void				get_files(t_data *data, char **argv);
 
 void				init_corewar(t_data *data);
 
+// manage_function.c
+
+void				manage_function(t_data *data, t_carr *carr);
+void				get_wait_cycle(t_carr *carr);
+
 // map.c
 
 void				prefill_map(t_data *data);
@@ -238,5 +249,11 @@ void				nc_pause(t_data *data);
 
 void				count_files(t_data *data, char **argv);
 int					get_magic(unsigned char *str);
+char				*to_two_base(unsigned char c);
+
+// parse_function.c
+
+void				parse_octal(t_data *data, t_carr *carr, unsigned label);
+void				parse_non_octal(t_data *data, t_carr *carr, unsigned label);
 
 #endif

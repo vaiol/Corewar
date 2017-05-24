@@ -26,6 +26,27 @@ int		get_magic(unsigned char *str)
 	return (magic);
 }
 
+char	*to_two_base(unsigned char c)
+{
+	int		i;
+	int		j;
+	char	*binary;
+
+	binary = ft_strnew(7);
+	i = 7;
+	j = 0;
+	while (i >= 0)
+	{
+		if (c & (1 << i))
+			binary[j] = '1';
+		else
+			binary[j] = '0';
+		--i;
+		j++;
+	}
+	return (binary);
+}
+
 // 					hex to decimal function
 
 //int hex_to_dec(int nbr) // recursive fn
