@@ -8,10 +8,6 @@ void	create_data(t_data *data)
 	data->fl.flags = 0;
 	data->fl.n = 0;
 
-	data->rules.cycle = 0;
-	data->rules.cycle_to_die = CYCLE_TO_DIE;
-	data->rules.status = 0;
-
 	data->print.cycle = 0;
 	data->print.cycle_to_die = CYCLE_TO_DIE;
 	data->print.status = 0;
