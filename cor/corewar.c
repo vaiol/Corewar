@@ -17,9 +17,8 @@ int		get_opcode(t_data *data, t_carr *carr, int i)
 		carr->op.opcode = g_op_tab[i].opcode;
 		carr->op.name = g_op_tab[i].name;
 		get_octal_coding(data, carr, i);
-
-		get_wait_cycle(carr);
-
+		if (validate_function(carr, carr->op.opcode) == TRUE)
+			get_wait_cycle(carr);
 		return (TRUE);
 	}
 	return (FALSE);
@@ -27,30 +26,11 @@ int		get_opcode(t_data *data, t_carr *carr, int i)
 
 void	read_cell(t_data *data, t_carr *carr)
 {
-	int			i;
+	int	i;
 
 	i = 0;
 	while (get_opcode(data, carr, i) != TRUE && i < OP_COUNT - 2)
 		i++;
-}
-
-void	clear_op(t_carr *carr)
-{
-	carr->binary = NULL;
-	carr->t_ind = 0;
-	carr->arg_type[0] = 0;
-	carr->arg_type[1] = 0;
-	carr->arg_type[2] = 0;
-
-	carr->op.name = NULL;
-	carr->op.count_args = 0;
-	carr->op.args[0] = 0;
-	carr->op.args[1] = 0;
-	carr->op.args[2] = 0;
-	carr->op.opcode = 0;
-	carr->op.cycles = 0;
-	carr->op.octal_coding = 0;
-	carr->op.label_size = 0;
 }
 
 void	move_carriage(t_data *data, t_carr *current)
@@ -76,6 +56,14 @@ void	wait_carriage(t_data *data, t_carr *current)
 	}
 }
 
+void	cycle_carriage(t_data *data, t_carr *carr)
+{
+	if (carr->cycle > data->print.cycle_to_die)
+		kill_carriage(data, carr);
+	else
+		carr->cycle++;
+}
+
 void	manage_corewar(t_data *data)
 {
 	int		n;
@@ -87,6 +75,7 @@ void	manage_corewar(t_data *data)
 		current = data->champs[n].carriage;
 		while (current != NULL)
 		{
+			cycle_carriage(data, current);
 			if (current->op.cycles == 0)
 			{
 				clear_op(current);
@@ -96,7 +85,6 @@ void	manage_corewar(t_data *data)
 			}
 			else
 				wait_carriage(data, current);
-
 			current = current->next;
 		}
 	}
@@ -129,5 +117,3 @@ void	corewar(t_data *data)
 		}
 	}
 }
-
-//01110000

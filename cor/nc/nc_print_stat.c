@@ -70,11 +70,11 @@ void	print_champs(t_data *data, WINDOW *win)
 	n = -1;
 	while (++n < data->count)
 	{
-		width = 50 - ((ft_strlen(data->champs[n].prog_name) + 13) / 2);
+		width = 50 - ((ft_strlen(data->champs[n + 1].prog_name) + 13) / 2);
 		wmove(win, height, width);
 		wprintw(win, "Player %i : ", n + 1);
-		get_color(n, win);
-		wprintw(win, "%s", data->champs[n].prog_name);
+		get_color(n + 1, win);
+		wprintw(win, "%s", data->champs[n + 1].prog_name);
 		wattroff(win, COLOR_PAIR(5));
 		height += 2;
 	}

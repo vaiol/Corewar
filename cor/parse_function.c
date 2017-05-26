@@ -36,7 +36,7 @@ int		get_direct(t_data *data, t_carr *carr, unsigned label, int i)
 		carr->t_ind -= 2;
 	}
 	else
-		nbr = get_magic(str);
+		nbr = char_to_int(str);
 
 	ft_printf("direct = %i\n", nbr);
 

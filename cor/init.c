@@ -10,12 +10,9 @@ void	init_map(t_data *data)
 
 	prefill_map(data);
 
-	n = 0;
-	while (n < data->count)
-	{
+	n = -1;
+	while (++n < data->count)
 		fill_map(data, &data->champs[n]);
-		n++;
-	}
 }
 
 void	init_carriage(t_data *data)
@@ -27,11 +24,13 @@ void	init_carriage(t_data *data)
 	while (n < data->count)
 	{
 		data->champs[n].carriage = (t_carr *)malloc(sizeof(t_carr));
-		data->champs[n].carriage->pn = n;
+		data->champs[n].carriage->pn = n + 1;
+		data->champs[n].carriage->cycle = 0;
+		data->champs[n].carriage->carry = FALSE;
 		data->champs[n].carriage->index = data->champs[n].start_pos;
 		data->champs[n].carriage->op.cycles = 0;
-		data->champs[n].carriage->reg[0] = n;
-		r = 1;
+		data->champs[n].carriage->reg[1] = n + 1;
+		r = 2;
 		while (r < 17)
 		{
 			data->champs[n].carriage->reg[r] = 0;

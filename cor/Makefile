@@ -17,7 +17,8 @@ SRCS    =   carriage.c \
             nc/nc_utils.c \
             nc/ncurses.c \
             parse_function.c \
-            utils.c
+            utils.c \
+            validate_function.c
 
 OBJS    = $(SRCS:.c=.o)
 

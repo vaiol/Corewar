@@ -11,13 +11,13 @@ void	print_map(t_data *data)
 	{
 		if (data->map[i].pn == 5)
 			ft_printf("%s%02x ", BLACK, data->map[i].cell);
-		if (data->map[i].pn == 0)
-			ft_printf("%s%02x ", GREEN, data->map[i].cell);
 		if (data->map[i].pn == 1)
-			ft_printf("%s%02x ", BLUE, data->map[i].cell);
+			ft_printf("%s%02x ", GREEN, data->map[i].cell);
 		if (data->map[i].pn == 2)
-			ft_printf("%s%02x ", RED, data->map[i].cell);
+			ft_printf("%s%02x ", BLUE, data->map[i].cell);
 		if (data->map[i].pn == 3)
+			ft_printf("%s%02x ", RED, data->map[i].cell);
+		if (data->map[i].pn == 4)
 			ft_printf("%s%02x ", CYAN, data->map[i].cell);
 
 //		ft_printf("%s%02x ", RED, data->map[i].cell);

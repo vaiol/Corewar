@@ -12,7 +12,7 @@ void	check_magic(t_champ *champ, char *content)
 		i++;
 	}
 	magic[i] = '\0';
-	champ->magic = get_magic(magic);
+	champ->magic = char_to_int(magic);
 	if (COREWAR_EXEC_MAGIC != champ->magic)
 		champ_error_handler("Wrong magic number", champ->file_name);
 }
@@ -111,7 +111,7 @@ void	manage_file(t_data *data, char *argv, int nb)
 		champ_error_handler("File is not valid", argv);
 	content = ft_strnew((size_t)size);
 	read(fd, content, (size_t)size);
-	data->champs[nb].nb = nb;
+	data->champs[nb].nb = nb + 1;
 	set_start_pos(data, &data->champs[nb], nb);
 	data->champs->file_name = argv;
 	data->champs[nb].real_prog_size = (size_t)size;

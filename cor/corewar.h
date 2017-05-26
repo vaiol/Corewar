@@ -134,14 +134,16 @@ typedef struct		s_map
 //	carriage struct
 typedef struct		s_carr
 {
-	int				pn;
+	int				pn; // always add + 1 to compare with r1;
 	int				index;
+	int				cycle;
+	int				carry;
 //
 	char			*binary;
 	int				t_ind;
 	int 			arg_type[3];
 //
-	int				reg[16 + 1];
+	int				reg[1 + 16];
 
 	t_op			op;
 
@@ -184,7 +186,9 @@ typedef struct		s_data
 
 // carriage.c
 
-///////// empty for now
+void				clear_op(t_carr *carr);
+void				fork_carriage(t_data *data, t_carr *carr, int index);
+void				kill_carriage(t_data *data, t_carr *carr);
 
 // corewar
 
@@ -245,15 +249,20 @@ void				init_ncurses(t_data *data, t_print *print);
 void				nc_start(t_data *data);
 void				nc_pause(t_data *data);
 
-// utils.c
-
-void				count_files(t_data *data, char **argv);
-int					get_magic(unsigned char *str);
-char				*to_two_base(unsigned char c);
-
 // parse_function.c
 
 void				parse_octal(t_data *data, t_carr *carr, unsigned label);
 void				parse_non_octal(t_data *data, t_carr *carr, unsigned label);
+
+// utils.c
+
+void				count_files(t_data *data, char **argv);
+int					char_to_int(unsigned char *str);
+char				*to_two_base(unsigned char c);
+unsigned char		*int_to_str(int n);
+
+// validate_function.c
+
+int					validate_function(t_carr *carr, unsigned opcode);
 
 #endif

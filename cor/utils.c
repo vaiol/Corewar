@@ -1,6 +1,6 @@
 #include "corewar.h"
 
-void	count_files(t_data *data, char **argv)
+void		count_files(t_data *data, char **argv)
 {
 	int i;
 
@@ -15,18 +15,18 @@ void	count_files(t_data *data, char **argv)
 		error_handler("Error : To much players");
 }
 
-int		get_magic(unsigned char *str)
+int			char_to_int(unsigned char *str)
 {
-	int magic;
+	int nbr;
 
-	magic = str[0] << 24;
-	magic += str[1] << 16;
-	magic += str[2] << 8;
-	magic += str[3];
-	return (magic);
+	nbr = str[0] << 24;
+	nbr += str[1] << 16;
+	nbr += str[2] << 8;
+	nbr += str[3];
+	return (nbr);
 }
 
-char	*to_two_base(unsigned char c)
+char		*to_two_base(unsigned char c)
 {
 	int		i;
 	int		j;
@@ -47,46 +47,17 @@ char	*to_two_base(unsigned char c)
 	return (binary);
 }
 
-// 					hex to decimal function
+unsigned char	*int_to_str(int n)
+{
+//	unsigned char	str[4];
 
-//int hex_to_dec(int nbr) // recursive fn
-//{
-//	int nConverted = 0; // Clear this for calculation
-//	int nQuotient;
-//	int nRemainder;
-//
-//	nQuotient = (nbr / 16);
-//	nRemainder = (nbr % 16);
-//
-//	if ( nQuotient == 0)
-//		nConverted = nRemainder;
-//	else
-//		nConverted = (16 * hex_to_dec(nQuotient) + nRemainder);
-//	return (nConverted);
-//}
+	unsigned char	*str;
 
-// 					max 4 char to int function
+	str = (unsigned char *)malloc(sizeof(char) * 4);
 
-//int		uchar_to_int(unsigned char *str)
-//{
-//	int integer;
-//
-////	integer = str[0] << 24;
-////	integer += str[1] << 16;
-////	integer += str[2] << 8;
-////	integer += str[3];
-////	integer = str[0] << 24;
-////	integer += str[1] << 16;
-////	integer += 0 << 8;
-////	integer += 0;
-//
-//	integer = 0 << 24;
-//	integer += 0 << 16;
-//	integer += str[0] << 8;
-//	integer += str[1];
-//
-//
-////	integer = str[0] << 8;
-////	integer += str[1];
-//	return (integer);
-//}
+	str[0] = (n >> 24) & 0xFF;
+	str[1] = (n >> 16) & 0xFF;
+	str[2] = (n >> 8) & 0xFF;
+	str[3] = n & 0xFF;
+	return (str);
+}

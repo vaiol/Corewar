@@ -8,13 +8,13 @@ void	get_color(int pn, WINDOW *win)
 {
 	if (pn == 5)
 		wattron(win, COLOR_PAIR(5));
-	else if (pn == 0)
-		wattron(win, COLOR_PAIR(1));
 	else if (pn == 1)
-		wattron(win, COLOR_PAIR(2));
+		wattron(win, COLOR_PAIR(1));
 	else if (pn == 2)
-		wattron(win, COLOR_PAIR(3));
+		wattron(win, COLOR_PAIR(2));
 	else if (pn == 3)
+		wattron(win, COLOR_PAIR(3));
+	else if (pn == 4)
 		wattron(win, COLOR_PAIR(4));
 }
 
@@ -22,13 +22,13 @@ void	get_carriage_color(int pn, WINDOW *win)
 {
 	if (pn == 5)
 		wattron(win, COLOR_PAIR(10));
-	else if (pn == 0)
-		wattron(win, COLOR_PAIR(6));
 	else if (pn == 1)
-		wattron(win, COLOR_PAIR(7));
+		wattron(win, COLOR_PAIR(6));
 	else if (pn == 2)
-		wattron(win, COLOR_PAIR(8));
+		wattron(win, COLOR_PAIR(7));
 	else if (pn == 3)
+		wattron(win, COLOR_PAIR(8));
+	else if (pn == 4)
 		wattron(win, COLOR_PAIR(9));
 }
 

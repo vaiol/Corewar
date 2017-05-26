@@ -1,0 +1,3 @@
+calculate if carriage[index] > MAP_SIZE * 2;
+add function aff;
+reDo player nb to -nb;
