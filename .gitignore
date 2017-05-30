@@ -43,3 +43,6 @@ cmake-build-debug/
 .nfs.*
 
 resources/
+
+#Project
+asm
