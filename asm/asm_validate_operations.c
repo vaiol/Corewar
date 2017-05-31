@@ -12,12 +12,17 @@
 
 #include "asm.h"
 
-static char	*wrong_arg_type(t_operation *op, int i, int arg)
+static char	*wrong_arg_type(t_operation *op, int i, int arg, char *arg_str)
 {
 	int		type;
 
 	if (arg == T_LAB)
-		arg = T_DIR;
+	{
+		if (arg_str[0] == DIRECT_CHAR)
+			arg = T_DIR;
+		else
+			arg = T_IND;
+	}
 	type = g_op_tab[op->index].args[i];
 	if (arg == T_REG)
 	{
@@ -84,7 +89,7 @@ static char	*validate_args(t_file_struct *content, t_operation *op)
 			return (asm_invalid_type_message(op, i));
 		if (arg == 8 && (err = asm_label_exist(content, op->args[i])))
 			return (err);
-		if ((err = wrong_arg_type(op, i, arg)))
+		if ((err = wrong_arg_type(op, i, arg, op->args[i])))
 			return (err);
 		i++;
 	}

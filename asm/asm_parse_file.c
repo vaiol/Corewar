@@ -29,8 +29,8 @@ static int		get_name(char *file, int i, t_file_struct *content, int flag)
 			content->prog_name = ft_strsub(file, (unsigned)i, (size_t)j);
 		return (i + j + 1);
 	}
-	else
-		return (-1);
+	content->err_msg = MSG_NAME_COMMENT;
+	return (-1);
 }
 
 static int		parse_name_comment(char *file, int i, t_file_struct *content)
@@ -47,14 +47,16 @@ static int		parse_name_comment(char *file, int i, t_file_struct *content)
 
 static int		validate_name_comment(t_file_struct *content)
 {
-	if (ft_strlen(content->prog_name) > PROG_NAME_LENGTH)
+	if (content->prog_name == NULL
+		|| ft_strlen(content->prog_name) > PROG_NAME_LENGTH)
 	{
-		ft_printf("ERROR\n");
+		content->err_msg = MSG_PROG_NAME;
 		return (0);
 	}
-	if (ft_strlen(content->comment) > COMMENT_LENGTH)
+	if (content->comment == NULL
+		|| ft_strlen(content->comment) > COMMENT_LENGTH)
 	{
-		ft_printf("ERROR\n");
+		content->err_msg = MSG_COMMENT;
 		return (0);
 	}
 	return (1);
@@ -78,6 +80,39 @@ static int		validation(char *file, t_file_struct *content)
 	return (i);
 }
 
+int				get_line(int index, char *file)
+{
+	int i;
+	int	line;
+
+	i = 0;
+	line = 0;
+	while (file[i] && i < index)
+	{
+		if (file[i] == '\n')
+			line++;
+		i++;
+	}
+	return (line);
+}
+
+int			get_place(int index, char *file)
+{
+	int i;
+	int	place;
+
+	i = 0;
+	place = 1;
+	while (file[i] && i < index)
+	{
+		if (file[i] == '\n')
+			place = 0;
+		place++;
+		i++;
+	}
+	return (place);
+}
+
 t_file_struct	*asm_parse_content_file(char *file_name)
 {
 	t_file_struct	*content;
@@ -92,6 +127,10 @@ t_file_struct	*asm_parse_content_file(char *file_name)
 	content->file_name = asm_file_name(content->file_name, file_name);
 	i = validation(str, content);
 	if (i < 0)
+	{
+		ft_printf("%s[%d:%d]\n", MSG_LEXICAL, get_line(content->err_index, str),
+				  get_place(content->err_index, str));
 		return (NULL);
+	}
 	return (content);
 }

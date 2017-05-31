@@ -17,10 +17,7 @@ int	asm_validate_content(t_file_struct *content)
 	char	*error;
 
 	if (!content)
-	{
-		ft_printf("Syntax error!");
 		return (0);
-	}
 	if (content->comment == NULL || content->prog_name == NULL)
 	{
 		ft_printf("Lexical error!");

@@ -13,8 +13,7 @@
 #include "asm.h"
 
 //TODO Usage...
-//TODO Segfault on file: Car1.car, c1, c2, lde.s
-//TODO wrong parse: jumper.s
+//TODO -a flag
 //TODO Error message when wrong file
 
 static int		parse_argumets(char **argv)
@@ -30,7 +29,6 @@ static int		parse_argumets(char **argv)
 	}
 	return (-1);
 }
-
 static void		parse_files(char **files)
 {
 	int arg;

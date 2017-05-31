@@ -1,5 +1,4 @@
 #!/bin/bash
-o=asm
 
 if [ $# -eq 0 ]; then
     FILES=*.s
@@ -20,11 +19,11 @@ fi
 for f in $FILES
 do
     echo "Processing $f"
-    ./$o $f > o.error
+    ./asm $f > o.error
     ./asmm $f > m.error
     filename="${f%.*}"
     filename="$filename.cor"
-    if [[ $(< o.error) == $(< m.error) ]]; then
+    if [ "$(< o.error)" == "$(< m.error)" ]; then
         #echo "  -Messages are equal: '$(< o.error)'"
         message=$(< o.error)
         if [[ ${message:0:14} == "Writing output" ]]; then
@@ -41,5 +40,6 @@ do
     else
         echo "  -Original: '$(< o.error)'"
         echo "  -My      : '$(< m.error)'"
+        rm o.error m.error
     fi
 done

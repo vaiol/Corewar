@@ -69,11 +69,11 @@ void		asm_generate_byte_code(t_file_struct *content)
 		fd = open(content->file_name, O_CREAT | O_WRONLY, 0666);
 		if (fd < 0)
 		{
-			ft_printf("Can't create or open %s\n", content->file_name);
+			ft_printf(MSG_ERR_FILE, content->file_name);
 			return ;
 		}
 		asm_generate_programm(content);
 		asm_write(content, fd);
-		ft_printf("Writing output program to %s\n", content->file_name);
+		ft_printf(MSG_COMPLETE, content->file_name);
 	}
 }

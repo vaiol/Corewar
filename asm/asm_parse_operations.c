@@ -34,7 +34,7 @@ static void	add_ops(t_file_struct *content, t_operation *op)
 	content->ops = new_ops;
 }
 
-static int	get_label_name(char *file, int i, t_operation *op)
+static int	get_label_name(char *file, int i, t_operation *op, t_file_struct *c)
 {
 	unsigned	j;
 
@@ -53,11 +53,11 @@ static int	get_label_name(char *file, int i, t_operation *op)
 		op->name = ft_strsub(file, (unsigned)i, j);
 		return (i + j + 1);
 	}
-	else
-		return (-1);
+	c->err_index = i;
+	return (-1);
 }
 
-static int	get_args(char *file, int i, t_operation *op)
+static int	get_args(char *file, int i, t_operation *op, t_file_struct *c)
 {
 	char		**args;
 	char		*str;
@@ -69,7 +69,10 @@ static int	get_args(char *file, int i, t_operation *op)
 	while (file[i + j] && file[i + j] != '\n')
 		j++;
 	if (file[i + j] == '\0')
+	{
+		c->err_index = i;
 		return (-1);
+	}
 	str = ft_strsub(file, (unsigned)i, j);
 	args = ft_strsplit(str, SEPARATOR_CHAR);
 	tmp = j;
@@ -85,14 +88,23 @@ static int	get_args(char *file, int i, t_operation *op)
 	return (i + tmp + 1);
 }
 
-static int	get_operation(char *file, int i, t_operation *op)
+static int	get_operation(char *file, int i, t_operation *op, t_file_struct *c)
 {
-	if ((i = get_label_name(file, i, op)) < 0)
+	if ((i = get_label_name(file, i, op, c)) < 0)
+	{
+		c->err_msg = "err 1";
 		return (-1);
-	if (op->name == NULL && (i = get_label_name(file, i, op)) < 0)
+	}
+	if (op->name == NULL && (i = get_label_name(file, i, op, c)) < 0)
+	{
+		c->err_msg = "err 2";
 		return (-1);
-	if ((i = get_args(file, i, op)) < 0)
+	}
+	if ((i = get_args(file, i, op, c)) < 0)
+	{
+		c->err_msg = "err 3";
 		return (-1);
+	}
 	return (i);
 }
 
@@ -103,7 +115,7 @@ int			asm_parse_operations(char *file, int i, t_file_struct *content)
 	while (file[i])
 	{
 		op = asm_create_operation();
-		i = get_operation(file, i, op);
+		i = get_operation(file, i, op, content);
 		if (i < 0)
 			return (-1);
 		add_ops(content, op);

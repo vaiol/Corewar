@@ -12,6 +12,12 @@
 
 #ifndef ASM_H
 # define ASM_H
+# define MSG_NAME_COMMENT "Syntax error: name or comment invalid\n"
+# define MSG_PROG_NAME "prog name length error\n"
+# define MSG_COMMENT "comment length error\n"
+# define MSG_COMPLETE "Writing output program to %s\n"
+# define MSG_ERR_FILE "Can't create or open %s\n"
+# define MSG_LEXICAL "Lexical error at "
 
 # include "../libft/libft.h"
 # include "../op.h"
@@ -38,7 +44,8 @@ typedef struct		s_file_struct
 	unsigned char	*coding_string;
 	int				count;
 	t_operation		**ops;
-
+	char			*err_msg;
+	int				err_index;
 }					t_file_struct;
 
 char				**asm_read_file(char *file_name);
