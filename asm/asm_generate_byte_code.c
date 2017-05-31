@@ -74,6 +74,6 @@ void		asm_generate_byte_code(t_file_struct *content)
 		}
 		asm_generate_programm(content);
 		asm_write(content, fd);
-		ft_printf("Writing output in %s\n", content->file_name);
+		ft_printf("Writing output program to %s\n", content->file_name);
 	}
 }

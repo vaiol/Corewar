@@ -12,6 +12,11 @@
 
 #include "asm.h"
 
+//TODO Usage...
+//TODO Segfault on file: Car1.car, c1, c2, lde.s
+//TODO wrong parse: jumper.s
+//TODO Error message when wrong file
+
 static int		parse_argumets(char **argv)
 {
 	int	i;
