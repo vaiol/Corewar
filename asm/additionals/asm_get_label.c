@@ -25,22 +25,31 @@ static int	get_label_len_between(t_file_struct *content, int i1, int i2)
 	return (len);
 }
 
-int			asm_label_len(t_file_struct *content, char *label, int index)
+static int	get_label_position(t_file_struct *content, char *label)
 {
-	int	index2;
 	int	i;
+	int	j;
 
-	index2 = 0;
 	i = 0;
-	while (content->ops[i])
+	while (content->ops && content->ops[i])
 	{
-		if (ft_strequ(label, content->ops[i]->label))
+		j = 0;
+		while (content->ops[i]->label && content->ops[i]->label[j])
 		{
-			index2 = i;
-			break ;
+			if (ft_strequ(content->ops[i]->label[j], label))
+				return (i);
+			j++;
 		}
 		i++;
 	}
+	return (-1);
+}
+
+int			asm_label_len(t_file_struct *content, char *label, int index)
+{
+	int	index2;
+
+	index2 = get_label_position(content, label);
 	if (index2 > index)
 		return (get_label_len_between(content, index, index2));
 	else if (index2 < index)
