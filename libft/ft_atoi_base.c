@@ -1,41 +1,42 @@
 #include "libft.h"
 
-static int	ft_atoi_str_base(const char *str, const int base)
+static int check_base(const int base, char nbr)
 {
-	int		num;
-	int		res;
+	char	*basement;
+	int		i;
 
-	num = 0;
-	res = 0;
-	while (ft_isdigit(*str) || (*str >= 'A' && *str <= ('A' + base - 10)))
+	basement = "0123456789ABCDEF";
+	i = 0;
+	while (basement[i] && i < base)
 	{
-		num = (*str >= '0' && *str <= '9') ? *str - '0' : *str - 55;
-		res = res * base + num;
-		str++;
+		if (basement[i] == nbr)
+			return (i);
+		i++;
 	}
-	return (res);
+	return (-1);
 }
 
-int			ft_atoi_base(const char *str, const int base)
+int		ft_atoi_base(const char *str, const int base)
 {
-	int		res;
-	char	sign;
+	unsigned long int	result;
+	int					minus;
+	size_t				i;
 
-	res = 0;
-	sign = '\0';
-	if (base < 2 || base > 16 || !str)
-		return (0);
-	while (*str < 33)
-		str++;
-	if (*str == '+' || *str == '-')
-		sign = *str++;
-	if (base < 11)
-		while (*str >= '0' && *str <= (47 + base))
-			res = res * base + *str++ - '0';
-	else
-		res = ft_atoi_str_base(str, base);
-	if (sign == '-' && base == 10)
-		return (-res);
-	else
-		return (res);
+	i = 0;
+	minus = 1;
+	while (str[i] == ' ' || str[i] == '\t'
+		   || str[i] == '\n' || str[i] == '\v'
+		   || str[i] == '\f' || str[i] == '\r')
+		i++;
+	if (str[i] == '-')
+		minus = -1;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	result = 0;
+	while (str[i] && (check_base(base, str[i]) >= 0))
+	{
+		result = result * base + check_base(base, str[i]);
+		i++;
+	}
+	return ((int)(result * minus));
 }

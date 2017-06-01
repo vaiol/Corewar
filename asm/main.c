@@ -49,5 +49,6 @@ int				main(int argc, char **argv)
 		return (0);
 	}
 	parse_files(argv + 1);
+	sleep(15);
 	return (0);
 }

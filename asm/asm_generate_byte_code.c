@@ -54,9 +54,10 @@ static void	asm_write_out(t_file_struct *content)
 	while (content->ops[i])
 	{
 		j = 0;
-		if(content->ops[i]->label)
-			ft_printf("%s:", content->ops[i]->label);
-		ft_printf("\t%s\t->\t", content->ops[i]->name);
+		while (content->ops[i]->label && content->ops[i]->label[j])
+			ft_printf("%s:\n", content->ops[i]->label[j++]);
+		ft_printf("\t\t%s\t->\t", content->ops[i]->name);
+		j = 0;
 		while (content->ops[i]->args[j] && content->ops[i]->args)
 		{
 			ft_printf("'%s' ", content->ops[i]->args[j]);
@@ -87,6 +88,44 @@ static void	asm_generate_programm(t_file_struct *content)
 	}
 }
 
+void		clean(t_file_struct *content)
+{
+	int	i;
+	int	j;
+
+	free(content->prog_name);
+	free(content->comment);
+	free(content->file_name);
+	free(content->coding_string);
+	i = 0;
+	while (content->ops && content->ops[i])
+	{
+		free(content->ops[i]->name);
+		j = 0;
+		while (content->ops[i]->label && content->ops[i]->label[j])
+		{
+			free(content->ops[i]->label[j]);
+			j++;
+		}
+		if (content->ops[i]->label)
+			free(content->ops[i]->label);
+		j = 0;
+		while (content->ops[i]->args && content->ops[i]->args[j])
+		{
+			free(content->ops[i]->args[j]);
+			j++;
+		}
+		if (content->ops[i]->args)
+			free(content->ops[i]->args);
+//		if (content->ops[i]->name)
+//			free(content->ops[i]->name);
+		i++;
+	}
+	if (content->ops)
+		free(content->ops);
+	free(content);
+}
+
 void		asm_generate_byte_code(t_file_struct *content)
 {
 	int	fd;
@@ -110,4 +149,5 @@ void		asm_generate_byte_code(t_file_struct *content)
 			asm_write_out(content);
 		}
 	}
+	clean(content);
 }

@@ -28,10 +28,10 @@ do
         message=$(< o.error)
         if [[ ${message:0:14} == "Writing output" ]]; then
             rm o.error m.error zi.res > /dev/null 2>&1
-            ./asm $f > o.error
+            ./asm $f > /dev/null 2>&1
             xxd $filename > o.error
             rm $filename
-            ./asmm $f > m.error
+            ./asmm $f > /dev/null 2>&1
             xxd $filename > m.error
             rm $filename
             diff o.error m.error > zi.res
