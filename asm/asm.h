@@ -18,10 +18,13 @@
 # define MSG_COMPLETE "Writing output program to %s\n"
 # define MSG_ERR_FILE "Can't create or open %s\n"
 # define MSG_LEXICAL "Lexical error at "
+# define MSG_USAGE "Usage: ./asm [-a] <sourcefile.s>\n\t-a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output\n"
 
 # include "../libft/libft.h"
 # include "../op.h"
 # include <fcntl.h>
+
+
 
 typedef struct		s_operation
 {
@@ -38,7 +41,6 @@ typedef struct		s_file_struct
 {
 	unsigned int	magic[4];
 	char			*prog_name;
-	unsigned int	prog_size;
 	char			*comment;
 	char			*file_name;
 	unsigned char	*coding_string;
@@ -46,6 +48,7 @@ typedef struct		s_file_struct
 	t_operation		**ops;
 	char			*err_msg;
 	int				err_index;
+	int 			flag_print;
 }					t_file_struct;
 
 char				**asm_read_file(char *file_name);
@@ -54,7 +57,7 @@ int					asm_skip_empty_lines(char *str, int i);
 int					asm_skip_spaces(char *str, int i);
 int					asm_parse_operations(char *file, int i,
 		t_file_struct *content);
-t_file_struct		*asm_parse_content_file(char *file_name);
+t_file_struct *asm_parse_content_file(char *file_name, int flag_a);
 t_file_struct		*asm_create_content(void);
 void				asm_generate_byte_code(t_file_struct *content);
 char				*asm_generate_string(char **file);

@@ -80,7 +80,7 @@ static int		validation(char *file, t_file_struct *content)
 	return (i);
 }
 
-t_file_struct	*asm_parse_content_file(char *file_name)
+t_file_struct *asm_parse_content_file(char *file_name, int flag_a)
 {
 	t_file_struct	*content;
 	char			**file;
@@ -91,6 +91,8 @@ t_file_struct	*asm_parse_content_file(char *file_name)
 		return (NULL);
 	str = asm_generate_string(file);
 	content = asm_create_content();
+	if (flag_a == 1)
+		content->flag_print = 1;
 	content->file_name = asm_file_name(content->file_name, file_name);
 	i = validation(str, content);
 	if (i < 0)
