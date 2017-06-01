@@ -103,7 +103,7 @@ void			err_out(t_file_struct *content, char *file)
 
 }
 
-t_file_struct	*asm_parse_content_file(char *file_name)
+t_file_struct		*asm_parse_content_file(char *file_name, int flag_a)
 {
 	t_file_struct	*content;
 	char			**file;
