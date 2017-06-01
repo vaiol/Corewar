@@ -27,6 +27,7 @@ do
         #echo "  -Messages are equal: '$(< o.error)'"
         message=$(< o.error)
         if [[ ${message:0:14} == "Writing output" ]]; then
+            rm o.error m.error zi.res > /dev/null 2>&1
             ./asm $f > o.error
             xxd $filename > o.error
             rm $filename

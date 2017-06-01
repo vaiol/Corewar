@@ -44,7 +44,7 @@ static int	get_label_name(char *file, int i, t_operation *op, t_file_struct *c)
 		j++;
 	if (file[i + j] == LABEL_CHAR && j > 0)
 	{
-		op->label = ft_strsub(file, (unsigned)i, j);
+		asm_add_label(op, ft_strsub(file, (unsigned) i, j));
 		return (i + j + 1);
 	}
 	else if (file[i + j] == ' ' || file[i + j] == '\t' || file[i + j] == '\v'
@@ -90,19 +90,18 @@ static int	get_args(char *file, int i, t_operation *op, t_file_struct *c)
 
 static int	get_operation(char *file, int i, t_operation *op, t_file_struct *c)
 {
-	if ((i = get_label_name(file, i, op, c)) < 0)
+	while (op->name == NULL)
 	{
-		c->err_msg = "err 1";
-		return (-1);
-	}
-	if (op->name == NULL && (i = get_label_name(file, i, op, c)) < 0)
-	{
-		c->err_msg = "err 2";
-		return (-1);
+		if ((i = get_label_name(file, i, op, c)) < 0)
+		{
+			c->err_type = LEXICAL;
+			return (-1);
+		}
+
 	}
 	if ((i = get_args(file, i, op, c)) < 0)
 	{
-		c->err_msg = "err 3";
+		c->err_type = LEXICAL;
 		return (-1);
 	}
 	return (i);

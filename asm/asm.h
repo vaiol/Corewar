@@ -17,17 +17,26 @@
 # define MSG_COMMENT "comment length error\n"
 # define MSG_COMPLETE "Writing output program to %s\n"
 # define MSG_ERR_FILE "Can't create or open %s\n"
+# define MSG_SYNTAX "Syntax error at token [TOKEN]"
 # define MSG_LEXICAL "Lexical error at "
-
+# define MSG_DIR "DIRECTION"
+# define MSG_INDIR "INDIRECTION"
+# define MSG_REG "REGISTER"
 # include "../libft/libft.h"
 # include "../op.h"
 # include <fcntl.h>
+
+typedef enum		e_err_type
+{
+	LEXICAL,
+	SYNTAX
+}					t_err_type;
 
 typedef struct		s_operation
 {
 	char			*name;
 	char			**args;
-	char			*label;
+	char			**label;
 	int				index;
 	unsigned char	coding_string[14];
 	int				count;
@@ -44,7 +53,7 @@ typedef struct		s_file_struct
 	unsigned char	*coding_string;
 	int				count;
 	t_operation		**ops;
-	char			*err_msg;
+	t_err_type		err_type;
 	int				err_index;
 }					t_file_struct;
 
@@ -74,5 +83,6 @@ unsigned char		*asm_join(unsigned char *s1, unsigned char *s2,
 void				asm_get_prog_len(t_file_struct *content);
 int					asm_get_line(int index, char *file);
 int					asm_get_place(int index, char *file);
+void				asm_add_label(t_operation *op, char *label);
 
 #endif

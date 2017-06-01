@@ -87,7 +87,7 @@ static char	*validate_args(t_file_struct *content, t_operation *op)
 		arg = asm_is_arg(op->args[i]);
 		if (arg < 0)
 			return (asm_invalid_type_message(op, i));
-		if (arg == 8 && (err = asm_label_exist(content, op->args[i])))
+		if (arg == T_LAB && (err = asm_label_exist(content, op->args[i])))
 			return (err);
 		if ((err = wrong_arg_type(op, i, arg, op->args[i])))
 			return (err);
