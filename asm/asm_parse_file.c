@@ -80,39 +80,6 @@ static int		validation(char *file, t_file_struct *content)
 	return (i);
 }
 
-int				get_line(int index, char *file)
-{
-	int i;
-	int	line;
-
-	i = 0;
-	line = 0;
-	while (file[i] && i < index)
-	{
-		if (file[i] == '\n')
-			line++;
-		i++;
-	}
-	return (line);
-}
-
-int			get_place(int index, char *file)
-{
-	int i;
-	int	place;
-
-	i = 0;
-	place = 1;
-	while (file[i] && i < index)
-	{
-		if (file[i] == '\n')
-			place = 0;
-		place++;
-		i++;
-	}
-	return (place);
-}
-
 t_file_struct	*asm_parse_content_file(char *file_name)
 {
 	t_file_struct	*content;
@@ -128,8 +95,9 @@ t_file_struct	*asm_parse_content_file(char *file_name)
 	i = validation(str, content);
 	if (i < 0)
 	{
-		ft_printf("%s[%d:%d]\n", MSG_LEXICAL, get_line(content->err_index, str),
-				  get_place(content->err_index, str));
+		ft_printf("%s[%d:%d]\n", MSG_LEXICAL,
+				  asm_get_line(content->err_index, str),
+				  asm_get_place(content->err_index, str));
 		return (NULL);
 	}
 	return (content);

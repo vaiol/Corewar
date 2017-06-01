@@ -72,5 +72,7 @@ int					asm_validate_content(t_file_struct *content);
 unsigned char		*asm_join(unsigned char *s1, unsigned char *s2,
 		int l1, int l2);
 void				asm_get_prog_len(t_file_struct *content);
+int					asm_get_line(int index, char *file);
+int					asm_get_place(int index, char *file);
 
 #endif

@@ -29,6 +29,7 @@ static int		parse_argumets(char **argv)
 	}
 	return (-1);
 }
+
 static void		parse_files(char **files)
 {
 	int arg;
