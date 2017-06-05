@@ -2,4 +2,4 @@
 make -C ../asm
 cp ../asm/asm ./asmm
 make -C ../asm fclean
-sh zi.sh champs
+sh zi.sh ch

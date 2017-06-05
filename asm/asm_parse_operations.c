@@ -6,7 +6,7 @@
 /*   By: astepano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 15:16:58 by astepano          #+#    #+#             */
-/*   Updated: 2017/05/24 15:17:53 by astepano         ###   ########.fr       */
+/*   Updated: 2017/06/02 16:35:53 by astepano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	get_label_name(char *file, int i, t_operation *op, t_file_struct *c)
 		j++;
 	if (file[i + j] == LABEL_CHAR && j > 0)
 	{
-		asm_add_label(op, ft_strsub(file, (unsigned) i, j));
+		asm_add_label(op, ft_strsub(file, (unsigned)i, j));
 		return (i + j + 1);
 	}
 	else if (file[i + j] == ' ' || file[i + j] == '\t' || file[i + j] == '\v'
@@ -64,10 +64,7 @@ static int	get_args(char *file, int i, t_operation *op, t_file_struct *c)
 	unsigned	j;
 	unsigned	tmp;
 
-	i = asm_skip_spaces(file, i);
-	j = 0;
-	while (file[i + j] && file[i + j] != '\n')
-		j++;
+	j = (unsigned) asm_to_eof(file, i);
 	if (file[i + j] == '\0')
 	{
 		c->err_index = i;
@@ -75,6 +72,7 @@ static int	get_args(char *file, int i, t_operation *op, t_file_struct *c)
 	}
 	str = ft_strsub(file, (unsigned)i, j);
 	args = ft_strsplit(str, SEPARATOR_CHAR);
+	free(str);
 	tmp = j;
 	j = 0;
 	while (args[j])
@@ -97,9 +95,8 @@ static int	get_operation(char *file, int i, t_operation *op, t_file_struct *c)
 			c->err_type = LEXICAL;
 			return (-1);
 		}
-
 	}
-	if ((i = get_args(file, i, op, c)) < 0)
+	if ((i = get_args(file, asm_skip_spaces(file, i), op, c)) < 0)
 	{
 		c->err_type = LEXICAL;
 		return (-1);
@@ -116,7 +113,10 @@ int			asm_parse_operations(char *file, int i, t_file_struct *content)
 		op = asm_create_operation();
 		i = get_operation(file, i, op, content);
 		if (i < 0)
+		{
+			asm_clean_op(op);
 			return (-1);
+		}
 		add_ops(content, op);
 		i = asm_skip_empty_lines(file, i);
 	}

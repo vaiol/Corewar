@@ -84,26 +84,7 @@ static int		validation(char *file, t_file_struct *content)
 	return (i);
 }
 
-void			err_out(t_file_struct *content, char *file)
-{
-	if (content->err_type == LEXICAL)
-	{
-		ft_printf("%s[%d:%d]\n", MSG_LEXICAL,
-				  asm_get_line(content->err_index, file),
-				  asm_get_place(content->err_index, file));
-	}
-	else if (content->err_type == SYNTAX)
-	{
-		ft_printf("%s[%.3d:%.3d]\n", MSG_SYNTAX,
-				  asm_get_line(content->err_index, file),
-				  asm_get_place(content->err_index, file));
-	}
-	else
-		ft_printf("ERRRROR!\n");
-
-}
-
-t_file_struct		*asm_parse_content_file(char *file_name, int flag_a)
+t_file_struct	*asm_parse_content_file(char *file_name, int flag_a)
 {
 	t_file_struct	*content;
 	char			**file;
@@ -120,8 +101,11 @@ t_file_struct		*asm_parse_content_file(char *file_name, int flag_a)
 	i = validation(str, content);
 	if (i < 0)
 	{
-		err_out(content, str);
+		asm_err_out(content, str);
+		free(str);
+		asm_clean(content);
 		return (NULL);
 	}
+	free(str);
 	return (content);
 }

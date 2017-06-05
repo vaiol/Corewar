@@ -1,46 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm_get_position.c                                 :+:      :+:    :+:   */
+/*   asm_err_out.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astepano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/02 16:06:42 by astepano          #+#    #+#             */
-/*   Updated: 2017/06/02 16:06:47 by astepano         ###   ########.fr       */
+/*   Created: 2017/06/02 16:05:10 by astepano          #+#    #+#             */
+/*   Updated: 2017/06/02 16:06:04 by astepano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../asm.h"
 
-int		asm_get_line(int index, char *file)
+void			asm_err_out(t_file_struct *content, char *file)
 {
-	int i;
-	int	line;
-
-	i = 0;
-	line = 0;
-	while (file[i] && i < index)
+	if (content->err_type == LEXICAL)
 	{
-		if (file[i] == '\n')
-			line++;
-		i++;
+		ft_printf("%s[%d:%d]\n", MSG_LEXICAL,
+				asm_get_line(content->err_index, file),
+				asm_get_place(content->err_index, file));
 	}
-	return (line);
-}
-
-int		asm_get_place(int index, char *file)
-{
-	int i;
-	int	place;
-
-	i = 0;
-	place = 1;
-	while (file[i] && i < index)
+	else if (content->err_type == SYNTAX)
 	{
-		if (file[i] == '\n')
-			place = 0;
-		place++;
-		i++;
+		ft_printf("%s[%.3d:%.3d]\n", MSG_SYNTAX,
+				asm_get_line(content->err_index, file),
+				asm_get_place(content->err_index, file));
 	}
-	return (place);
+	else
+		ft_printf("ERRRROR!\n");
 }

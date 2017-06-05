@@ -12,10 +12,6 @@
 
 #include "asm.h"
 
-//TODO Usage...
-//TODO -a flag
-//TODO Error message when wrong file
-
 static void		parse_files(char **files)
 {
 	int	index;
@@ -41,6 +37,8 @@ int				main(int argc, char **argv)
 	if (argc == 1)
 	{
 		ft_printf(MSG_USAGE);
+		ft_printf(MSG_USAGE2);
+		ft_printf(MSG_USAGE3);
 		return (0);
 	}
 	if (argc == 2 && ft_strequ(argv[1], "-a"))
@@ -49,6 +47,6 @@ int				main(int argc, char **argv)
 		return (0);
 	}
 	parse_files(argv + 1);
-	sleep(15);
+//	sleep(5);
 	return (0);
 }

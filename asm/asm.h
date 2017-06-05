@@ -12,18 +12,14 @@
 
 #ifndef ASM_H
 # define ASM_H
-# define MSG_NAME_COMMENT "Syntax error: name or comment invalid\n"
-# define MSG_PROG_NAME "prog name length error\n"
-# define MSG_COMMENT "comment length error\n"
 # define MSG_COMPLETE "Writing output program to %s\n"
 # define MSG_ERR_FILE "Can't create or open %s\n"
 # define MSG_SYNTAX "Syntax error at token [TOKEN]"
 # define MSG_LEXICAL "Lexical error at "
-# define MSG_USAGE "Usage: ./asm [-a] <sourcefile.s>\n\t-a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output\n"
+# define MSG_USAGE "Usage: ./asm [-a] <sourcefile.s>\n\t-a : Instead of "
+# define MSG_USAGE2 "creating a .cor file, outputs a stripped and annotated "
+# define MSG_USAGE3 "version of the code to the standard output\n"
 
-# define MSG_DIR "DIRECTION"
-# define MSG_INDIR "INDIRECTION"
-# define MSG_REG "REGISTER"
 # include "../libft/libft.h"
 # include "../op.h"
 # include <fcntl.h>
@@ -56,7 +52,7 @@ typedef struct		s_file_struct
 	t_operation		**ops;
 	t_err_type		err_type;
 	int				err_index;
-	int 			flag_print;
+	int				flag_print;
 }					t_file_struct;
 
 char				**asm_read_file(char *file_name);
@@ -86,5 +82,9 @@ void				asm_get_prog_len(t_file_struct *content);
 int					asm_get_line(int index, char *file);
 int					asm_get_place(int index, char *file);
 void				asm_add_label(t_operation *op, char *label);
+void				asm_clean(t_file_struct *content);
+void				asm_err_out(t_file_struct *content, char *file);
+void				asm_clean_op(t_operation *op);
+int					asm_to_eof(char *file, int i);
 
 #endif

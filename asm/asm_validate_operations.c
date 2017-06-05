@@ -6,7 +6,7 @@
 /*   By: astepano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 15:23:33 by astepano          #+#    #+#             */
-/*   Updated: 2017/05/24 15:24:57 by astepano         ###   ########.fr       */
+/*   Updated: 2017/06/02 16:15:01 by astepano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,7 @@ static char	*wrong_arg_type(t_operation *op, int i, int arg, char *arg_str)
 	int		type;
 
 	if (arg == T_LAB)
-	{
-		if (arg_str[0] == DIRECT_CHAR)
-			arg = T_DIR;
-		else
-			arg = T_IND;
-	}
+		arg = (arg_str[0] == DIRECT_CHAR) ? T_DIR : T_IND;
 	type = g_op_tab[op->index].args[i];
 	if (arg == T_REG)
 	{

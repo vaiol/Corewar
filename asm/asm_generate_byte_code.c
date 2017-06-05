@@ -42,7 +42,6 @@ static void	asm_write(t_file_struct *content, int fd)
 
 static void	asm_write_out(t_file_struct *content)
 {
-
 	int i;
 	int j;
 
@@ -50,7 +49,7 @@ static void	asm_write_out(t_file_struct *content)
 	ft_printf("Dumping annotated program on standard output\n");
 	ft_printf("Program size : %d bytes\n", content->count);
 	ft_printf("Name : \"%s\"\n", content->prog_name);
-	ft_printf("Comment : \"%s\"\n",  content->comment);
+	ft_printf("Comment : \"%s\"\n", content->comment);
 	while (content->ops[i])
 	{
 		j = 0;
@@ -88,44 +87,6 @@ static void	asm_generate_programm(t_file_struct *content)
 	}
 }
 
-void		clean(t_file_struct *content)
-{
-	int	i;
-	int	j;
-
-	free(content->prog_name);
-	free(content->comment);
-	free(content->file_name);
-	free(content->coding_string);
-	i = 0;
-	while (content->ops && content->ops[i])
-	{
-		free(content->ops[i]->name);
-		j = 0;
-		while (content->ops[i]->label && content->ops[i]->label[j])
-		{
-			free(content->ops[i]->label[j]);
-			j++;
-		}
-		if (content->ops[i]->label)
-			free(content->ops[i]->label);
-		j = 0;
-		while (content->ops[i]->args && content->ops[i]->args[j])
-		{
-			free(content->ops[i]->args[j]);
-			j++;
-		}
-		if (content->ops[i]->args)
-			free(content->ops[i]->args);
-//		if (content->ops[i]->name)
-//			free(content->ops[i]->name);
-		i++;
-	}
-	if (content->ops)
-		free(content->ops);
-	free(content);
-}
-
 void		asm_generate_byte_code(t_file_struct *content)
 {
 	int	fd;
@@ -139,7 +100,7 @@ void		asm_generate_byte_code(t_file_struct *content)
 			if (fd < 0)
 			{
 				ft_printf(MSG_ERR_FILE, content->file_name);
-				return;
+				return ;
 			}
 			asm_write(content, fd);
 			ft_printf(MSG_COMPLETE, content->file_name);
@@ -149,5 +110,5 @@ void		asm_generate_byte_code(t_file_struct *content)
 			asm_write_out(content);
 		}
 	}
-	clean(content);
+	asm_clean(content);
 }
