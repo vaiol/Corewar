@@ -74,6 +74,22 @@ int		validate_c(t_carr *carr, unsigned opcode)
 
 int		validate_function(t_carr *carr, unsigned opcode)
 {
+	int i;
+
+	i = -1;
+	while (++i < 3)
+	{
+		if (carr->arg_type[i] == T_REG)
+		{
+//			ft_printf("was here\n");
+			if (carr->op.args[i] < 1 || carr->op.args[i] > 16)
+			{
+//				ft_printf("RETURN FALSE\n");
+				return (FALSE);
+			}
+		}
+	}
+
 	if (validate_a(carr, opcode) == TRUE)
 		return (TRUE);
 	if (validate_b(carr, opcode) == TRUE)

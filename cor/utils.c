@@ -23,6 +23,7 @@ int			char_to_int(unsigned char *str)
 	nbr += str[1] << 16;
 	nbr += str[2] << 8;
 	nbr += str[3];
+
 	return (nbr);
 }
 
@@ -55,9 +56,9 @@ unsigned char	*int_to_str(int n)
 
 	str = (unsigned char *)malloc(sizeof(char) * 4);
 
-	str[0] = (n >> 24) & 0xFF;
-	str[1] = (n >> 16) & 0xFF;
-	str[2] = (n >> 8) & 0xFF;
-	str[3] = n & 0xFF;
+	str[0] = (unsigned char) ((n >> 24) & 0xFF);
+	str[1] = (unsigned char) ((n >> 16) & 0xFF);
+	str[2] = (unsigned char) ((n >> 8) & 0xFF);
+	str[3] = (unsigned char) (n & 0xFF);
 	return (str);
 }

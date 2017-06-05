@@ -3,6 +3,20 @@
 //
 #include "../corewar.h"
 
+void	change_speed(t_data *data, int key)
+{
+	if (key == 'w')
+		if (data->speed > 1)
+			data->speed--;
+	if (key == 'q')
+		if (data->speed > 11)
+			data->speed -= 10;
+	if (key == 'e')
+		data->speed++;
+	if (key == 'r')
+		data->speed += 10;
+}
+
 void	nc_start(t_data *data)
 {
 	int quit;
@@ -12,19 +26,22 @@ void	nc_start(t_data *data)
 	quit = 'o';
 	change_status = '0';
 
-	while (quit != 'q')
+	while (quit != 'x')
 	{
 		if (data->print.status == 0)
 			data->print.status = 1;
-		timeout(NC_SPEED);
+		timeout(data->speed);
 		key = getch();
-		if (key == 'q')
+		if (key == 'x')
 			quit = key;
 		else if (key == ' ')
 			nc_pause(data);
-//
-		manage_corewar(data);
-//
+		else if (key == 'q' || key == 'w' || key == 'e' || key == 'r')
+			change_speed(data, key);
+//		if (data->print.cycle > 0)
+			manage_corewar(data);
+//		else
+//			data->print.cycle++;
 		nc_refresh(data, &data->print);
 	}
 	shut_down_nc(data);
@@ -41,10 +58,16 @@ void	nc_pause(t_data *data)
 		wrefresh(data->print.win_stat);
 	}
 	key = getch();
-	if (key == 'q')
+	if (key == 'x')
 		shut_down_nc(data);
 	else if (key == ' ')
 		nc_start(data);
+	else if (key == 'q' || key == 'w' || key == 'e' || key == 'r')
+	{
+		change_speed(data, key);
+		nc_refresh(data, &data->print);
+		nc_pause(data);
+	}
 	else
 		nc_pause(data);
 }
@@ -95,7 +118,7 @@ void	init_ncurses(t_data *data, t_print *print)
 {
 	char *title;
 
-	title = "CoreWar v. 0.1  -  Press 'space' to start/pause. Press 'q' to quit.";
+	title = "CoreWar v. 0.1  -  Press 'space' to start/pause. Press 'x' to quit.";
 	initscr();
 	if (COLS < 361 || LINES < 87)
 	{

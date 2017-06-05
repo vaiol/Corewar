@@ -34,7 +34,6 @@ void	get_carriage_color(int pn, WINDOW *win)
 
 void	nc_refresh(t_data *data, t_print *print)
 {
-	data->print.cycle++;
 	nc_print_map(data, print->win_map);
 	nc_print_stat(data, print->win_stat);
 	wrefresh(print->win_map);
