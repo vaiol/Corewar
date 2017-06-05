@@ -8,6 +8,9 @@ void	clear_op(t_carr *carr)
 {
 	carr->binary = NULL;
 	carr->t_ind = 0;
+	carr->valid = FALSE;
+	carr->g_int = -1;
+
 	carr->arg_type[0] = 0;
 	carr->arg_type[1] = 0;
 	carr->arg_type[2] = 0;
@@ -23,73 +26,110 @@ void	clear_op(t_carr *carr)
 	carr->op.label_size = 0;
 }
 
+t_carr	*kill_carriage(t_data *data, t_carr *carr)
+{
+	t_carr *head;
+	t_carr *del;
+	t_carr *prev;
+
+	data->map[carr->index].carriage = 0;
+
+	ft_printf("carriage %i die\n", carr->id);
+
+	head = data->champs[carr->pn - 1].carriage;
+	if (head == carr)
+	{
+		if (head->next == NULL)
+		{
+			data->champs[carr->pn - 1].carriage = NULL;
+//			exit(1);
+			shut_down_nc(data);
+//			return (NULL);
+		}
+		del = head;
+		head = head->next;
+		free (del);
+		return (head);
+	}
+	prev = head;
+	while (prev->next != NULL && prev->next != carr)
+		prev = prev->next;
+
+//	ft_printf("kill index = %i\n", prev->next->index);
+	del = prev->next;
+	prev->next = prev->next->next;
+	free(del);
+	return (prev->next);
+}
+
 void	fork_carriage(t_data *data, t_carr *carr, int index)
 {
 	int		r;
 	t_carr	*new_carr;
-	t_carr	*current;
+//	t_carr	*current;
+	t_carr	*old_head;
+
+	data->champs[carr->pn - 1].carr_count++;
 
 	new_carr = (t_carr *)malloc(sizeof(t_carr));
+
+	new_carr->id = data->champs[carr->pn - 1].carr_count;
 	new_carr->pn = carr->pn;
+//	ft_printf("FORK id = %i pn = %i \n", new_carr->id, new_carr->pn);
+//	ft_printf("Carr count = %i\n", data->champs[carr->pn - 1].carr_count);
+
 	new_carr->index = index;
+	new_carr->live = 0;
 	new_carr->carry = carr->carry;
-	new_carr->next = NULL;
+//	new_carr->next = NULL;
 
 	r = 0;
 	while (++r < 17)
 		new_carr->reg[r] = carr->reg[r];
 	clear_op(new_carr);
 
-	current = data->champs[carr->pn].carriage;
-	while (current != NULL)
-		current = current->next;
-	current = new_carr;
+	old_head = data->champs[carr->pn - 1].carriage;
+	new_carr->next = old_head;
+	data->champs[carr->pn - 1].carriage = new_carr;
+
+//	current = data->champs[carr->pn - 1].carriage;
+
+
+
+//	while (current->next != NULL)
+//		current = current->next;
+//	current->next = new_carr;
 }
 
-void	kill_carriage(t_data *data, t_carr *carr)
-{
-	t_carr *head;
-	t_carr *del;
-	t_carr *prev;
 
-	head = data->champs[carr->pn].carriage;
-	if (head->cycle > data->print.cycle_to_die)
-	{
-		if (head->next == NULL)
-			return ;
-		del = head;
-		head = head->next;
-		free (del);
-		return;
-	}
-	prev = head;
-	while (prev->next != NULL && prev->next->cycle <= data->print.cycle_to_die)
-		prev = prev->next;
-
-	if(prev->next == NULL)
-		return;
-	del = prev->next;
-	prev->next = prev->next->next;
-	free(del);
-}
-
-//void	init_carriage(t_data *data)
+//void	fork_carriage(t_data *data, t_carr *carr, int index)
 //{
-//	int r;
-//	int n;
+//	int		r;
+//	t_carr	*new_carr;
+//	t_carr	*current;
 //
-//	n = 0;
-//	while (n < data->count)
-//	{
-//		data->champs[n].carriage = (t_carr *)malloc(sizeof(t_carr));
-//		data->champs[n].carriage->index = 0;
-//		r = 0;
-//		while (r < 17)
-//		{
-//			data->champs[n].carriage->reg[r] = 0;
-//			r++;
-//		}
-//		data->champs[n].carriage->next = NULL;
-//		n++;
-//	}
+//	data->champs[carr->pn - 1].carr_count++;
+//
+//	new_carr = (t_carr *)malloc(sizeof(t_carr));
+//
+//	new_carr->id = data->champs[carr->pn - 1].carr_count;
+//	new_carr->pn = carr->pn;
+////	ft_printf("FORK id = %i pn = %i \n", new_carr->id, new_carr->pn);
+////	ft_printf("Carr count = %i\n", data->champs[carr->pn - 1].carr_count);
+//
+//	new_carr->index = index;
+//	new_carr->live = 0;
+//	new_carr->carry = carr->carry;
+//	new_carr->next = NULL;
+//
+//	r = 0;
+//	while (++r < 17)
+//		new_carr->reg[r] = carr->reg[r];
+//	clear_op(new_carr);
+//
+//	current = data->champs[carr->pn - 1].carriage;
+//
+//	while (current->next != NULL)
+//		current = current->next;
+//	current->next = new_carr;
 //}

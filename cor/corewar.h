@@ -63,7 +63,6 @@ typedef char	t_arg_type;
 # define EOC "\x1B[0m\0"
 
 // game speed (visual update)
-# define NC_SPEED 100
 
 # define TRUE 1
 # define FALSE 0
@@ -115,6 +114,8 @@ typedef struct		s_print
 	WINDOW 			*win_corwar;
 	WINDOW			*win_map;
 	WINDOW			*win_stat;
+	int				nbr_live;
+	int				time_to_die;
 	int				cycle_to_die;
 	size_t			cycle;
 	int				status;
@@ -137,7 +138,14 @@ typedef struct		s_carr
 	int				pn; // always add + 1 to compare with r1;
 	int				index;
 	int				cycle;
+
+	int				valid;
+	int				g_int;
+
 	int				carry;
+	int				live;
+
+	int				id;
 //
 	char			*binary;
 	int				t_ind;
@@ -156,12 +164,15 @@ typedef struct		s_champ
 	int				nb;
 	int				start_pos;
 	char			*file_name;
+	int				last_live;
 	unsigned int	magic;
 	char			prog_name[PROG_NAME_LENGTH + 1];
 	unsigned int	prog_size;
 	size_t			real_prog_size;
 	char			comment[COMMENT_LENGTH + 1];
 	char			*program;
+
+	int 			carr_count;
 //	carriage
 	t_carr			*carriage;
 }					t_champ;
@@ -178,6 +189,7 @@ typedef struct		s_data
 {
 	int				index;
 	int				count;
+	int				speed;
 	t_fl			fl;
 	t_champ			*champs;
 	t_map			map[MEM_SIZE];
@@ -188,12 +200,13 @@ typedef struct		s_data
 
 void				clear_op(t_carr *carr);
 void				fork_carriage(t_data *data, t_carr *carr, int index);
-void				kill_carriage(t_data *data, t_carr *carr);
+t_carr				*kill_carriage(t_data *data, t_carr *carr);
 
 // corewar
 
 void				corewar(t_data *data);
 void				manage_corewar(t_data *data);
+void	move_to_temp(t_data *data, t_carr *current);
 
 // error_handler.c
 
@@ -216,6 +229,8 @@ void				init_corewar(t_data *data);
 
 void				manage_function(t_data *data, t_carr *carr);
 void				get_wait_cycle(t_carr *carr);
+int 				unsigned_to_int(unsigned nbr);
+t_carr				*function_fork_lfork(t_data *data, t_carr *carr, unsigned opcode);
 
 // map.c
 

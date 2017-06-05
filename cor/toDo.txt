@@ -1,3 +1,11 @@
-calculate if carriage[index] > MAP_SIZE * 2;
 add function aff;
-reDo player nb to -nb;
+add MAX_LIVE check;
+
+cd Documents/corewar/cor_2
+make && ./asm test_bot.s && ./corewar test.cor
+
+4550
+!!! 4558 // cycle to die 1436
+4671
+4731
+4830

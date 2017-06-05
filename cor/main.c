@@ -1,5 +1,7 @@
 #include "corewar.h"
 
+
+
 void	create_data(t_data *data)
 {
 	data->index = 1;

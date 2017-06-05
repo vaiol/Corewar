@@ -26,6 +26,8 @@ void	print_stat_status(t_data *data, WINDOW *win)
 	}
 	wprintw(win, "%s ", status);
 	wattroff(win, COLOR_PAIR(5));
+	wmove(win, 8, 50 - ((ft_strlen("Game Speed :  ") + 6) / 2));
+	wprintw(win, "Game Speed : %i ", data->speed);
 }
 
 void	print_stat_cycle(t_data *data, WINDOW *win)
@@ -70,11 +72,11 @@ void	print_champs(t_data *data, WINDOW *win)
 	n = -1;
 	while (++n < data->count)
 	{
-		width = 50 - ((ft_strlen(data->champs[n + 1].prog_name) + 13) / 2);
+		width = 50 - ((ft_strlen(data->champs[n].prog_name) + 13) / 2);
 		wmove(win, height, width);
 		wprintw(win, "Player %i : ", n + 1);
 		get_color(n + 1, win);
-		wprintw(win, "%s", data->champs[n + 1].prog_name);
+		wprintw(win, "%s", data->champs[n].prog_name);
 		wattroff(win, COLOR_PAIR(5));
 		height += 2;
 	}
