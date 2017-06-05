@@ -16,6 +16,7 @@ char		*asm_label_exist(t_file_struct *content, char *label)
 {
 	char	*err;
 	int		i;
+	int		j;
 
 	if (label[0] == DIRECT_CHAR)
 		label = label + 2;
@@ -23,10 +24,15 @@ char		*asm_label_exist(t_file_struct *content, char *label)
 		label = label + 1;
 	err = NULL;
 	i = 0;
-	while (content->ops[i])
+	while (content->ops && content->ops[i])
 	{
-		if (ft_strequ(content->ops[i]->label, label))
-			return (err);
+		j = 0;
+		while (content->ops[i]->label && content->ops[i]->label[j])
+		{
+			if (ft_strequ(content->ops[i]->label[j], label))
+				return (err);
+			j++;
+		}
 		i++;
 	}
 	err = ft_strjoin("No such label ", label);

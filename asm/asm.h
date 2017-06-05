@@ -12,16 +12,29 @@
 
 #ifndef ASM_H
 # define ASM_H
+# define MSG_COMPLETE "Writing output program to %s\n"
+# define MSG_ERR_FILE "Can't create or open %s\n"
+# define MSG_SYNTAX "Syntax error at token [TOKEN]"
+# define MSG_LEXICAL "Lexical error at "
+# define MSG_USAGE "Usage: ./asm [-a] <sourcefile.s>\n\t-a : Instead of "
+# define MSG_USAGE2 "creating a .cor file, outputs a stripped and annotated "
+# define MSG_USAGE3 "version of the code to the standard output\n"
 
 # include "../libft/libft.h"
 # include "../op.h"
 # include <fcntl.h>
 
+typedef enum		e_err_type
+{
+	LEXICAL,
+	SYNTAX
+}					t_err_type;
+
 typedef struct		s_operation
 {
 	char			*name;
 	char			**args;
-	char			*label;
+	char			**label;
 	int				index;
 	unsigned char	coding_string[14];
 	int				count;
@@ -32,13 +45,14 @@ typedef struct		s_file_struct
 {
 	unsigned int	magic[4];
 	char			*prog_name;
-	unsigned int	prog_size;
 	char			*comment;
 	char			*file_name;
 	unsigned char	*coding_string;
 	int				count;
 	t_operation		**ops;
-
+	t_err_type		err_type;
+	int				err_index;
+	int				flag_print;
 }					t_file_struct;
 
 char				**asm_read_file(char *file_name);
@@ -47,7 +61,7 @@ int					asm_skip_empty_lines(char *str, int i);
 int					asm_skip_spaces(char *str, int i);
 int					asm_parse_operations(char *file, int i,
 		t_file_struct *content);
-t_file_struct		*asm_parse_content_file(char *file_name);
+t_file_struct		*asm_parse_content_file(char *file_name, int flag_a);
 t_file_struct		*asm_create_content(void);
 void				asm_generate_byte_code(t_file_struct *content);
 char				*asm_generate_string(char **file);
@@ -65,5 +79,12 @@ int					asm_validate_content(t_file_struct *content);
 unsigned char		*asm_join(unsigned char *s1, unsigned char *s2,
 		int l1, int l2);
 void				asm_get_prog_len(t_file_struct *content);
+int					asm_get_line(int index, char *file);
+int					asm_get_place(int index, char *file);
+void				asm_add_label(t_operation *op, char *label);
+void				asm_clean(t_file_struct *content);
+void				asm_err_out(t_file_struct *content, char *file);
+void				asm_clean_op(t_operation *op);
+int					asm_to_eof(char *file, int i);
 
 #endif

@@ -40,6 +40,33 @@ static void	asm_write(t_file_struct *content, int fd)
 	write(fd, content->coding_string, (unsigned)content->count);
 }
 
+static void	asm_write_out(t_file_struct *content)
+{
+	int i;
+	int j;
+
+	i = 0;
+	ft_printf("Dumping annotated program on standard output\n");
+	ft_printf("Program size : %d bytes\n", content->count);
+	ft_printf("Name : \"%s\"\n", content->prog_name);
+	ft_printf("Comment : \"%s\"\n", content->comment);
+	while (content->ops[i])
+	{
+		j = 0;
+		while (content->ops[i]->label && content->ops[i]->label[j])
+			ft_printf("%s:\n", content->ops[i]->label[j++]);
+		ft_printf("\t\t%s\t->\t", content->ops[i]->name);
+		j = 0;
+		while (content->ops[i]->args[j] && content->ops[i]->args)
+		{
+			ft_printf("'%s' ", content->ops[i]->args[j]);
+			j++;
+		}
+		i++;
+		ft_printf("\n");
+	}
+}
+
 static void	asm_generate_programm(t_file_struct *content)
 {
 	int i;
@@ -66,14 +93,22 @@ void		asm_generate_byte_code(t_file_struct *content)
 
 	if (asm_validate_content(content))
 	{
-		fd = open(content->file_name, O_CREAT | O_WRONLY, 0666);
-		if (fd < 0)
-		{
-			ft_printf("Can't create or open %s\n", content->file_name);
-			return ;
-		}
 		asm_generate_programm(content);
-		asm_write(content, fd);
-		ft_printf("Writing output in %s\n", content->file_name);
+		if (content->flag_print == 0)
+		{
+			fd = open(content->file_name, O_CREAT | O_WRONLY, 0666);
+			if (fd < 0)
+			{
+				ft_printf(MSG_ERR_FILE, content->file_name);
+				return ;
+			}
+			asm_write(content, fd);
+			ft_printf(MSG_COMPLETE, content->file_name);
+		}
+		else
+		{
+			asm_write_out(content);
+		}
 	}
+	asm_clean(content);
 }

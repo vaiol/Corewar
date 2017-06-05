@@ -69,7 +69,7 @@ static void	generate_byte_argument(t_file_struct *f, int c, int index)
 
 static int	generate_codind_byte(t_operation *op)
 {
-	char	bytes[8];
+	char	bytes[9];
 	int		i;
 	int		arg;
 	int		count;
@@ -77,6 +77,7 @@ static int	generate_codind_byte(t_operation *op)
 	i = 0;
 	while (i < 8)
 		bytes[i++] = '0';
+	bytes[8] = '\0';
 	i = 0;
 	count = 0;
 	while (op->args[i])
@@ -90,7 +91,7 @@ static int	generate_codind_byte(t_operation *op)
 		count += 2;
 		i++;
 	}
-	return (ft_atoi_base(bytes, 2));
+	return ((unsigned char)ft_atoi_base(bytes, 2));
 }
 
 void		asm_generate_byte_ops(t_file_struct *f)

@@ -6,18 +6,18 @@
 /*   By: astepano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 15:23:33 by astepano          #+#    #+#             */
-/*   Updated: 2017/05/24 15:24:57 by astepano         ###   ########.fr       */
+/*   Updated: 2017/06/02 16:15:01 by astepano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static char	*wrong_arg_type(t_operation *op, int i, int arg)
+static char	*wrong_arg_type(t_operation *op, int i, int arg, char *arg_str)
 {
 	int		type;
 
 	if (arg == T_LAB)
-		arg = T_DIR;
+		arg = (arg_str[0] == DIRECT_CHAR) ? T_DIR : T_IND;
 	type = g_op_tab[op->index].args[i];
 	if (arg == T_REG)
 	{
@@ -82,9 +82,9 @@ static char	*validate_args(t_file_struct *content, t_operation *op)
 		arg = asm_is_arg(op->args[i]);
 		if (arg < 0)
 			return (asm_invalid_type_message(op, i));
-		if (arg == 8 && (err = asm_label_exist(content, op->args[i])))
+		if (arg == T_LAB && (err = asm_label_exist(content, op->args[i])))
 			return (err);
-		if ((err = wrong_arg_type(op, i, arg)))
+		if ((err = wrong_arg_type(op, i, arg, op->args[i])))
 			return (err);
 		i++;
 	}

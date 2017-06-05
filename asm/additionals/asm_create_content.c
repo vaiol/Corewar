@@ -20,8 +20,8 @@ t_file_struct	*asm_create_content(void)
 	content->ops = NULL;
 	content->comment = NULL;
 	content->prog_name = NULL;
-	content->prog_size = 0;
 	content->file_name = NULL;
 	content->coding_string = NULL;
+	content->flag_print = 0;
 	return (content);
 }

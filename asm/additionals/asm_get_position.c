@@ -1,33 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm_validate_content.c                             :+:      :+:    :+:   */
+/*   asm_get_position.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astepano <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/24 15:22:44 by astepano          #+#    #+#             */
-/*   Updated: 2017/05/24 15:22:45 by astepano         ###   ########.fr       */
+/*   Created: 2017/06/02 16:06:42 by astepano          #+#    #+#             */
+/*   Updated: 2017/06/02 16:06:47 by astepano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../asm.h"
 
-int	asm_validate_content(t_file_struct *content)
+int		asm_get_line(int index, char *file)
 {
-	char	*error;
+	int i;
+	int	line;
 
-	if (!content)
-		return (0);
-	if (content->comment == NULL || content->prog_name == NULL)
+	i = 0;
+	line = 0;
+	while (file[i] && i < index)
 	{
-		ft_printf("Lexical error!");
-		return (0);
+		if (file[i] == '\n')
+			line++;
+		i++;
 	}
-	if ((error = asm_validate_operations(content)))
+	return (line);
+}
+
+int		asm_get_place(int index, char *file)
+{
+	int i;
+	int	place;
+
+	i = 0;
+	place = 1;
+	while (file[i] && i < index)
 	{
-		ft_printf("%s\n", error);
-		free(error);
-		return (0);
+		if (file[i] == '\n')
+			place = 0;
+		place++;
+		i++;
 	}
-	return (1);
+	return (place);
 }

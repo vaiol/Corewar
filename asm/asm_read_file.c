@@ -46,7 +46,7 @@ char		**asm_read_file(char *file_name)
 
 	if ((fd = open(file_name, O_RDONLY)) == -1)
 	{
-		ft_printf("%s: cannot open file.\n");
+		ft_printf("Can't read source file %s\n", file_name);
 		return (NULL);
 	}
 	size = lseek(fd, 0, SEEK_END);

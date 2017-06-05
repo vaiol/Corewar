@@ -29,8 +29,9 @@ static int		get_name(char *file, int i, t_file_struct *content, int flag)
 			content->prog_name = ft_strsub(file, (unsigned)i, (size_t)j);
 		return (i + j + 1);
 	}
-	else
-		return (-1);
+	content->err_type = SYNTAX;
+	content->err_index = i;
+	return (-1);
 }
 
 static int		parse_name_comment(char *file, int i, t_file_struct *content)
@@ -47,14 +48,16 @@ static int		parse_name_comment(char *file, int i, t_file_struct *content)
 
 static int		validate_name_comment(t_file_struct *content)
 {
-	if (ft_strlen(content->prog_name) > PROG_NAME_LENGTH)
+	if (content->prog_name == NULL
+		|| ft_strlen(content->prog_name) > PROG_NAME_LENGTH)
 	{
-		ft_printf("ERROR\n");
+		content->err_type = SYNTAX;
 		return (0);
 	}
-	if (ft_strlen(content->comment) > COMMENT_LENGTH)
+	if (content->comment == NULL
+		|| ft_strlen(content->comment) > COMMENT_LENGTH)
 	{
-		ft_printf("ERROR\n");
+		content->err_type = SYNTAX;
 		return (0);
 	}
 	return (1);
@@ -71,14 +74,17 @@ static int		validation(char *file, t_file_struct *content)
 	if (i == -1)
 		return (-1);
 	if (!validate_name_comment(content))
+	{
+		content->err_index = i;
 		return (-1);
+	}
 	i = asm_parse_operations(file, i, content);
 	if (i == -1)
 		return (-1);
 	return (i);
 }
 
-t_file_struct	*asm_parse_content_file(char *file_name)
+t_file_struct	*asm_parse_content_file(char *file_name, int flag_a)
 {
 	t_file_struct	*content;
 	char			**file;
@@ -89,9 +95,17 @@ t_file_struct	*asm_parse_content_file(char *file_name)
 		return (NULL);
 	str = asm_generate_string(file);
 	content = asm_create_content();
+	if (flag_a == 1)
+		content->flag_print = 1;
 	content->file_name = asm_file_name(content->file_name, file_name);
 	i = validation(str, content);
 	if (i < 0)
+	{
+		asm_err_out(content, str);
+		free(str);
+		asm_clean(content);
 		return (NULL);
+	}
+	free(str);
 	return (content);
 }

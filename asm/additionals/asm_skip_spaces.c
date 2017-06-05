@@ -28,3 +28,13 @@ int		asm_skip_spaces(char *str, int i)
 		i++;
 	return (i);
 }
+
+int		asm_to_eof(char *file, int i)
+{
+	int j;
+
+	j = 0;
+	while (file[i + j] && file[i + j] != '\n')
+		j++;
+	return (j);
+}

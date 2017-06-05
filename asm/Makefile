@@ -36,7 +36,11 @@ SRCS    =   main.c \
             $(ADD)/$(PREF)is_arg.c \
             $(ADD)/$(PREF)label_exist.c \
             $(ADD)/$(PREF)skip_spaces.c \
-            $(ADD)/$(PREF)arrjoin.c
+            $(ADD)/$(PREF)arrjoin.c \
+            $(ADD)/$(PREF)add_label.c \
+            $(ADD)/$(PREF)clean.c \
+            $(ADD)/$(PREF)err_out.c \
+            $(ADD)/$(PREF)get_position.c
 OBJS    = $(SRCS:.c=.o)
 
 all: $(NAME)
