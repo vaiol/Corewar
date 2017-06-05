@@ -39,6 +39,7 @@ typedef struct		s_operation
 	unsigned char	coding_string[14];
 	int				count;
 	int				len;
+	int				eof;
 }					t_operation;
 
 typedef struct		s_file_struct

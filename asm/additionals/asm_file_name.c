@@ -14,7 +14,18 @@
 
 char	*asm_file_name(char *str, char *file_name)
 {
-	str = ft_strsub(file_name, 0, ft_strlen(file_name) - 2);
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (file_name[i])
+	{
+		if (file_name[i] == '.')
+			j = i;
+		i++;
+	}
+	str = ft_strsub(file_name, 0, j);
 	str = ft_strfjoin(str, ".cor", FIRST);
 	return (str);
 }

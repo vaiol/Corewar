@@ -97,7 +97,7 @@ char		*asm_validate_operations(t_file_struct *content)
 	int		i;
 
 	i = 0;
-	while (content->ops[i])
+	while (content->ops[i] && !content->ops[i]->eof)
 	{
 		get_index(content->ops[i]);
 		if (content->ops[i]->index == -1)

@@ -42,7 +42,7 @@ void		asm_get_prog_len(t_file_struct *content)
 	int	i;
 
 	i = 0;
-	while (content->ops[i])
+	while (content->ops[i] && !content->ops[i]->eof)
 	{
 		content->ops[i]->len = 1;
 		if (g_op_tab[content->ops[i]->index].octal_coding)
