@@ -6,8 +6,10 @@ void	get_flags(t_fl *fl, char c)
 {
 	if (c == 'n')
 		fl->n = 1;
+	else if (c == 'v')
+		fl->v = 1;
 	else
-		error_handler("usage: corewar [-n] [file ...]");
+		error_handler("usage: corewar [-nv] [file ...]");
 	fl->flags++;
 }
 
@@ -26,7 +28,7 @@ char	*get_arg(t_data *data, int argc, char **argv)
 		data->index++;
 	}
 	if (argv[data->index][1] == '\0')
-		error_handler("usage: corewar [-n] [file ...]");///////////////////////
+		error_handler("usage: corewar [-nv] [file ...]");
 	else
 		arg = argv[data->index];
 	data->index++;

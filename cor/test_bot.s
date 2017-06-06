@@ -17,8 +17,8 @@
 
 #sti r5, 15, %100
 #sti r12, %:init, %104
-
-fork %4096
+live %-1
+lfork %4096
 
 #ld %10, r96
 

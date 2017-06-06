@@ -17,6 +17,7 @@ SRCS    =   carriage.c \
             nc/nc_utils.c \
             nc/ncurses.c \
             parse_function.c \
+            print_logs.c \
             utils.c \
             validate_function.c
 

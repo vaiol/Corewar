@@ -80,7 +80,6 @@ typedef struct		s_op
 	unsigned		label_size;
 }					t_op;
 
-
 static const		t_op g_op_tab[17] =
 		{
 				{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
@@ -182,6 +181,7 @@ typedef struct		s_fl
 {
 	int				flags;
 	int				n;
+	int				v;
 }					t_fl;
 
 //	main struct
@@ -268,6 +268,13 @@ void				nc_pause(t_data *data);
 
 void				parse_octal(t_data *data, t_carr *carr, unsigned label);
 void				parse_non_octal(t_data *data, t_carr *carr, unsigned label);
+
+// print_logs.c
+
+void				print_function(t_data *data, t_carr *carr);
+void 				print_cycle(t_data *data);
+void				print_movements(t_data *data, t_carr *carr);
+void				print_cycle_to_die(t_data *data);
 
 // utils.c
 

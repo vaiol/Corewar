@@ -132,7 +132,10 @@ void	parse_octal(t_data *data, t_carr *carr, unsigned label)
 	one = 0;
 	two = 1;
 
-//	ft_printf("Binary = %s t_id = %i\n", carr->binary, carr->id);
+//	ft_printf("Binary = %s t_id = %i n args %i\n", carr->binary, carr->id, carr->op.count_args);
+
+//	ft_printf("was here\n");
+
 	while (two <= ((int)carr->op.count_args * 2) - 1)
 	{
 		if (carr->binary[one] == '0' && carr->binary[two] == '1')
@@ -145,6 +148,7 @@ void	parse_octal(t_data *data, t_carr *carr, unsigned label)
 		one += 2;
 		two += 2;
 	}
+
 }
 
 void	parse_non_octal(t_data *data, t_carr *carr, unsigned label)

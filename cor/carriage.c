@@ -34,7 +34,7 @@ t_carr	*kill_carriage(t_data *data, t_carr *carr)
 
 	data->map[carr->index].carriage = 0;
 
-	ft_printf("carriage %i die\n", carr->id);
+//	ft_printf("carriage %i die\n", carr->id);
 
 	head = data->champs[carr->pn - 1].carriage;
 	if (head == carr)
@@ -44,7 +44,7 @@ t_carr	*kill_carriage(t_data *data, t_carr *carr)
 			data->champs[carr->pn - 1].carriage = NULL;
 //			exit(1);
 			shut_down_nc(data);
-//			return (NULL);
+			return (NULL);
 		}
 		del = head;
 		head = head->next;
@@ -64,24 +64,20 @@ t_carr	*kill_carriage(t_data *data, t_carr *carr)
 
 void	fork_carriage(t_data *data, t_carr *carr, int index)
 {
-	int		r;
-	t_carr	*new_carr;
-//	t_carr	*current;
-	t_carr	*old_head;
+	int r;
+	t_carr *new_carr;
+	t_carr *old_head;
 
 	data->champs[carr->pn - 1].carr_count++;
 
-	new_carr = (t_carr *)malloc(sizeof(t_carr));
+	new_carr = (t_carr *) malloc(sizeof(t_carr));
 
 	new_carr->id = data->champs[carr->pn - 1].carr_count;
 	new_carr->pn = carr->pn;
-//	ft_printf("FORK id = %i pn = %i \n", new_carr->id, new_carr->pn);
-//	ft_printf("Carr count = %i\n", data->champs[carr->pn - 1].carr_count);
 
 	new_carr->index = index;
 	new_carr->live = 0;
 	new_carr->carry = carr->carry;
-//	new_carr->next = NULL;
 
 	r = 0;
 	while (++r < 17)
@@ -91,45 +87,4 @@ void	fork_carriage(t_data *data, t_carr *carr, int index)
 	old_head = data->champs[carr->pn - 1].carriage;
 	new_carr->next = old_head;
 	data->champs[carr->pn - 1].carriage = new_carr;
-
-//	current = data->champs[carr->pn - 1].carriage;
-
-
-
-//	while (current->next != NULL)
-//		current = current->next;
-//	current->next = new_carr;
 }
-
-
-//void	fork_carriage(t_data *data, t_carr *carr, int index)
-//{
-//	int		r;
-//	t_carr	*new_carr;
-//	t_carr	*current;
-//
-//	data->champs[carr->pn - 1].carr_count++;
-//
-//	new_carr = (t_carr *)malloc(sizeof(t_carr));
-//
-//	new_carr->id = data->champs[carr->pn - 1].carr_count;
-//	new_carr->pn = carr->pn;
-////	ft_printf("FORK id = %i pn = %i \n", new_carr->id, new_carr->pn);
-////	ft_printf("Carr count = %i\n", data->champs[carr->pn - 1].carr_count);
-//
-//	new_carr->index = index;
-//	new_carr->live = 0;
-//	new_carr->carry = carr->carry;
-//	new_carr->next = NULL;
-//
-//	r = 0;
-//	while (++r < 17)
-//		new_carr->reg[r] = carr->reg[r];
-//	clear_op(new_carr);
-//
-//	current = data->champs[carr->pn - 1].carriage;
-//
-//	while (current->next != NULL)
-//		current = current->next;
-//	current->next = new_carr;
-//}

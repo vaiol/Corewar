@@ -136,4 +136,5 @@ void	init_ncurses(t_data *data, t_print *print)
 	printw("%s", title);
 	refresh();
 	nc_prepare(data, print);
+	nc_pause(data);
 }

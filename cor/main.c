@@ -31,6 +31,5 @@ int		main(int argc, char **argv)
 
 //	game start
 	corewar(&data);
-
 	return (0);
 }

@@ -1,7 +1,7 @@
 add function aff;
 add MAX_LIVE check;
 
-cd Documents/corewar/cor_2
+cd Documents/corewar/cor
 make && ./asm test_bot.s && ./corewar test.cor
 
 4550
@@ -9,3 +9,6 @@ make && ./asm test_bot.s && ./corewar test.cor
 4671
 4731
 4830
+
+
+6523
