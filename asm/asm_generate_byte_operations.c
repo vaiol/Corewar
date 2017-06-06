@@ -101,7 +101,7 @@ void		asm_generate_byte_ops(t_file_struct *f)
 
 	asm_get_prog_len(f);
 	i = 0;
-	while (f->ops[i])
+	while (f->ops[i] && !f->ops[i]->eof)
 	{
 		c = 0;
 		f->ops[i]->coding_string[c++] = (unsigned char)

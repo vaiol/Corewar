@@ -64,7 +64,7 @@ static int	get_args(char *file, int i, t_operation *op, t_file_struct *c)
 	unsigned	j;
 	unsigned	tmp;
 
-	j = (unsigned) asm_to_eof(file, i);
+	j = (unsigned)asm_to_eof(file, i);
 	if (file[i + j] == '\0')
 	{
 		c->err_index = i;
@@ -94,6 +94,12 @@ static int	get_operation(char *file, int i, t_operation *op, t_file_struct *c)
 		{
 			c->err_type = LEXICAL;
 			return (-1);
+		}
+		i = asm_skip_empty_lines(file, i);
+		if (file[i] == '\0')
+		{
+			op->eof = 1;
+			return (i);
 		}
 	}
 	if ((i = get_args(file, asm_skip_spaces(file, i), op, c)) < 0)

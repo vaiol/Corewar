@@ -21,5 +21,6 @@ t_operation	*asm_create_operation(void)
 	op->label = NULL;
 	op->name = NULL;
 	op->index = -1;
+	op->eof = 0;
 	return (op);
 }
