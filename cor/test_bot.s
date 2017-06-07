@@ -1,4 +1,4 @@
-.name		"Test"
+.name		"Testssssssssssssss"
 .comment	"Test Bot"
 
 
@@ -17,8 +17,9 @@
 
 #sti r5, 15, %100
 #sti r12, %:init, %104
-live %-1
-lfork %4096
+aff r1
+aff r1
+#lfork %5000
 
 #ld %10, r96
 

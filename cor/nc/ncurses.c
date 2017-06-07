@@ -20,12 +20,9 @@ void	change_speed(t_data *data, int key)
 void	nc_start(t_data *data)
 {
 	int quit;
-	int change_status;
 	int key;
 
 	quit = 'o';
-	change_status = '0';
-
 	while (quit != 'x')
 	{
 		if (data->print.status == 0)
@@ -38,10 +35,7 @@ void	nc_start(t_data *data)
 			nc_pause(data);
 		else if (key == 'q' || key == 'w' || key == 'e' || key == 'r')
 			change_speed(data, key);
-//		if (data->print.cycle > 0)
-			manage_corewar(data);
-//		else
-//			data->print.cycle++;
+		manage_corewar(data);
 		nc_refresh(data, &data->print);
 	}
 	shut_down_nc(data);

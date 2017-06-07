@@ -44,33 +44,26 @@ void	move_to_temp(t_data *data, t_carr *current)
 	data->map[current->index].carriage = 0;
 	current->index = current->index + current->t_ind;
 
-//	if (current->index > 0)
-//		current->index = current->index % MEM_SIZE;
-//	if (current->index < 0)
-//		current->index = MEM_SIZE + (current->index % MEM_SIZE);
-
-	if (current->index >= MEM_SIZE)
-		current->index = current->index - MEM_SIZE;
-	else if (current->index < 0)
-		current->index = MEM_SIZE + current->index;
+	if (current->index > 0)
+		current->index = current->index % MEM_SIZE;
+	if (current->index < 0)
+		current->index = MEM_SIZE + (current->index % MEM_SIZE);
 	data->map[current->index].carriage = 1;
 	if (current->t_ind)
-	{
-		if (current->valid == FALSE)
-			ft_printf("%i | ", current->id);
 		print_movements(data, current);
-	}
 }
 
 void	move_carriage(t_data *data, t_carr *current)
 {
-		data->map[current->index].carriage = 0;
-		if (current->index >= MEM_SIZE)
-			current->index = -1;
-		if (current->index < 0)
-			current->index = MEM_SIZE - current->index;
-		current->index++;
-		data->map[current->index].carriage = 1;
+	data->map[current->index].carriage = 0;
+
+	if (current->index < 0)
+		current->index = MEM_SIZE - current->index;
+	if (current->index >= MEM_SIZE)
+		current->index = -1;
+	current->index++;
+
+	data->map[current->index].carriage = 1;
 }
 
 t_carr	*wait_carriage(t_data *data, t_carr *current)
@@ -103,11 +96,8 @@ t_carr	*wait_carriage(t_data *data, t_carr *current)
 
 void	time_to_die(t_data *data)
 {
-
 	int n;
 	t_carr *current;
-
-//	ft_printf("%i %i\n", data->print.cycle, data->print.cycle_to_die);
 
 	n = -1;
 	while (++n < data->count)
@@ -122,10 +112,15 @@ void	time_to_die(t_data *data)
 		}
 	}
 	if (data->print.nbr_live > NBR_LIVE)
-		data->print.cycle_to_die -= CYCLE_DELTA;
+	{
+		if ((data->print.cycle_to_die - CYCLE_DELTA) > 0)
+			data->print.cycle_to_die -= CYCLE_DELTA;
+	}
 	data->print.time_to_die = data->print.cycle_to_die;
+	data->print.nbr_live = 0;
+	if (count_processes(data) == 0)
+		print_winner(data);
 	print_cycle_to_die(data);
-
 }
 
 void	carriage_cycle(t_data *data, t_carr *carr)
@@ -149,12 +144,6 @@ void	manage_corewar(t_data *data)
 	int		n;
 	t_carr *current;
 
-	if (data->print.time_to_die == 0)
-	{
-//		ft_printf("time = %i\n", data->print.time_to_die);
-		time_to_die(data);
-	}
-
 	n = -1;
 	while (++n < data->count)
 	{
@@ -165,8 +154,11 @@ void	manage_corewar(t_data *data)
 			current = current->next;
 		}
 	}
+
+	if (data->print.time_to_die == 0)
+		time_to_die(data);
+
 	data->print.cycle++;
-//	ft_printf("time = %i\n", data->print.time_to_die);
 	data->print.time_to_die--;
 }
 
@@ -176,7 +168,7 @@ void	corewar_v(t_data *data)
 	{
 		print_cycle(data);
 		manage_corewar(data);
-		usleep(250);
+//		usleep(250);
 	}
 }
 
@@ -195,13 +187,7 @@ void	corewar(t_data *data)
 //		print_map(data);
 //		ft_printf("Use -n flag\n");
 
-		int i = 0;
 		while (1)
-		{
-			ft_printf("Cycle : %i\n", data->print.cycle);
-				manage_corewar(data);
-			usleep(250);
-			i++;
-		}
+			manage_corewar(data);
 	}
 }

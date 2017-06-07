@@ -299,6 +299,9 @@ t_carr	*function_fork_lfork(t_data *data, t_carr *carr, unsigned opcode)
 	if (opcode == 15)
 		index = (carr->index - carr->t_ind) + carr->op.args[0];
 
+	if (index > MEM_SIZE)
+		index = index % MEM_SIZE;
+
 	print_function(data, carr);
 	fork_carriage(data, carr, index);
 	return (carr);

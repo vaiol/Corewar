@@ -62,3 +62,23 @@ unsigned char	*int_to_str(int n)
 	str[3] = (unsigned char) (n & 0xFF);
 	return (str);
 }
+
+int		count_processes(t_data *data)
+{
+	int		n;
+	int		processes;
+	t_carr *current;
+
+	processes = 0;
+	n = -1;
+	while (++n < data->count)
+	{
+		current = data->champs[n].carriage;
+		while (current != NULL)
+		{
+			processes++;
+			current = current->next;
+		}
+	}
+	return (processes);
+}

@@ -39,17 +39,20 @@ t_carr	*kill_carriage(t_data *data, t_carr *carr)
 	head = data->champs[carr->pn - 1].carriage;
 	if (head == carr)
 	{
+//		ft_printf("this need to die\n");
 		if (head->next == NULL)
 		{
+//			ft_printf("this need to die\n");
 			data->champs[carr->pn - 1].carriage = NULL;
 //			exit(1);
-			shut_down_nc(data);
+//			shut_down_nc(data);
 			return (NULL);
 		}
-		del = head;
-		head = head->next;
-		free (del);
-		return (head);
+//		del = head;
+		data->champs[carr->pn - 1].carriage = head->next;
+//		head = head->next;
+//		free (del);
+		return (data->champs[carr->pn - 1].carriage);
 	}
 	prev = head;
 	while (prev->next != NULL && prev->next != carr)

@@ -14,12 +14,14 @@ SRCS    =   carriage.c \
             map.c \
             nc/nc_print.c \
             nc/nc_print_stat.c \
+            nc/nc_print_winner.c \
             nc/nc_utils.c \
             nc/ncurses.c \
             parse_function.c \
             print_logs.c \
             utils.c \
-            validate_function.c
+            validate_function.c \
+            winner.c
 
 OBJS    = $(SRCS:.c=.o)
 

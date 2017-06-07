@@ -251,6 +251,10 @@ void				print_num_processes(t_data *data, WINDOW *win);
 void				print_champs(t_data *data, WINDOW *win);
 void				print_rules(t_data *data, WINDOW *win);
 
+// nc_print_winner
+
+void				nc_print_winner(t_data *data, int winner);
+
 // nc_utils.c
 
 void				get_color(int pn, WINDOW *win);
@@ -282,9 +286,14 @@ void				count_files(t_data *data, char **argv);
 int					char_to_int(unsigned char *str);
 char				*to_two_base(unsigned char c);
 unsigned char		*int_to_str(int n);
+int					count_processes(t_data *data);
 
 // validate_function.c
 
 int					validate_function(t_carr *carr, unsigned opcode);
+
+// winner.c
+
+void				print_winner(t_data *data);
 
 #endif
