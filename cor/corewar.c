@@ -3,10 +3,7 @@
 
 void	get_octal_coding(t_data *data, t_carr *carr, int i)
 {
-
 	carr->op.count_args = g_op_tab[i].count_args;
-//	printf("%i == %i\n", i, g_op_tab->count_args);
-
 	carr->t_ind++;
 	if (g_op_tab[i].octal_coding)
 		parse_octal(data, carr, g_op_tab[i].label_size);
@@ -93,6 +90,20 @@ t_carr	*wait_carriage(t_data *data, t_carr *current)
 	return (current);
 }
 
+void 	decrease_cicle_to_die(t_data *data)
+{
+	if ((data->print.cycle_to_die - CYCLE_DELTA) > 0)
+		data->print.cycle_to_die -= CYCLE_DELTA;
+	else
+		data->print.cycle_to_die = 0;
+	data->max_checks = 0;
+}
+
+void	check_max_checks(t_data *data)
+{
+	if (data->max_checks > MAX_CHECKS)
+		decrease_cicle_to_die(data);
+}
 
 void	time_to_die(t_data *data)
 {
@@ -111,11 +122,11 @@ void	time_to_die(t_data *data)
 			current = current->next;
 		}
 	}
+	data->max_checks++;
 	if (data->print.nbr_live > NBR_LIVE)
-	{
-		if ((data->print.cycle_to_die - CYCLE_DELTA) > 0)
-			data->print.cycle_to_die -= CYCLE_DELTA;
-	}
+		decrease_cicle_to_die(data);
+	else
+		check_max_checks(data);
 	data->print.time_to_die = data->print.cycle_to_die;
 	data->print.nbr_live = 0;
 	if (count_processes(data) == 0)
@@ -125,9 +136,6 @@ void	time_to_die(t_data *data)
 
 void	carriage_cycle(t_data *data, t_carr *carr)
 {
-
-//	ft_printf("%i | opcode = %i, index = %i\n", carr->id, carr->op.opcode, carr->index);
-
 	if (carr->op.cycles == 0)
 	{
 		clear_op(carr);
@@ -154,34 +162,31 @@ void	manage_corewar(t_data *data)
 			current = current->next;
 		}
 	}
-
 	if (data->print.time_to_die == 0)
 		time_to_die(data);
-
 	data->print.cycle++;
 	data->print.time_to_die--;
 }
 
-void	corewar_v(t_data *data)
+void	corewar_l(t_data *data)
 {
 	while (TRUE)
 	{
 		print_cycle(data);
 		manage_corewar(data);
-//		usleep(250);
 	}
 }
 
 void	corewar(t_data *data)
 {
-	if (data->fl.flags > 0)
+	if (data->fl.v == 1 || data->fl.l == 1)
 	{
-		if (data->fl.n == 1)
+		if (data->fl.v == 1)
 			init_ncurses(data, &data->print);
-		else if (data->fl.v == 1)
-			corewar_v(data);
+		else if (data->fl.l == 1)
+			corewar_l(data);
 	}
-	else
+	else if (data->fl.flags == 0 || (data->fl.a == 1 && data->fl.flags == 1))
 	{
 		//	for testing
 //		print_map(data);

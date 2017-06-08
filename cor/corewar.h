@@ -116,7 +116,7 @@ typedef struct		s_print
 	int				nbr_live;
 	int				time_to_die;
 	int				cycle_to_die;
-	size_t			cycle;
+	int				cycle;
 	int				status;
 }					t_print;
 
@@ -161,6 +161,8 @@ typedef struct		s_carr
 typedef struct		s_champ
 {
 	int				nb;
+
+	int 			nb_set;
 	int				start_pos;
 	char			*file_name;
 	int				last_live;
@@ -180,8 +182,9 @@ typedef struct		s_champ
 typedef struct		s_fl
 {
 	int				flags;
-	int				n;
+	int				l;
 	int				v;
+	int				a;
 }					t_fl;
 
 //	main struct
@@ -190,6 +193,7 @@ typedef struct		s_data
 	int				index;
 	int				count;
 	int				speed;
+	int 			max_checks;
 	t_fl			fl;
 	t_champ			*champs;
 	t_map			map[MEM_SIZE];
@@ -212,6 +216,7 @@ void	move_to_temp(t_data *data, t_carr *current);
 
 void				error_handler(char *str);
 void				champ_error_handler(char *str, char *champion);
+void 				error_handler_usage(void);
 
 // get_flags.c
 

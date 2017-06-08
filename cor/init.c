@@ -17,6 +17,7 @@ void	init_map(t_data *data)
 	data->print.time_to_die = CYCLE_TO_DIE;
 	data->print.nbr_live = 0;
 	data->speed = 100;
+	data->max_checks = 0;
 }
 
 void	init_carriage(t_data *data)

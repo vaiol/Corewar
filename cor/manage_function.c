@@ -165,8 +165,6 @@ void	function_and_or_xor(t_data *data, t_carr *carr, int *args, unsigned opcode)
 		carr->reg[args[2]] = argv[0] | argv[1];
 	if (opcode == 8)
 		carr->reg[args[2]] = argv[0] ^ argv[1];
-
-//	ft_printf("Check carry : %i\n", carr->reg[args[2]]);
 	print_function(data, carr);
 	manage_carry(carr, carr->reg[args[2]]);
 }
@@ -175,35 +173,28 @@ void	function_live(t_data *data, t_carr *carr)
 {
 	carr->live++;
 	data->print.nbr_live++;
-//	ft_printf("%i | live %i\n", carr->id, carr->op.args[0]);
 	if (carr->op.args[0] == -carr->pn)
+	{
 		data->champs[carr->pn - 1].last_live = data->print.cycle;
+		if (data->fl.v == 0)
+		{
+			ft_printf("A process shows that player %i ", carr->pn);
+			ft_printf("(%s) is alive\n", data->champs[carr->pn - 1].prog_name);
+		}
+	}
 	print_function(data, carr);
 }
 
 void	function_zjmp(t_data *data, t_carr *carr)
 {
-//	ft_printf("%i | zjump %i carry = %i\n", carr->id, carr->op.args[0], carr->carry);
 	if (carr->carry == TRUE)
 		carr->t_ind = carr->op.args[0];
 	print_function(data, carr);
 }
 
-//void	function_zjmp(t_carr *carr)
-//{
-//	ft_printf("%i | zjump %i carry = %i\n", carr->id, carr->op.args[0], carr->carry);
-//	if (carr->carry == TRUE)
-//	{
-////		unsigned int x = carr->op.args[0];
-////		int y = (int16_t)x;
-////		carr->t_ind = y;
-//		carr->t_ind = carr->op.args[0];
-//	}
-//}
 
 void	function_sti(t_data *data, t_carr *carr, int *args)
 {
-//	ft_printf("%i | sti r%i %i %i ", carr->id, args[0], args[1], args[2]);
 	int res;
 	int argv[2];
 	int index;
@@ -215,27 +206,20 @@ void	function_sti(t_data *data, t_carr *carr, int *args)
 
 	else if (carr->arg_type[1] == T_IND)
 	{
-//		ft_printf("ARG = %i\n", args[1]);
-
 		index = carr->index + (args[0] % IDX_MOD);
 		argv[0] = get_indirect_from_map(data->map, index);
 	}
-
 	if (carr->arg_type[2] == T_REG)
 		argv[1] = carr->reg[args[2]];
 	else if (carr->arg_type[2] == T_DIR)
 		argv[1] = args[2];
-
-//	ft_printf("%i + %i\n", argv[0], argv[1]);
 	res = argv[0] + argv[1];
 	print_function(data, carr);
-//	ft_printf("store to = %i (with pc and mod %i) index = %x \n", res, carr->index + (res % IDX_MOD), carr->index);
 	place_int_on_map(carr, data->map, carr->reg[args[0]], res);
 }
 
 void	function_ldi(t_data *data, t_carr *carr, int *args)
 {
-//	ft_printf("%i | ldi %i %i r%i", carr->id, args[0], args[1], args[0]);
 	int res;
 	int argv[2];
 
@@ -260,7 +244,6 @@ void	function_ldi(t_data *data, t_carr *carr, int *args)
 
 void	function_lldi(t_data *data, t_carr *carr, int *args)
 {
-//	ft_printf("%i | lldi %i %i r%i\n", carr->id, args[0], args[1], args[0]);
 	int res;
 	int argv[2];
 
@@ -309,8 +292,13 @@ t_carr	*function_fork_lfork(t_data *data, t_carr *carr, unsigned opcode)
 
 void	function_aff(t_data *data, t_carr *carr)
 {
-	print_function(data, carr);
-//	ft_printf("aff\n");
+	if (data->fl.a == 1)
+	{
+		if (ft_isalnum(carr->op.args[0]))
+			ft_printf("Aff: %c\n", carr->op.args[0]);
+		else
+			ft_printf("Aff: ?\n");;
+	}
 }
 
 void	manage_function(t_data *data, t_carr *carr)

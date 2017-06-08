@@ -8,7 +8,9 @@ void	create_data(t_data *data)
 	data->count = 0;
 
 	data->fl.flags = 0;
-	data->fl.n = 0;
+	data->fl.v = 0;
+	data->fl.l = 0;
+	data->fl.a = 0;
 
 	data->print.cycle = 0;
 	data->print.cycle_to_die = CYCLE_TO_DIE;
