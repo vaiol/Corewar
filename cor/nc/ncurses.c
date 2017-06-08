@@ -92,16 +92,12 @@ void	nc_prepare(t_data *data, t_print *print)
 	height = 76;
 	offset_x = (COLS - width) / 2;
 	offset_y = (LINES - height) / 2;
-
 	print->win_corwar = newwin(height, width, offset_y, offset_x); // h, w, oy, ox;
 	print->win_map = newwin(height - 8, width - 104, offset_y + 3, offset_x + 2);
 	print->win_stat = newwin(height - 4, 100, offset_y + 2, offset_x + 198);
-
 	box(print->win_corwar, 0, 0);
-
 	nc_print_map(data, print->win_map);
 	nc_print_stat(data, print->win_stat);
-
 	refresh();
 	wrefresh(print->win_corwar);
 	wrefresh(print->win_map);
@@ -112,11 +108,11 @@ void	init_ncurses(t_data *data, t_print *print)
 {
 	char *title;
 
-	title = "CoreWar v. 0.1  -  Press 'space' to start/pause. Press 'x' to quit.";
+	title = "CoreWar v. 1.1  -  Press 'space' to start/pause. Press 'x' to quit.";
 	initscr();
 	if (COLS < 361 || LINES < 87)
 	{
-		ft_printf("Error : Please use terminal in full screen mode for -n flag\n");
+		ft_printf("Error : Please use terminal in full screen mode for -v flag\n");
 		endwin();
 		exit(1);
 	}
@@ -126,7 +122,6 @@ void	init_ncurses(t_data *data, t_print *print)
 	start_color();
 	init_colors();
 	move(3, (COLS - ft_strlen(title)) / 2);
-//	printw("COLS %i, LINES %i", COLS, LINES);
 	printw("%s", title);
 	refresh();
 	nc_prepare(data, print);

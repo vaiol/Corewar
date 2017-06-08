@@ -95,7 +95,7 @@ void 	decrease_cicle_to_die(t_data *data)
 	if ((data->print.cycle_to_die - CYCLE_DELTA) > 0)
 		data->print.cycle_to_die -= CYCLE_DELTA;
 	else
-		data->print.cycle_to_die = 0;
+		data->print.cycle_to_die = 1;
 	data->max_checks = 0;
 }
 

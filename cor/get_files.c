@@ -97,6 +97,22 @@ void	set_start_pos(t_data *data, t_champ *champ, int nb)
 	champ->start_pos = x * (nb);
 }
 
+void 	set_default_num(t_data *data, int nb, int number)
+{
+	int n;
+
+	n = -1;
+	while (++n < nb)
+	{
+		if (data->champs[n].nb_set == number)
+		{
+			set_default_num(data, nb, number - 1);
+			return ;
+		}
+	}
+	data->champs[nb].nb_set = number;
+}
+
 void	manage_file(t_data *data, char *argv, int nb)
 {
 	int		fd;
@@ -109,6 +125,8 @@ void	manage_file(t_data *data, char *argv, int nb)
 	lseek(fd, 0, SEEK_SET);
 	if (size < 0)
 		champ_error_handler("File is not valid", argv);
+	if (data->champs[nb].nb_set == 0)
+		set_default_num(data, nb, -1);
 	content = ft_strnew((size_t)size);
 	read(fd, content, (size_t)size);
 	data->champs[nb].nb = nb + 1;
@@ -117,25 +135,26 @@ void	manage_file(t_data *data, char *argv, int nb)
 	data->champs[nb].real_prog_size = (size_t)size;
 	champ_check(&data->champs[nb], content);
 	free(content);
+	data->nb++;
 }
 
-void	get_files(t_data *data, char **argv)
-{
-	int i;
-	int	nb;
-
-	count_files(data, argv);
-	if (data->count == 0)
-		error_handler("Error : No players");
-	data->champs = (t_champ *)malloc(sizeof(t_champ) * data->count);
-	nb = 0;
-	i = 0;
-	while (argv[++i])
-	{
-		if (argv[i][0] != '-')
-		{
-			manage_file(data, argv[i], nb);
-			nb++;
-		}
-	}
-}
+//void	get_files(t_data *data, char **argv)
+//{
+//	int i;
+//	int	nb;
+//
+//	count_files(data, argv);
+//	if (data->count == 0)
+//		error_handler("Error : No players");
+////	data->champs = (t_champ *)malloc(sizeof(t_champ) * data->count);
+//	nb = 0;
+//	i = 0;
+//	while (argv[++i])
+//	{
+//		if (argv[i][0] != '-')
+//		{
+//			manage_file(data, argv[i], nb);
+//			nb++;
+//		}
+//	}
+//}

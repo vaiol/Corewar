@@ -1,6 +1,7 @@
 add function aff;
 add MAX_LIVE check;
 
+
 cd Documents/corewar/cor
 make && ./asm test_bot.s && ./corewar test.cor
 
@@ -12,3 +13,5 @@ make && ./asm test_bot.s && ./corewar test.cor
 
 
 6523
+
+live for all champs!!!;

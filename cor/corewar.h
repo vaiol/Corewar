@@ -185,6 +185,7 @@ typedef struct		s_fl
 	int				l;
 	int				v;
 	int				a;
+	int				n;
 }					t_fl;
 
 //	main struct
@@ -192,8 +193,10 @@ typedef struct		s_data
 {
 	int				index;
 	int				count;
+	int 			dump;
 	int				speed;
 	int 			max_checks;
+	int				nb;
 	t_fl			fl;
 	t_champ			*champs;
 	t_map			map[MEM_SIZE];
@@ -210,7 +213,7 @@ t_carr				*kill_carriage(t_data *data, t_carr *carr);
 
 void				corewar(t_data *data);
 void				manage_corewar(t_data *data);
-void	move_to_temp(t_data *data, t_carr *current);
+void				move_to_temp(t_data *data, t_carr *current);
 
 // error_handler.c
 
@@ -220,11 +223,12 @@ void 				error_handler_usage(void);
 
 // get_flags.c
 
-void				check_flags(int argc, char **argv, t_data *data);
+void				check_flags(t_data *data, int argc, char **argv);
 
 // get_files.c
 
 void				get_files(t_data *data, char **argv);
+void				manage_file(t_data *data, char *argv, int nb);
 
 // init.c
 

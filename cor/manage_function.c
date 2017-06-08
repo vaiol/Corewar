@@ -145,7 +145,6 @@ void	function_st(t_data *data, t_carr *carr)
 
 void	function_and_or_xor(t_data *data, t_carr *carr, int *args, unsigned opcode)
 {
-//	ft_printf("%i | and_or_xor %i %i r%i", carr->id, args[0], args[1], args[2]);
 	int i;
 	int argv[2];
 
@@ -173,15 +172,25 @@ void	function_live(t_data *data, t_carr *carr)
 {
 	carr->live++;
 	data->print.nbr_live++;
-	if (carr->op.args[0] == -carr->pn)
+
+	int n;
+
+	n = -1;
+	while (++n < data->count)
 	{
-		data->champs[carr->pn - 1].last_live = data->print.cycle;
-		if (data->fl.v == 0)
-		{
-			ft_printf("A process shows that player %i ", carr->pn);
-			ft_printf("(%s) is alive\n", data->champs[carr->pn - 1].prog_name);
-		}
+		if (data->champs[n].nb_set == carr->op.args[0])
+			data->champs[n].last_live = data->print.cycle;
 	}
+
+//		if (carr->op.args[0] == -carr->pn)
+//		{
+//			data->champs[carr->pn - 1].last_live = data->print.cycle;
+//			if (data->fl.v == 0)
+//			{
+//				ft_printf("A process shows that player %i ", carr->pn);
+//				ft_printf("(%s) is alive\n", data->champs[carr->pn - 1].prog_name);
+//			}
+//		}
 	print_function(data, carr);
 }
 
