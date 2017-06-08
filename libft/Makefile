@@ -27,7 +27,7 @@ LIB_SRCS	= ft_memset.c ft_strlen.c ft_strdup.c ft_strchr.c ft_strrchr.c	\
 		  ft_strjoin.c ft_strtrim.c ft_strsplit.c ft_print_memory.c	\
 		  ft_itoa_base.c ft_strcchr.c ft_strcut.c ft_pow.c		\
 		  ft_strfjoin.c ft_strichr.c ft_arrdel.c ft_readfd.c ft_memcmp.c \
-		  ft_atoi_base.c ft_itoa.c
+		  ft_atoi_base.c ft_itoa.c ft_arrlen.c
 GNL_SRCS	= $(GNL)/$(GNL).c $(GNL)/gnl_additionals.c
 PRINTF_SRCS	= $(PRINTF)ft_printf.c						\
 		  $(PUT)putstr.c $(PUT)write.c $(PUT)printed_count.c		\

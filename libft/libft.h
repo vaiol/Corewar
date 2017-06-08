@@ -49,6 +49,7 @@ int				ft_strcmp(const char *s1, const char *s2);
 char			*ft_strnew(size_t size);
 void			ft_strdel(char **as);
 void			ft_arrdel(char **arr);
+int 			ft_arrlen(char **tab);
 int				ft_strequ(char const *s1, char const *s2);
 char			*ft_strsub(char const *s, unsigned int start, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);
