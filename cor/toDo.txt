@@ -11,7 +11,22 @@ make && ./asm test_bot.s && ./corewar test.cor
 4731
 4830
 
+5958;
+
 
 6523
 
 live for all champs!!!;
+
+/////////////////////
+2 players
+3732 - 3864
+
+6007
+
+//////////////
+3 players
+
+4800 - 4828
+
+5325 - 5990

@@ -30,6 +30,9 @@ void	nc_print_map(t_data *data, WINDOW *win)
 		print_cell(data->map[i].cell, win);
 		if (x >= 64)
 		{
+//
+//			wprintw(win, "%i ", y - 2);
+//
 			x = 0;
 			y++;
 			wmove(win, y, 3);

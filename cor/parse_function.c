@@ -114,8 +114,6 @@ int		get_indirect(t_data *data, t_carr *carr, int i)
 	carr->arg_type[i] = T_IND;
 //	carr->op.count_args++;
 
-
-
 	return (nbr);
 
 }
@@ -132,7 +130,7 @@ void	parse_octal(t_data *data, t_carr *carr, unsigned label)
 	one = 0;
 	two = 1;
 
-//	ft_printf("Binary = %s t_id = %i n args %i\n", carr->binary, carr->id, carr->op.count_args);
+//	ft_printf("Binary = %s t_id = %i index of = %i\n", carr->binary, carr->id, carr->index);
 
 //	ft_printf("was here\n");
 
@@ -148,7 +146,6 @@ void	parse_octal(t_data *data, t_carr *carr, unsigned label)
 		one += 2;
 		two += 2;
 	}
-
 }
 
 void	parse_non_octal(t_data *data, t_carr *carr, unsigned label)

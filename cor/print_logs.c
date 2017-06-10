@@ -15,7 +15,9 @@ void	print_movements(t_data *data, t_carr *carr)
 		c_index = carr->index - carr->t_ind;
 		if (c_index < 0)
 			c_index = MEM_SIZE + c_index;
-		ft_printf("ADV = %i (%0#.4x ", carr->t_ind, c_index);
+		if (carr->valid == 0)
+			ft_printf("%i | ", carr->id);
+		ft_printf("ADV %i (%0#.4x ", carr->t_ind, c_index);
 		ft_printf("-> %0#.4x) ", carr->index);
 		i = -1;
 		while (++i < carr->t_ind)

@@ -113,8 +113,6 @@ void	function_ld(t_data *data, t_carr *carr, int *args)
 	}
 	print_function(data, carr);
 	manage_carry(carr, carr->reg[args[1]]);
-
-
 ////	ft_printf("%i function ld complited\n", carr->reg[args[1]]);
 }
 
@@ -168,29 +166,42 @@ void	function_and_or_xor(t_data *data, t_carr *carr, int *args, unsigned opcode)
 	manage_carry(carr, carr->reg[args[2]]);
 }
 
-void	function_live(t_data *data, t_carr *carr)
-{
+void	function_live(t_data *data, t_carr *carr) {
 	carr->live++;
 	data->print.nbr_live++;
+
+//	ft_printf("live == %i\n", unsigned_to_int(carr->op.args[0]));
 
 	int n;
 
 	n = -1;
-	while (++n < data->count)
-	{
-		if (data->champs[n].nb_set == carr->op.args[0])
-			data->champs[n].last_live = data->print.cycle;
-	}
-
-//		if (carr->op.args[0] == -carr->pn)
+//	while (++n < data->count)
+//	{
+//		if (data->champs[n].nb_set == unsigned_to_int(carr->op.args[0]))
 //		{
-//			data->champs[carr->pn - 1].last_live = data->print.cycle;
+//			data->champs[n].last_live = data->print.cycle;
 //			if (data->fl.v == 0)
 //			{
+////				ft_printf("A process shows that player %i ", carr->pn);
+////				ft_printf("(%s) is alive\n", data->champs[carr->pn - 1].prog_name);
+//			}
+//
+//		}
+//
+//	}
+	while (++n < data->count)
+	{
+//	if (carr->op.args[0] == -carr->pn)
+ 		if (data->champs[n].nb == -carr->pn)
+		{
+			data->champs[carr->pn - 1].last_live = data->print.cycle;
+			if (data->fl.v == 0)
+			{
 //				ft_printf("A process shows that player %i ", carr->pn);
 //				ft_printf("(%s) is alive\n", data->champs[carr->pn - 1].prog_name);
-//			}
-//		}
+			}
+	}
+}
 	print_function(data, carr);
 }
 
@@ -199,6 +210,7 @@ void	function_zjmp(t_data *data, t_carr *carr)
 	if (carr->carry == TRUE)
 		carr->t_ind = carr->op.args[0];
 	print_function(data, carr);
+//	ft_printf("jump from %i to %i\n", carr->index, carr->t_ind);
 }
 
 

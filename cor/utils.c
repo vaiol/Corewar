@@ -65,20 +65,35 @@ unsigned char	*int_to_str(int n)
 
 int		count_processes(t_data *data)
 {
-	int		n;
 	int		processes;
 	t_carr *current;
 
 	processes = 0;
-	n = -1;
-	while (++n < data->count)
+	current = data->carr;
+	while (current != NULL)
 	{
-		current = data->champs[n].carriage;
-		while (current != NULL)
-		{
-			processes++;
-			current = current->next;
-		}
+		processes++;
+		current = current->next;
 	}
 	return (processes);
 }
+
+//int		count_processes(t_data *data)
+//{
+//	int		n;
+//	int		processes;
+//	t_carr *current;
+//
+//	processes = 0;
+//	n = -1;
+//	while (++n < data->count)
+//	{
+//		current = data->champs[n].carriage;
+//		while (current != NULL)
+//		{
+//			processes++;
+//			current = current->next;
+//		}
+//	}
+//	return (processes);
+//}

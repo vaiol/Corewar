@@ -39,7 +39,11 @@ void	read_cell(t_data *data, t_carr *carr)
 void	move_to_temp(t_data *data, t_carr *current)
 {
 	data->map[current->index].carriage = 0;
+
 	current->index = current->index + current->t_ind;
+
+//	if (current->op.opcode == 9 && data->print.cycle == 4800)
+//		ft_printf("id = %i (to %i) \n", current->id, current->index);
 
 	if (current->index > 0)
 		current->index = current->index % MEM_SIZE;
@@ -55,11 +59,10 @@ void	move_carriage(t_data *data, t_carr *current)
 	data->map[current->index].carriage = 0;
 
 	if (current->index < 0)
-		current->index = MEM_SIZE - current->index;
-	if (current->index >= MEM_SIZE)
+		current->index = (MEM_SIZE - 1) - current->index;
+	if (current->index >= MEM_SIZE - 1)
 		current->index = -1;
 	current->index++;
-
 	data->map[current->index].carriage = 1;
 }
 
@@ -107,20 +110,15 @@ void	check_max_checks(t_data *data)
 
 void	time_to_die(t_data *data)
 {
-	int n;
 	t_carr *current;
 
-	n = -1;
-	while (++n < data->count)
+	current = data->carr;
+	while (current != NULL)
 	{
-		current = data->champs[n].carriage;
-		while (current != NULL)
-		{
-			if (current->live == 0)
-				kill_carriage(data, current);
-			current->live = 0;
-			current = current->next;
-		}
+		if (current->live == 0)
+			kill_carriage(data, current);
+		current->live = 0;
+		current = current->next;
 	}
 	data->max_checks++;
 	if (data->print.nbr_live > NBR_LIVE)
@@ -133,6 +131,35 @@ void	time_to_die(t_data *data)
 		print_winner(data);
 	print_cycle_to_die(data);
 }
+
+//void	time_to_die(t_data *data)
+//{
+//	int n;
+//	t_carr *current;
+//
+//	n = -1;
+//	while (++n < data->count)
+//	{
+//		current = data->champs[n].carriage;
+//		while (current != NULL)
+//		{
+//			if (current->live == 0)
+//				kill_carriage(data, current);
+//			current->live = 0;
+//			current = current->next;
+//		}
+//	}
+//	data->max_checks++;
+//	if (data->print.nbr_live > NBR_LIVE)
+//		decrease_cicle_to_die(data);
+//	else
+//		check_max_checks(data);
+//	data->print.time_to_die = data->print.cycle_to_die;
+//	data->print.nbr_live = 0;
+//	if (count_processes(data) == 0)
+//		print_winner(data);
+//	print_cycle_to_die(data);
+//}
 
 void	carriage_cycle(t_data *data, t_carr *carr)
 {
@@ -149,24 +176,40 @@ void	carriage_cycle(t_data *data, t_carr *carr)
 
 void	manage_corewar(t_data *data)
 {
-	int		n;
 	t_carr *current;
 
-	n = -1;
-	while (++n < data->count)
+	current = data->carr;
+	while (current != NULL)
 	{
-		current = data->champs[n].carriage;
-		while (current != NULL)
-		{
-			carriage_cycle(data, current);
-			current = current->next;
-		}
+		carriage_cycle(data, current);
+		current = current->next;
 	}
 	if (data->print.time_to_die == 0)
 		time_to_die(data);
 	data->print.cycle++;
 	data->print.time_to_die--;
 }
+
+//void	manage_corewar(t_data *data)
+//{
+//	int		n;
+//	t_carr *current;
+//
+//	n = -1;
+//	while (++n < data->count)
+//	{
+//		current = data->champs[n].carriage;
+//		while (current != NULL)
+//		{
+//			carriage_cycle(data, current);
+//			current = current->next;
+//		}
+//	}
+//	if (data->print.time_to_die == 0)
+//		time_to_die(data);
+//	data->print.cycle++;
+//	data->print.time_to_die--;
+//}
 
 void	corewar_l(t_data *data)
 {

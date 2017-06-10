@@ -18,7 +18,6 @@ void	create_data(t_data *data)
 	data->print.cycle = 0;
 	data->print.cycle_to_die = CYCLE_TO_DIE;
 	data->print.status = 0;
-
 }
 
 void	count_champs(t_data *data, char **argv)
@@ -60,7 +59,6 @@ void	check_champ_nb(t_data *data)
 		{
 			if (i != n)
 			{
-				ft_printf("%i != %i\n", data->champs[i].nb_set, data->champs[n].nb_set);
 				if (data->champs[i].nb_set == data->champs[n].nb_set)
 					error_handler("Error : number or players match");
 			}
@@ -84,12 +82,10 @@ int		main(int argc, char **argv)
 //	get_files(&data, argv);
 
 	init_corewar(&data);
-	ft_printf("was here\n");
 //
 	corewar(&data);
 
 	return (0);
 }
-
 
 ///corewar [-dump nbr_cycles] [[-n number] champion1.cor] ...

@@ -175,7 +175,7 @@ typedef struct		s_champ
 
 	int 			carr_count;
 //	carriage
-	t_carr			*carriage;
+//	t_carr			*carriage;
 }					t_champ;
 
 //	flags struct
@@ -197,8 +197,10 @@ typedef struct		s_data
 	int				speed;
 	int 			max_checks;
 	int				nb;
+	int				car_count;
 	t_fl			fl;
 	t_champ			*champs;
+	t_carr			*carr;
 	t_map			map[MEM_SIZE];
 	t_print			print;
 }					t_data;
