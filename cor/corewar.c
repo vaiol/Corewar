@@ -39,12 +39,7 @@ void	read_cell(t_data *data, t_carr *carr)
 void	move_to_temp(t_data *data, t_carr *current)
 {
 	data->map[current->index].carriage = 0;
-
 	current->index = current->index + current->t_ind;
-
-//	if (current->op.opcode == 9 && data->print.cycle == 4800)
-//		ft_printf("id = %i (to %i) \n", current->id, current->index);
-
 	if (current->index > 0)
 		current->index = current->index % MEM_SIZE;
 	if (current->index < 0)
@@ -57,7 +52,6 @@ void	move_to_temp(t_data *data, t_carr *current)
 void	move_carriage(t_data *data, t_carr *current)
 {
 	data->map[current->index].carriage = 0;
-
 	if (current->index < 0)
 		current->index = (MEM_SIZE - 1) - current->index;
 	if (current->index >= MEM_SIZE - 1)
@@ -66,21 +60,20 @@ void	move_carriage(t_data *data, t_carr *current)
 	data->map[current->index].carriage = 1;
 }
 
-t_carr	*wait_carriage(t_data *data, t_carr *current)
+void	wait_carriage(t_data *data, t_carr *current)
 {
 	current->op.cycles--;
 	if (current->op.cycles == 0)
 	{
 		if (current->op.opcode)
 			get_octal_coding(data, current, current->g_int);
-
 		if (current->op.opcode == 12 || current->op.opcode == 15)
 		{
 			move_to_temp(data, current);
 			if (current->valid == TRUE)
 			{
-				current = function_fork_lfork(data, current, current->op.opcode);
-				return (current);
+				function_fork_lfork(data, current, current->op.opcode);
+				return ;
 			}
 		}
 		else
@@ -90,7 +83,7 @@ t_carr	*wait_carriage(t_data *data, t_carr *current)
 		}
 		move_to_temp(data, current);
 	}
-	return (current);
+	return ;
 }
 
 void 	decrease_cicle_to_die(t_data *data)
@@ -132,35 +125,6 @@ void	time_to_die(t_data *data)
 	print_cycle_to_die(data);
 }
 
-//void	time_to_die(t_data *data)
-//{
-//	int n;
-//	t_carr *current;
-//
-//	n = -1;
-//	while (++n < data->count)
-//	{
-//		current = data->champs[n].carriage;
-//		while (current != NULL)
-//		{
-//			if (current->live == 0)
-//				kill_carriage(data, current);
-//			current->live = 0;
-//			current = current->next;
-//		}
-//	}
-//	data->max_checks++;
-//	if (data->print.nbr_live > NBR_LIVE)
-//		decrease_cicle_to_die(data);
-//	else
-//		check_max_checks(data);
-//	data->print.time_to_die = data->print.cycle_to_die;
-//	data->print.nbr_live = 0;
-//	if (count_processes(data) == 0)
-//		print_winner(data);
-//	print_cycle_to_die(data);
-//}
-
 void	carriage_cycle(t_data *data, t_carr *carr)
 {
 	if (carr->op.cycles == 0)
@@ -190,27 +154,6 @@ void	manage_corewar(t_data *data)
 	data->print.time_to_die--;
 }
 
-//void	manage_corewar(t_data *data)
-//{
-//	int		n;
-//	t_carr *current;
-//
-//	n = -1;
-//	while (++n < data->count)
-//	{
-//		current = data->champs[n].carriage;
-//		while (current != NULL)
-//		{
-//			carriage_cycle(data, current);
-//			current = current->next;
-//		}
-//	}
-//	if (data->print.time_to_die == 0)
-//		time_to_die(data);
-//	data->print.cycle++;
-//	data->print.time_to_die--;
-//}
-
 void	corewar_l(t_data *data)
 {
 	while (TRUE)
@@ -222,6 +165,8 @@ void	corewar_l(t_data *data)
 
 void	corewar(t_data *data)
 {
+	int i;
+
 	if (data->fl.v == 1 || data->fl.l == 1)
 	{
 		if (data->fl.v == 1)
@@ -231,11 +176,24 @@ void	corewar(t_data *data)
 	}
 	else if (data->fl.flags == 0 || (data->fl.a == 1 && data->fl.flags == 1))
 	{
+		if (data->dump != 0)
+		{
+			i = -1;
+			while (++i < data->dump)
+			{
+				ft_printf("%i\n", i);
+				manage_corewar(data);
+			}
+
+			print_map(data);
+		}
+		else
+		{
+			while (1)
+				manage_corewar(data);
+		}
 		//	for testing
 //		print_map(data);
 //		ft_printf("Use -n flag\n");
-
-		while (1)
-			manage_corewar(data);
 	}
 }

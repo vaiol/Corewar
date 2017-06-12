@@ -160,7 +160,11 @@ void	check_flags(t_data *data, int argc, char **argv)
 	if (argv[data->index][0] == '-')
 		get_flag(data, argc, argv);
 	else
+	{
+		data->champs[data->nb].nb_set = 0;
 		manage_file(data, argv[data->index], data->nb);
+	}
+
 
 	data->index++;
 	check_flags(data, argc, argv);

@@ -25,15 +25,11 @@ int 	get_indirect_from_map(t_map *map, int index)
 	unsigned char	str[4];
 	int		nbr;
 
-//	ft_printf("get indirect index = %i\n", index);
-
 	if (index > MEM_SIZE)
 	{
 		ft_printf("INDEX > MEM SIZE INDEX = %i\n", index);
 		exit(1);
 	}
-
-
 	str[0] = map[index].cell;
 	str[1] = map[index + 1].cell;
 	str[2] = map[index + 2].cell;
@@ -175,40 +171,44 @@ void	function_live(t_data *data, t_carr *carr) {
 	int n;
 
 	n = -1;
-//	while (++n < data->count)
-//	{
-//		if (data->champs[n].nb_set == unsigned_to_int(carr->op.args[0]))
-//		{
-//			data->champs[n].last_live = data->print.cycle;
-//			if (data->fl.v == 0)
-//			{
-////				ft_printf("A process shows that player %i ", carr->pn);
-////				ft_printf("(%s) is alive\n", data->champs[carr->pn - 1].prog_name);
-//			}
-//
-//		}
-//
-//	}
+
 	while (++n < data->count)
 	{
-//	if (carr->op.args[0] == -carr->pn)
- 		if (data->champs[n].nb == -carr->pn)
+		if (-carr->op.args[0] == data->champs[n].nb)
 		{
-			data->champs[carr->pn - 1].last_live = data->print.cycle;
+			data->champs[n].last_live = data->print.cycle;
+			data->winner = n;
 			if (data->fl.v == 0)
 			{
 //				ft_printf("A process shows that player %i ", carr->pn);
 //				ft_printf("(%s) is alive\n", data->champs[carr->pn - 1].prog_name);
 			}
+		}
 	}
-}
+
+//	while (++n < data->count)
+//	{
+//		ft_printf("compare : %i == %i\n", data->champs[n].nb, carr->pn);
+// 		if (data->champs[n].nb == carr->pn)
+//		{
+////			ft_printf("carr pn = %i\n", carr->pn);
+//			data->champs[carr->pn - 1].last_live = data->print.cycle;
+//			if (data->fl.v == 0)
+//			{
+////				ft_printf("A process shows that player %i ", carr->pn);
+////				ft_printf("(%s) is alive\n", data->champs[carr->pn - 1].prog_name);
+//			}
+//	}
 	print_function(data, carr);
 }
 
 void	function_zjmp(t_data *data, t_carr *carr)
 {
 	if (carr->carry == TRUE)
-		carr->t_ind = carr->op.args[0];
+	{
+		carr->t_ind = (carr->op.args[0] % IDX_MOD);
+	}
+//		carr->t_ind = carr->op.args[0];
 	print_function(data, carr);
 //	ft_printf("jump from %i to %i\n", carr->index, carr->t_ind);
 }

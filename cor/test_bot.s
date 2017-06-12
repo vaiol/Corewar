@@ -17,9 +17,13 @@
 
 #sti r5, 15, %100
 #sti r12, %:init, %104
-aff r1
-aff r1
+#aff r1
+#aff r1
 #lfork %5000
+
+and r2, r3, r4
+zjmp %-757
+
 
 #ld %10, r96
 

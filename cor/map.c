@@ -10,7 +10,7 @@ void	print_map(t_data *data)
 	while (i < MEM_SIZE)
 	{
 		if (data->map[i].pn == 5)
-			ft_printf("%s%02x ", BLACK, data->map[i].cell);
+			ft_printf("%s%02x ", WHITE, data->map[i].cell);
 		if (data->map[i].pn == 1)
 			ft_printf("%s%02x ", GREEN, data->map[i].cell);
 		if (data->map[i].pn == 2)
@@ -51,6 +51,7 @@ void	fill_map(t_data *data, t_champ *champ)
 void	prefill_map(t_data *data)
 {
 	int i;
+
 
 //	if allocate memory for map
 //	data->map = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE);

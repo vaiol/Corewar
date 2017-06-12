@@ -59,8 +59,8 @@ typedef char	t_arg_type;
 # define BLUE "\x1B[34m\0"
 # define RED "\x1B[31m\0"
 # define CYAN "\x1B[36m\0"
+# define WHITE "\x1B[37m\0"
 # define BLACK "\x1B[30m\0"
-# define EOC "\x1B[0m\0"
 
 // game speed (visual update)
 
@@ -198,6 +198,7 @@ typedef struct		s_data
 	int 			max_checks;
 	int				nb;
 	int				car_count;
+	int				winner;
 	t_fl			fl;
 	t_champ			*champs;
 	t_carr			*carr;

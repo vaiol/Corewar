@@ -125,8 +125,16 @@ void	manage_file(t_data *data, char *argv, int nb)
 	lseek(fd, 0, SEEK_SET);
 	if (size < 0)
 		champ_error_handler("File is not valid", argv);
+
+	ft_printf("file : nb = %i\n", data->champs[nb].nb_set);
+
 	if (data->champs[nb].nb_set == 0)
+	{
+		ft_printf("was here: set_default_num\n");
 		set_default_num(data, nb, -1);
+	}
+
+
 	content = ft_strnew((size_t)size);
 	read(fd, content, (size_t)size);
 	data->champs[nb].nb = nb + 1;

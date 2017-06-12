@@ -44,6 +44,7 @@ void	count_champs(t_data *data, char **argv)
 	if (data->count == 0)
 		error_handler("Error : No players");
 	data->champs = (t_champ *)malloc(sizeof(t_champ) * data->count);
+	ft_printf("count = %i\n", data->count);
 }
 
 void	check_champ_nb(t_data *data)
@@ -60,7 +61,7 @@ void	check_champ_nb(t_data *data)
 			if (i != n)
 			{
 				if (data->champs[i].nb_set == data->champs[n].nb_set)
-					error_handler("Error : number or players match");
+					error_handler("Error : players with same number");
 			}
 		}
 	}
@@ -74,14 +75,17 @@ int		main(int argc, char **argv)
 		error_handler_usage();
 
 	create_data(&data);
+
 //	look for flags and save them to data->fl + add flag "flags";
 	count_champs(&data, argv);
+
 	check_flags(&data, argc, argv);
+
 	check_champ_nb(&data);
 
-//	get_files(&data, argv);
-
 	init_corewar(&data);
+
+//	while (1);
 //
 	corewar(&data);
 

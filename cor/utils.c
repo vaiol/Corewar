@@ -23,7 +23,6 @@ int			char_to_int(unsigned char *str)
 	nbr += str[1] << 16;
 	nbr += str[2] << 8;
 	nbr += str[3];
-
 	return (nbr);
 }
 
