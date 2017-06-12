@@ -1,6 +1,14 @@
-//
-// Created by Ivan Solomakhin on 5/25/17.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate_function.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: isolomak <isolomak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/12 17:43:57 by isolomak          #+#    #+#             */
+/*   Updated: 2017/06/12 17:56:08 by isolomak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "corewar.h"
 
@@ -69,7 +77,6 @@ int		validate_c(t_carr *carr, unsigned opcode)
 					return (TRUE);
 	}
 	return (FALSE);
-
 }
 
 int		validate_function(t_carr *carr, unsigned opcode)
@@ -81,15 +88,10 @@ int		validate_function(t_carr *carr, unsigned opcode)
 	{
 		if (carr->arg_type[i] == T_REG)
 		{
-//			ft_printf("was here\n");
 			if (carr->op.args[i] < 1 || carr->op.args[i] > 16)
-			{
-//				ft_printf("RETURN FALSE\n");
 				return (FALSE);
-			}
 		}
 	}
-
 	if (validate_a(carr, opcode) == TRUE)
 		return (TRUE);
 	if (validate_b(carr, opcode) == TRUE)

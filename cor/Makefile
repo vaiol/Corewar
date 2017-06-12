@@ -3,22 +3,35 @@ NAME    = corewar
 CFLAGS  = -Wall -Wextra -Werror
 CC      = gcc
 
-SRCS    =   carriage.c \
-            corewar.c \
-            error_handler.c \
-            get_files.c \
-            get_flags.c \
-            init.c \
-            main.c \
-            manage_function.c \
-            map.c \
+SRCS    =   champ_functions/add_sub.c \
+            champ_functions/aff.c \
+            champ_functions/and_or_xor.c \
+            champ_functions/fork_lfork.c \
+            champ_functions/ld_ldi_lldi.c \
+            champ_functions/live.c \
+            champ_functions/st_sti.c \
+            champ_functions/zjmp.c \
             nc/nc_print.c \
             nc/nc_print_stat.c \
             nc/nc_print_winner.c \
             nc/nc_utils.c \
             nc/ncurses.c \
+            carriage.c \
+            carriage_func.c \
+            champ_checks.c \
+            corewar.c \
+            error_handler.c \
+            get_flags.c \
+            init.c \
+            main.c \
+            manage_files.c \
+            manage_function.c \
+            map.c \
+            opcode.c \
             parse_function.c \
             print_logs.c \
+            set_num_and_pos.c \
+            time_to_die.c \
             utils.c \
             validate_function.c \
             winner.c

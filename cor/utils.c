@@ -1,21 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: isolomak <isolomak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/12 17:43:18 by isolomak          #+#    #+#             */
+/*   Updated: 2017/06/12 17:56:04 by isolomak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
-void		count_files(t_data *data, char **argv)
+int				unsigned_to_int(unsigned nbr)
 {
-	int i;
+	int x;
 
-	i = 1;
-	while (argv[i])
-	{
-		if (argv[i][0] != '-')
-			data->count++;
-		i++;
-	}
-	if (data->count > 4)
-		error_handler("Error : To much players");
+	x = (int16_t)nbr;
+	return (x);
 }
 
-int			char_to_int(unsigned char *str)
+int				char_to_int(unsigned char *str)
 {
 	int nbr;
 
@@ -26,7 +31,7 @@ int			char_to_int(unsigned char *str)
 	return (nbr);
 }
 
-char		*to_two_base(unsigned char c)
+char			*to_two_base(unsigned char c)
 {
 	int		i;
 	int		j;
@@ -49,23 +54,20 @@ char		*to_two_base(unsigned char c)
 
 unsigned char	*int_to_str(int n)
 {
-//	unsigned char	str[4];
-
-	unsigned char	*str;
+	unsigned char *str;
 
 	str = (unsigned char *)malloc(sizeof(char) * 4);
-
-	str[0] = (unsigned char) ((n >> 24) & 0xFF);
-	str[1] = (unsigned char) ((n >> 16) & 0xFF);
-	str[2] = (unsigned char) ((n >> 8) & 0xFF);
-	str[3] = (unsigned char) (n & 0xFF);
+	str[0] = (unsigned char)((n >> 24) & 0xFF);
+	str[1] = (unsigned char)((n >> 16) & 0xFF);
+	str[2] = (unsigned char)((n >> 8) & 0xFF);
+	str[3] = (unsigned char)(n & 0xFF);
 	return (str);
 }
 
-int		count_processes(t_data *data)
+int				count_processes(t_data *data)
 {
 	int		processes;
-	t_carr *current;
+	t_carr	*current;
 
 	processes = 0;
 	current = data->carr;
@@ -76,23 +78,3 @@ int		count_processes(t_data *data)
 	}
 	return (processes);
 }
-
-//int		count_processes(t_data *data)
-//{
-//	int		n;
-//	int		processes;
-//	t_carr *current;
-//
-//	processes = 0;
-//	n = -1;
-//	while (++n < data->count)
-//	{
-//		current = data->champs[n].carriage;
-//		while (current != NULL)
-//		{
-//			processes++;
-//			current = current->next;
-//		}
-//	}
-//	return (processes);
-//}

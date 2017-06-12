@@ -1,6 +1,14 @@
-//
-// Created by Ivan Solomakhin on 6/7/17.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   winner.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: isolomak <isolomak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/12 17:45:27 by isolomak          #+#    #+#             */
+/*   Updated: 2017/06/12 17:56:32 by isolomak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "corewar.h"
 
@@ -14,8 +22,6 @@ int		get_winner(t_data *data)
 	last_live = 0;
 	n = -1;
 	while (++n < data->count)
-//	n = data->count;
-//	while (--n >= 0)
 	{
 		ft_printf("n = %i\n", n);
 		if (data->champs[n].last_live >= last_live)
@@ -32,10 +38,9 @@ void	print_winner(t_data *data)
 	char	*name;
 	int		winner;
 
-//	winner = get_winner(data);
 	winner = data->winner;
 	if (data->fl.v > 0)
-		nc_print_winner(data, winner);
+		nc_print_winner(data, &data->print, winner);
 	else
 	{
 		name = data->champs[winner].prog_name;

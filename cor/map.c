@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: isolomak <isolomak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/12 17:41:36 by isolomak          #+#    #+#             */
+/*   Updated: 2017/06/12 17:55:36 by isolomak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 void	print_map(t_data *data)
@@ -19,9 +31,6 @@ void	print_map(t_data *data)
 			ft_printf("%s%02x ", RED, data->map[i].cell);
 		if (data->map[i].pn == 4)
 			ft_printf("%s%02x ", CYAN, data->map[i].cell);
-
-//		ft_printf("%s%02x ", RED, data->map[i].cell);
-
 		if (x >= 64)
 		{
 			ft_printf("\n");
@@ -30,7 +39,7 @@ void	print_map(t_data *data)
 		x++;
 		i++;
 	}
-};
+}
 
 void	fill_map(t_data *data, t_champ *champ)
 {
@@ -52,9 +61,6 @@ void	prefill_map(t_data *data)
 {
 	int i;
 
-
-//	if allocate memory for map
-//	data->map = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE);
 	i = 0;
 	while (i < MEM_SIZE)
 	{

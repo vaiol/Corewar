@@ -1,6 +1,14 @@
-//
-// Created by Ivan Solomakhin on 5/21/17.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   nc_print_stat.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: isolomak <isolomak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/07 16:44:28 by isolomak          #+#    #+#             */
+/*   Updated: 2017/06/12 17:50:27 by isolomak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../corewar.h"
 
@@ -12,7 +20,6 @@ void	print_stat_status(t_data *data, WINDOW *win)
 		status = "PAUSED";
 	else
 		status = "RUNNING";
-
 	wmove(win, 6, 50 - ((ft_strlen(status) + 7) / 2));
 	if (data->print.status == 0)
 	{
@@ -40,23 +47,10 @@ void	print_stat_cycle(t_data *data, WINDOW *win)
 
 void	print_num_processes(t_data *data, WINDOW *win)
 {
-//	int		n;
 	int		processes;
-//	t_carr *current;
 
-//	processes = 0;
 	processes = count_processes(data);
-//	n = -1;
-//	while (++n < data->count)
-//	{
-//		current = data->champs[n].carriage;
-//		while (current != NULL)
-//		{
-//			processes++;
-//			current = current->next;
-//		}
-//	}
-	wmove(win, 16, 50 - ((ft_strlen("Processes :") + 8 ) / 2));
+	wmove(win, 16, 50 - ((ft_strlen("Processes :") + 8) / 2));
 	wprintw(win, "Processes : %i   ", processes);
 }
 
@@ -69,7 +63,6 @@ void	print_champs(t_data *data, WINDOW *win)
 	height = 24;
 	wmove(win, height - 2, 50 - ft_strlen("Players") / 2);
 	wprintw(win, " Players");
-
 	n = -1;
 	while (++n < data->count)
 	{

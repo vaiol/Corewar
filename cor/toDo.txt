@@ -1,7 +1,5 @@
 add function aff;
 add MAX_LIVE check; done;
 
-!!!!! fix -n -22
-
 cd Documents/corewar/cor
 make && ./asm test_bot.s && ./corewar test.cor

@@ -1,6 +1,14 @@
-//
-// Created by Ivan Solomakhin on 5/21/17.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   nc_print.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: isolomak <isolomak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/10 16:49:23 by isolomak          #+#    #+#             */
+/*   Updated: 2017/06/12 17:50:23 by isolomak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../corewar.h"
 
@@ -30,9 +38,6 @@ void	nc_print_map(t_data *data, WINDOW *win)
 		print_cell(data->map[i].cell, win);
 		if (x >= 64)
 		{
-//
-//			wprintw(win, "%i ", y - 2);
-//
 			x = 0;
 			y++;
 			wmove(win, y, 3);

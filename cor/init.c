@@ -1,6 +1,14 @@
-//
-// Created by Ivan Solomakhin on 5/18/17.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: isolomak <isolomak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/12 17:32:53 by isolomak          #+#    #+#             */
+/*   Updated: 2017/06/12 17:55:17 by isolomak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "corewar.h"
 
@@ -9,9 +17,6 @@ void	init_map(t_data *data)
 	int n;
 
 	prefill_map(data);
-
-//	while (1);
-
 	n = -1;
 	while (++n < data->count)
 		fill_map(data, &data->champs[n]);
@@ -23,34 +28,26 @@ void	init_map(t_data *data)
 	data->winner = 0;
 }
 
-
 t_carr	*create_carriage(t_data *data, int n)
 {
-	int pn;
 	int		r;
 	t_carr	*carr;
 
-	pn = n + 1;
 	data->champs[n].last_live = 0;
 	data->champs[n].carr_count = 1;
 	carr = (t_carr *)malloc(sizeof(t_carr));
 	carr->pn = n + 1;
 	carr->valid = FALSE;
-//
 	carr->id = data->car_count;
 	data->car_count++;
-//
 	carr->g_int = -1;
-	carr->cycle = 0;
 	carr->live = 0;
 	carr->carry = FALSE;
 	carr->index = data->champs[n].start_pos;
 	carr->op.cycles = 1;
 	carr->op.opcode = 0;
 	carr->t_ind = 0;
-//	carr->reg[1] = -pn;
 	carr->reg[1] = data->champs[n].nb_set;
-	ft_printf("nb set = %i\n", carr->reg[1]);
 	r = 1;
 	while (++r < 17)
 		carr->reg[r] = 0;
@@ -61,7 +58,7 @@ t_carr	*create_carriage(t_data *data, int n)
 void	init_carriage(t_data *data)
 {
 	int		n;
-	t_carr *new_carr;
+	t_carr	*new_carr;
 
 	data->carr = NULL;
 	n = -1;
@@ -82,5 +79,4 @@ void	init_corewar(t_data *data)
 {
 	init_map(data);
 	init_carriage(data);
-
 }

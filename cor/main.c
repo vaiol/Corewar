@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: isolomak <isolomak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/12 16:08:45 by isolomak          #+#    #+#             */
+/*   Updated: 2017/06/12 17:55:24 by isolomak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
-
-
 
 void	create_data(t_data *data)
 {
@@ -8,13 +18,11 @@ void	create_data(t_data *data)
 	data->count = 0;
 	data->dump = 0;
 	data->nb = 0;
-
 	data->fl.flags = 0;
 	data->fl.v = 0;
 	data->fl.l = 0;
 	data->fl.a = 0;
 	data->fl.n = 0;
-
 	data->print.cycle = 0;
 	data->print.cycle_to_die = CYCLE_TO_DIE;
 	data->print.status = 0;
@@ -36,6 +44,7 @@ void	count_champs(t_data *data, char **argv)
 				if (ft_strcmp(split[1], "cor") == 0)
 					data->count++;
 			}
+			ft_arrdel(split);
 		}
 		i++;
 	}
@@ -44,7 +53,6 @@ void	count_champs(t_data *data, char **argv)
 	if (data->count == 0)
 		error_handler("Error : No players");
 	data->champs = (t_champ *)malloc(sizeof(t_champ) * data->count);
-	ft_printf("count = %i\n", data->count);
 }
 
 void	check_champ_nb(t_data *data)
@@ -73,23 +81,11 @@ int		main(int argc, char **argv)
 
 	if (argc == 1)
 		error_handler_usage();
-
 	create_data(&data);
-
-//	look for flags and save them to data->fl + add flag "flags";
 	count_champs(&data, argv);
-
 	check_flags(&data, argc, argv);
-
 	check_champ_nb(&data);
-
 	init_corewar(&data);
-
-//	while (1);
-//
 	corewar(&data);
-
 	return (0);
 }
-
-///corewar [-dump nbr_cycles] [[-n number] champion1.cor] ...

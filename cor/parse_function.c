@@ -1,14 +1,16 @@
-//
-// Created by Ivan Solomakhin on 5/24/17.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_function.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: isolomak <isolomak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/12 16:54:00 by isolomak          #+#    #+#             */
+/*   Updated: 2017/06/12 17:55:46 by isolomak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "corewar.h"
-
-//void	check_end_of_map(t_carr *carr)
-//{
-//	if (carr->t_ind > MEM_SIZE)
-//		carr->t_ind = 0;
-//}
 
 int		get_register(t_data *data, t_carr *carr, int i)
 {
@@ -16,16 +18,11 @@ int		get_register(t_data *data, t_carr *carr, int i)
 	int	nb_reg;
 
 	index = carr->index + carr->t_ind;
-
 	if (index >= MEM_SIZE)
 		index = (carr->index + carr->t_ind) - MEM_SIZE;
-
 	nb_reg = (int)data->map[index].cell;
-
 	carr->arg_type[i] = T_REG;
 	carr->t_ind++;
-//	ft_printf("register = %i from cell nb = %i with %x \n", nb_reg, index, data->map[index].cell);
-
 	return (nb_reg);
 }
 
@@ -33,11 +30,10 @@ int		get_direct(t_data *data, t_carr *carr, unsigned label, int i)
 {
 	unsigned int	nbr;
 	unsigned char	str[4];
-	int j;
-	int index;
+	int				j;
+	int				index;
 
 	index = carr->index + carr->t_ind;
-
 	j = -1;
 	while (++j < 4)
 	{
@@ -47,75 +43,35 @@ int		get_direct(t_data *data, t_carr *carr, unsigned label, int i)
 		index++;
 		carr->t_ind++;
 	}
-
 	if (label)
 	{
 		nbr = (short)(str[0] << 8) + str[1];
-//		ft_printf("direct = %i %i, str[0] = %x & str[1] = %x\n", nbr, label, str[0], str[1]);
 		carr->t_ind -= 2;
 	}
 	else
 		nbr = (str[0] << 24) + (str[1] << 16) + (str[2] << 8) + str[3];
-
 	carr->arg_type[i] = T_DIR;
-
 	return (nbr);
 }
 
-//int		get_direct(t_data *data, t_carr *carr, unsigned label, int i)
-//{
-//	unsigned int	nbr;
-//	unsigned char	str[4];
-//
-//	str[0] = data->map[carr->index + carr->t_ind].cell;
-//	carr->t_ind++;
-//	str[1] = data->map[carr->index + carr->t_ind].cell;
-//	carr->t_ind++;
-//	str[2] = data->map[carr->index + carr->t_ind].cell;
-//	carr->t_ind++;
-//	str[3] = data->map[carr->index + carr->t_ind].cell;
-//	carr->t_ind++;
-//	if (label)
-//	{
-//		nbr = (short)(str[0] << 8) + str[1];
-//		carr->t_ind -= 2;
-//	}
-//	else
-//		nbr = (str[0] << 24) + (str[1] << 16) + (str[2] << 8) + str[3];
-//
-//	carr->arg_type[i] = T_DIR;
-////	carr->op.count_args++;
-//	return (nbr);
-//}
-
 int		get_indirect(t_data *data, t_carr *carr, int i)
 {
-	unsigned int		nbr;
+	unsigned int	nbr;
 	unsigned char	one;
 	unsigned char	two;
-
-	int 			index;
+	int				index;
 
 	index = carr->index + carr->t_ind;
-
 	if (index >= MEM_SIZE)
 		index = (carr->index + carr->t_ind) - MEM_SIZE;
-
 	one = data->map[index].cell;
 	index++;
 	carr->t_ind++;
 	two = data->map[index].cell;
 	carr->t_ind++;
-
 	nbr = (short)((one << 8) + two);
-
-//	ft_printf("indirect = %i\n", nbr);
-
 	carr->arg_type[i] = T_IND;
-//	carr->op.count_args++;
-
 	return (nbr);
-
 }
 
 void	parse_octal(t_data *data, t_carr *carr, unsigned label)
@@ -129,11 +85,6 @@ void	parse_octal(t_data *data, t_carr *carr, unsigned label)
 	i = 0;
 	one = 0;
 	two = 1;
-
-//	ft_printf("Binary = %s t_id = %i index of = %i\n", carr->binary, carr->id, carr->index);
-
-//	ft_printf("was here\n");
-
 	while (two <= ((int)carr->op.count_args * 2) - 1)
 	{
 		if (carr->binary[one] == '0' && carr->binary[two] == '1')
@@ -146,6 +97,7 @@ void	parse_octal(t_data *data, t_carr *carr, unsigned label)
 		one += 2;
 		two += 2;
 	}
+	free(carr->binary);
 }
 
 void	parse_non_octal(t_data *data, t_carr *carr, unsigned label)

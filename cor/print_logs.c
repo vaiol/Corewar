@@ -1,6 +1,14 @@
-//
-// Created by Ivan Solomakhin on 6/6/17.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_logs.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: isolomak <isolomak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/12 17:42:24 by isolomak          #+#    #+#             */
+/*   Updated: 2017/06/12 17:55:49 by isolomak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "corewar.h"
 
@@ -34,20 +42,15 @@ void	print_movements(t_data *data, t_carr *carr)
 void	print_func_data(t_carr *carr)
 {
 	int arg;
+	int index;
 
-	if (carr->op.opcode == 9)
+	if (carr->op.opcode == 12)
 	{
-		if (carr->carry == TRUE)
-			ft_printf("OK");
-		else
-			ft_printf("FAILED");
+		index = (carr->index - carr->t_ind) + (carr->op.args[0] % IDX_MOD);
+		ft_printf("(%i)", index);
 	}
-	else if (carr->op.opcode == 12)
-		ft_printf("(%i)", (carr->index - carr->t_ind) + (carr->op.args[0] % IDX_MOD));
 	else if (carr->op.opcode == 15)
 		ft_printf("(%i)", carr->index - carr->t_ind + carr->op.args[0]);
-
-
 	else if (carr->op.opcode == 11)
 	{
 		arg = carr->op.args[2];
@@ -55,7 +58,8 @@ void	print_func_data(t_carr *carr)
 			arg = carr->reg[carr->op.args[2]];
 		ft_printf("\n%8c -> store to %i + %i ", '|', carr->op.args[1], arg);
 		ft_printf("= %i ", carr->op.args[1] + arg);
-		ft_printf("(with pc and mod %i) ", carr->index + (carr->op.args[1] + arg % IDX_MOD));
+		ft_printf("(with pc and mod ");
+		ft_printf("%i) ", carr->index + (carr->op.args[1] + arg % IDX_MOD));
 	}
 }
 
@@ -73,13 +77,19 @@ void	print_function(t_data *data, t_carr *carr)
 				ft_printf("r");
 			ft_printf("%i ", carr->op.args[i]);
 		}
-
+		if (carr->op.opcode == 9)
+		{
+			if (carr->carry == TRUE)
+				ft_printf("OK");
+			else
+				ft_printf("FAILED");
+		}
 		print_func_data(carr);
 		ft_printf("\n");
 	}
 }
 
-void 	print_cycle(t_data *data)
+void	print_cycle(t_data *data)
 {
 	if (data->fl.l > 0)
 	{

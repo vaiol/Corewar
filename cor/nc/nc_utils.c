@@ -1,8 +1,30 @@
-//
-// Created by Ivan Solomakhin on 5/21/17.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   nc_utils.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: isolomak <isolomak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/12 17:07:17 by isolomak          #+#    #+#             */
+/*   Updated: 2017/06/12 17:53:46 by isolomak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../corewar.h"
+
+void	change_speed(t_data *data, int key)
+{
+	if (key == 'w')
+		if (data->speed > 1)
+			data->speed--;
+	if (key == 'q')
+		if (data->speed > 11)
+			data->speed -= 10;
+	if (key == 'e')
+		data->speed++;
+	if (key == 'r')
+		data->speed += 10;
+}
 
 void	get_color(int pn, WINDOW *win)
 {

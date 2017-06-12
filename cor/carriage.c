@@ -1,6 +1,14 @@
-//
-// Created by Ivan Solomakhin on 5/18/17.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   carriage.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: isolomak <isolomak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/12 17:08:14 by isolomak          #+#    #+#             */
+/*   Updated: 2017/06/12 17:54:29 by isolomak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "corewar.h"
 
@@ -24,7 +32,7 @@ void	clear_op(t_carr *carr)
 	carr->op.label_size = 0;
 }
 
-t_carr	*kill_carriage(t_data *data, t_carr *carr)
+void	kill_carriage(t_data *data, t_carr *carr)
 {
 	t_carr *head;
 	t_carr *del;
@@ -34,29 +42,29 @@ t_carr	*kill_carriage(t_data *data, t_carr *carr)
 	head = data->carr;
 	if (head == carr)
 	{
-		if (head->next == NULL)
+		if (data->carr->next == NULL)
 		{
+			free(data->carr);
 			data->carr = NULL;
-			return (NULL);
+			return ;
 		}
-		data->carr = head->next;
-//		free (del);
-		return (data->carr);
+		free(data->carr);
+		data->carr = data->carr->next;
+		return ;
 	}
-	prev = head;
+	prev = data->carr;
 	while (prev->next != NULL && prev->next != carr)
 		prev = prev->next;
 	del = prev->next;
 	prev->next = prev->next->next;
 	free(del);
-	return (prev->next);
 }
 
 void	fork_carriage(t_data *data, t_carr *carr, int index)
 {
-	int r;
-	t_carr *new_carr;
-	t_carr *old_head;
+	int		r;
+	t_carr	*new_carr;
+	t_carr	*old_head;
 
 	data->champs[carr->pn - 1].carr_count++;
 	new_carr = (t_carr *)malloc(sizeof(t_carr));
