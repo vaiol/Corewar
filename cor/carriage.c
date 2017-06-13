@@ -48,8 +48,9 @@ void	kill_carriage(t_data *data, t_carr *carr)
 			data->carr = NULL;
 			return ;
 		}
-		free(data->carr);
+		head = data->carr;
 		data->carr = data->carr->next;
+		free(head);
 		return ;
 	}
 	prev = data->carr;
@@ -81,4 +82,6 @@ void	fork_carriage(t_data *data, t_carr *carr, int index)
 	old_head = data->carr;
 	new_carr->next = old_head;
 	data->carr = new_carr;
+	if (!data->carr)
+		error_handler("No new carr");
 }

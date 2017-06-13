@@ -16,6 +16,9 @@ void	init_map(t_data *data)
 {
 	int n;
 
+
+	data->map = (t_map *)malloc(sizeof(t_map) * MEM_SIZE);
+
 	prefill_map(data);
 	n = -1;
 	while (++n < data->count)

@@ -27,8 +27,9 @@ int		get_indirect_from_map(t_map *map, int index)
 
 	if (index > MEM_SIZE)
 	{
-		ft_printf("Error : INDEX > MEM SIZE INDEX = %i\n", index);
-		exit(1);
+		index = (index % MEM_SIZE);
+//		ft_printf("Error : INDEX > MEM SIZE INDEX = %i\n", index);
+//		exit(1);
 	}
 	str[0] = map[index].cell;
 	str[1] = map[index + 1].cell;
@@ -46,6 +47,8 @@ void	place_on_map(t_carr *carr, t_map *map, int nbr, int index)
 
 	bytes = int_to_str(nbr);
 	index = carr->index + (index % IDX_MOD);
+	if (index > 0)
+		index = index % MEM_SIZE;
 	i = -1;
 	while (++i < 4)
 	{
@@ -73,6 +76,7 @@ void	get_wait_cycle(t_carr *carr)
 			return ;
 		}
 	}
+	error_handler("Error : no opcode");
 }
 
 void	manage_function(t_data *data, t_carr *carr)

@@ -15,22 +15,22 @@
 void	function_live(t_data *data, t_carr *carr)
 {
 	int		n;
-	char	*name;
+//	char	*name;
 
 	carr->live++;
 	data->print.nbr_live++;
 	n = -1;
 	while (++n < data->count)
 	{
-		if (-carr->op.args[0] == data->champs[n].nb)
+		if (carr->op.args[0] == data->champs[n].nb_set)
 		{
 			data->champs[n].last_live = data->print.cycle;
 			data->winner = n;
 			if (data->fl.v == 0)
 			{
-				ft_printf("A process shows that player %i ", carr->pn);
-				name = data->champs[carr->pn - 1].prog_name;
-				ft_printf("(%s) is alive\n", name);
+//				ft_printf("A process shows that player %i ", carr->pn);
+//				name = data->champs[carr->pn - 1].prog_name;
+//				ft_printf("(%s) is alive\n", name);
 			}
 		}
 	}

@@ -64,6 +64,11 @@ void	wait_carriage(t_data *data, t_carr *current)
 
 void	carriage_cycle(t_data *data, t_carr *carr)
 {
+//	if (data->print.cycle > 16200)
+//	{
+//		printf("on cycle %i carr id = %i carr opcode = %i\n",data->print.cycle, carr->id, carr->op.opcode);
+//		printf("Was here %i\n", carr->op.cycles);
+//	}
 	if (carr->op.cycles == 0)
 	{
 		clear_op(carr);
@@ -73,4 +78,5 @@ void	carriage_cycle(t_data *data, t_carr *carr)
 	}
 	else
 		wait_carriage(data, carr);
+//	ft_printf("was here 2\n");
 }

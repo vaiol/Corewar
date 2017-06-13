@@ -156,7 +156,8 @@ typedef struct		s_data
 	t_fl			fl;
 	t_champ			*champs;
 	t_carr			*carr;
-	t_map			map[MEM_SIZE];
+//	t_map			map[MEM_SIZE];
+	t_map			*map;
 	t_print			print;
 }					t_data;
 

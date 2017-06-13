@@ -35,7 +35,7 @@ int		is_number(char *str)
 	int i;
 
 	i = -1;
-	if (str[0] == '-')
+	if (str[0] == '-' && str[1])
 		i++;
 	while (++i < (int)ft_strlen(str))
 	{
@@ -49,8 +49,12 @@ void	set_player_nbr(t_data *data, int argc, char **argv)
 {
 	if (++data->index < argc)
 	{
+
 		if (is_number(argv[data->index]) == TRUE)
 		{
+			if (ft_atoi(argv[data->index]) > 2147483647
+				|| ft_atoi(argv[data->index]) < -2147483648)
+				error_handler("Error : number of player bigger than int");
 			data->champs[data->nb].nb_set = ft_atoi(argv[data->index]);
 			data->index++;
 		}

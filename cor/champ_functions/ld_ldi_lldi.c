@@ -20,7 +20,7 @@ void	function_ld(t_data *data, t_carr *carr, int *args)
 		carr->reg[args[1]] = args[0];
 	else if (carr->arg_type[0] == T_IND)
 	{
-		index = carr->index + args[0];
+		index = carr->index + (args[0] % IDX_MOD);
 		carr->reg[args[1]] = get_indirect_from_map(data->map, index);
 	}
 	print_function(data, carr);
