@@ -75,6 +75,9 @@ void	init_carriage(t_data *data)
 			new_carr->next = data->carr;
 			data->carr = new_carr;
 		}
+
+		ft_printf("%i\n", data->champs[n].nb_set);
+
 	}
 }
 

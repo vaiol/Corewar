@@ -26,11 +26,7 @@ int		get_indirect_from_map(t_map *map, int index)
 	int				nbr;
 
 	if (index > MEM_SIZE)
-	{
 		index = (index % MEM_SIZE);
-//		ft_printf("Error : INDEX > MEM SIZE INDEX = %i\n", index);
-//		exit(1);
-	}
 	str[0] = map[index].cell;
 	str[1] = map[index + 1].cell;
 	str[2] = map[index + 2].cell;
@@ -47,8 +43,10 @@ void	place_on_map(t_carr *carr, t_map *map, int nbr, int index)
 
 	bytes = int_to_str(nbr);
 	index = carr->index + (index % IDX_MOD);
-	if (index > 0)
+//	if (index > 0)
 		index = index % MEM_SIZE;
+//	if (index < 0)
+//		index = MEM_SIZE + (index % MEM_SIZE);
 	i = -1;
 	while (++i < 4)
 	{

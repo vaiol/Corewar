@@ -166,7 +166,7 @@ typedef struct		s_data
 */
 void				clear_op(t_carr *carr);
 void				fork_carriage(t_data *data, t_carr *carr, int index);
-void				kill_carriage(t_data *data, t_carr *carr);
+//void				kill_carriage(t_data *data, t_carr *carr);
 
 /*
  ** carriage_func.c
