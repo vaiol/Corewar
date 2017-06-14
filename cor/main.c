@@ -28,56 +28,48 @@ void	create_data(t_data *data)
 	data->print.status = 0;
 }
 
-void	count_champs(t_data *data, char **argv)
+void	order_champs(t_data *data)
 {
+	int		n;
 	int		i;
-	char	**split;
+	t_champ	tmp;
 
-	i = 1;
-	while (argv[i])
+	i = -1;
+	while (++i < data->count)
 	{
-		if (argv[i][0] != '-')
+		n = -1;
+		while (++n < data->count)
 		{
-			split = ft_strsplit(argv[i], '.');
-			if (ft_arrlen(split) > 1)
+			if (n + 1 < data->count)
 			{
-				if (ft_strcmp(split[1], "cor") == 0)
-					data->count++;
+				if (data->champs[n].nb_set < data->champs[n + 1].nb_set)
+				{
+					tmp = data->champs[n];
+					data->champs[n] = data->champs[n + 1];
+					data->champs[n + 1] = tmp;
+				}
 			}
-			ft_arrdel(split);
 		}
-		i++;
 	}
-	if (data->count > 4)
-		error_handler("Error : To much players");
-	if (data->count == 0)
-		error_handler("Error : No players");
-	data->champs = (t_champ *)malloc(sizeof(t_champ) * data->count);
 }
 
 void	check_champ_nb(t_data *data)
 {
-	int	n;
-	int i;
+	int n;
 
 	n = -1;
 	while (++n < data->count)
 	{
-		i = -1;
-		while (++i < data->count)
-		{
-			if (i != n)
-			{
-				if (data->champs[i].nb_set == data->champs[n].nb_set)
-					error_handler("Error : players with same number");
-			}
-		}
+		if (data->champs[n].nb_set == 0)
+			set_default_num(data, n, -1);
 	}
+	order_champs(data);
 }
 
 int		main(int argc, char **argv)
 {
-	t_data data;
+	int		n;
+	t_data	data;
 
 	if (argc == 1)
 		error_handler_usage();
@@ -85,6 +77,12 @@ int		main(int argc, char **argv)
 	count_champs(&data, argv);
 	check_flags(&data, argc, argv);
 	check_champ_nb(&data);
+	n = -1;
+	while (++n < data.count)
+	{
+		set_start_pos(&data, &data.champs[n], n);
+		ft_printf("nbset = %i start pos = %i\n", data.champs[n].nb_set, data.champs[n].start_pos);
+	}
 	init_corewar(&data);
 	corewar(&data);
 	return (0);

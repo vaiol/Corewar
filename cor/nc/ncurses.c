@@ -106,13 +106,13 @@ void	init_ncurses(t_data *data, t_print *print)
 	title = "CoreWar v. 1.1";
 	help = "Press 'space' to start/pause. Press 'x' to quit.";
 	initscr();
-	if (COLS < 361 || LINES < 87)
-	{
-		ft_printf("Error : Please use terminal in full screen mode ");
-		ft_printf("for -v flag\n");
-		endwin();
-		exit(1);
-	}
+//	if (COLS < 361 || LINES < 87)
+//	{
+//		ft_printf("Error : Please use terminal in full screen mode ");
+//		ft_printf("for -v flag\n");
+//		endwin();
+//		exit(1);
+//	}
 	noecho();
 	curs_set(FALSE);
 	cbreak();

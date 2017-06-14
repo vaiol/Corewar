@@ -45,17 +45,30 @@ int		is_number(char *str)
 	return (TRUE);
 }
 
+void	set_nbr(t_data *data, int nbr)
+{
+	int n;
+
+	n = -1;
+	while (++n < data->count)
+	{
+		if (data->champs[n].nb_set == nbr)
+			data->champs[n].nb_set = 0;
+	}
+	data->champs[data->nb].nb_set = nbr;
+}
+
 void	set_player_nbr(t_data *data, int argc, char **argv)
 {
 	if (++data->index < argc)
 	{
-
 		if (is_number(argv[data->index]) == TRUE)
 		{
-			if (ft_atoi(argv[data->index]) > 2147483647
-				|| ft_atoi(argv[data->index]) < -2147483648)
-				error_handler("Error : number of player bigger than int");
-			data->champs[data->nb].nb_set = ft_atoi(argv[data->index]);
+			if (ft_atoi(argv[data->index]) > 4
+				|| ft_atoi(argv[data->index]) < 0)
+				error_handler_usage();
+			set_nbr(data, -ft_atoi(argv[data->index]));
+//			data->champs[data->nb].nb_set = -ft_atoi(argv[data->index]);
 			data->index++;
 		}
 		if (data->index < argc)

@@ -36,6 +36,7 @@ int		get_winner(t_data *data)
 void	print_winner(t_data *data)
 {
 	char	*name;
+	int		nbr;
 	int		winner;
 
 	winner = data->winner;
@@ -44,7 +45,8 @@ void	print_winner(t_data *data)
 	else
 	{
 		name = data->champs[winner].prog_name;
-		ft_printf("Contestant %i, \"%s\", has won !\n", winner + 1, name);
+		nbr = data->champs[winner].nb_set;
+		ft_printf("Contestant %i, \"%s\", has won !\n", nbr, name);
 		shut_down_nc(data);
 	}
 }

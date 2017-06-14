@@ -16,9 +16,7 @@ void	init_map(t_data *data)
 {
 	int n;
 
-
 	data->map = (t_map *)malloc(sizeof(t_map) * MEM_SIZE);
-
 	prefill_map(data);
 	n = -1;
 	while (++n < data->count)
@@ -39,7 +37,8 @@ t_carr	*create_carriage(t_data *data, int n)
 	data->champs[n].last_live = 0;
 	data->champs[n].carr_count = 1;
 	carr = (t_carr *)malloc(sizeof(t_carr));
-	carr->pn = n + 1;
+//	carr->pn = n + 1;
+	carr->pn = -data->champs[n].nb_set;
 	carr->valid = FALSE;
 	carr->id = data->car_count;
 	data->car_count++;
@@ -75,8 +74,7 @@ void	init_carriage(t_data *data)
 			new_carr->next = data->carr;
 			data->carr = new_carr;
 		}
-
-		ft_printf("%i\n", data->champs[n].nb_set);
+		ft_printf("%i == %i\n", data->champs[n].nb_set, data->carr->pn);
 
 	}
 }

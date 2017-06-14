@@ -39,12 +39,12 @@ void	manage_file(t_data *data, char *argv, int nb)
 	lseek(fd, 0, SEEK_SET);
 	if (size < 0)
 		champ_error_handler("File is not valid", argv);
-	if (data->champs[nb].nb_set == 0)
-		set_default_num(data, nb, -1);
+//	if (data->champs[nb].nb_set == 0)
+//		set_default_num(data, nb, -1);
 	content = ft_strnew((size_t)size);
 	read(fd, content, (size_t)size);
 	data->champs[nb].nb = nb + 1;
-	set_start_pos(data, &data->champs[nb], nb);
+//	set_start_pos(data, &data->champs[nb], nb);
 	data->champs->file_name = argv;
 	data->champs[nb].real_prog_size = (size_t)size;
 	champ_check(&data->champs[nb], content);

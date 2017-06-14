@@ -20,6 +20,7 @@ SRCS    =   champ_functions/add_sub.c \
             carriage_func.c \
             champ_checks.c \
             corewar.c \
+            count_champs.c \
             error_handler.c \
             get_flags.c \
             init.c \

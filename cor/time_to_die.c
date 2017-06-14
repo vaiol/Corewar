@@ -27,7 +27,6 @@ void	check_max_checks(t_data *data)
 		decrease_cicle_to_die(data);
 }
 
-
 void	kill_carriage(t_data *data)
 {
 	t_carr	*current;
@@ -62,7 +61,6 @@ void	kill_carriage(t_data *data)
 
 void	time_to_die(t_data *data)
 {
-
 	kill_carriage(data);
 	data->max_checks++;
 	if (data->print.nbr_live > NBR_LIVE)
@@ -75,7 +73,7 @@ void	time_to_die(t_data *data)
 		print_winner(data);
 	print_cycle_to_die(data);
 }
-//
+
 //void	time_to_die(t_data *data)
 //{
 //	t_carr *current;

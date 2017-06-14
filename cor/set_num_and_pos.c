@@ -25,7 +25,7 @@ void	set_default_num(t_data *data, int nb, int number)
 	int n;
 
 	n = -1;
-	while (++n < nb)
+	while (++n < data->count)
 	{
 		if (data->champs[n].nb_set == number)
 		{

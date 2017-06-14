@@ -3,7 +3,7 @@
 # l'annee derniere
 #     VOALA
 #
-.name		"OK"
+.name		"Test"
 .comment	"Jour J"
 
 l2:

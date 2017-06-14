@@ -183,6 +183,11 @@ void				corewar(t_data *data);
 void				manage_corewar(t_data *data);
 
 /*
+ ** count_champs.c
+ */
+void				count_champs(t_data *data, char **argv);
+
+/*
  ** error_handler.c
 */
 void				error_handler(char *str);

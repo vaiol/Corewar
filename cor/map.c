@@ -50,7 +50,7 @@ void	fill_map(t_data *data, t_champ *champ)
 	i = 0;
 	while (i < champ->prog_size)
 	{
-		data->map[i + pos].pn = champ->nb;
+		data->map[i + pos].pn = -champ->nb_set;
 		data->map[i + pos].cell = champ->program[i];
 		i++;
 	}
