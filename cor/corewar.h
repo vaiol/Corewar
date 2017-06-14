@@ -334,7 +334,9 @@ void				set_start_pos(t_data *data, t_champ *champ, int nb);
 */
 void				check_magic(t_champ *champ, char *content);
 int					check_prog_name(t_champ *champ, char *content, size_t sh);
-void				check_prog_size(t_champ *champ, size_t shift);
+//void				check_prog_size(t_champ *champ, size_t shift);
+int					check_prog_size(t_champ *champ, char *content, size_t shift);
+
 int					check_comment(t_champ *champ, char *content, size_t shift);
 void				check_program(t_champ *champ, char *content, size_t shift);
 

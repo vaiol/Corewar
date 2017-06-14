@@ -14,21 +14,23 @@
 
 void	function_st(t_data *data, t_carr *carr)
 {
-	int				i;
+//	int				i;
 	int				index;
-	unsigned char	*bytes;
+//	unsigned char	*bytes;
 
 	if (carr->arg_type[1] == T_IND)
 	{
-		bytes = int_to_str(carr->reg[carr->op.args[0]]);
-		index = carr->index + (carr->op.args[1] % IDX_MOD);
-		i = -1;
-		while (++i < 4)
-		{
-			data->map[index + i].cell = bytes[i];
-			data->map[index + i].pn = carr->pn;
-		}
-		free(bytes);
+//		bytes = int_to_str(carr->reg[carr->op.args[0]]);
+//		index = carr->index + (carr->op.args[1] % IDX_MOD);
+		index = carr->op.args[1];
+		place_on_map(carr, data->map, carr->reg[carr->op.args[0]], index);
+//		i = -1;
+//		while (++i < 4)
+//		{
+//			data->map[index + i].cell = bytes[i];
+//			data->map[index + i].pn = carr->pn;
+//		}
+//		free(bytes);
 	}
 	else if (carr->arg_type[1] == T_REG)
 		carr->reg[carr->op.args[1]] = carr->reg[carr->op.args[0]];

@@ -52,6 +52,8 @@ void	place_on_map(t_carr *carr, t_map *map, int nbr, int index)
 			pos = MEM_SIZE + pos;
 		if (pos >= MEM_SIZE)
 			pos = pos % MEM_SIZE;
+		if (pos >= MEM_SIZE || pos < 0)
+			error_handler("Error : Something wrong");
 		map[pos].cell = bytes[i];
 		map[pos].pn = carr->pn;
 	}
