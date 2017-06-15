@@ -15,7 +15,7 @@
 void	function_live(t_data *data, t_carr *carr)
 {
 	int		n;
-//	char	*name;
+	char	*name;
 
 	carr->live++;
 	data->print.nbr_live++;
@@ -28,9 +28,9 @@ void	function_live(t_data *data, t_carr *carr)
 			data->winner = n;
 			if (data->fl.v == 0)
 			{
-//				ft_printf("A process shows that player %i ", carr->pn);
-//				name = data->champs[carr->pn - 1].prog_name;
-//				ft_printf("(%s) is alive\n", name);
+				ft_printf("A process shows that player %i ", carr->pn);
+				name = data->champs[carr->pn - 1].prog_name;
+				ft_printf("(%s) is alive\n", name);
 			}
 		}
 	}

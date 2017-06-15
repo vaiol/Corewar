@@ -44,7 +44,7 @@ int		check_prog_name(t_champ *champ, char *content, size_t sh)
 	return (i);
 }
 
-int		check_prog_size(t_champ *champ, char *content, size_t shift)
+int		check_prog_size(t_champ *champ, char *content, size_t sh)
 {
 	unsigned char	str[4];
 	int				nbr;
@@ -52,24 +52,13 @@ int		check_prog_size(t_champ *champ, char *content, size_t shift)
 
 	i = -1;
 	while (++i < 4)
-		str[i] = content[shift + i];
-
+		str[i] = content[sh + i];
 	nbr = char_to_int(str);
-
-	ft_printf("prog size = %i\n", nbr);
-
 	if (nbr > CHAMP_MAX_SIZE)
 		champ_error_handler("Is too large", champ->file_name);
 	champ->prog_size = (unsigned)nbr;
 	return (i);
 }
-
-//void	check_prog_size(t_champ *champ, size_t shift)
-//{
-//	champ->prog_size = champ->real_prog_size - shift;
-//	if (champ->prog_size > CHAMP_MAX_SIZE)
-//		champ_error_handler("Is too large", champ->file_name);
-//}
 
 int		check_comment(t_champ *champ, char *content, size_t shift)
 {

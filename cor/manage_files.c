@@ -21,32 +21,12 @@ void	champ_check(t_champ *champ, char *content)
 	check_magic(champ, content);
 	i = (size_t)check_prog_name(champ, content, shift);
 	shift = i + shift + sizeof(champ->prog_size);
-
 	i = check_prog_size(champ, content, shift);
-
 	shift = i + shift;
 	i = check_comment(champ, content, shift);
-
-	ft_printf("comment = %s\n", champ->comment);
-
 	shift = i + shift + 4;
 	check_program(champ, content, shift);
 }
-
-//void	champ_check(t_champ *champ, char *content)
-//{
-//	size_t i;
-//	size_t shift;
-//
-//	shift = sizeof(unsigned int);
-//	check_magic(champ, content);
-//	i = (size_t)check_prog_name(champ, content, shift);
-//	shift = i + shift + sizeof(champ->prog_size) + 3;
-//	i = check_comment(champ, content, shift);
-//	shift = i + shift + 5;
-//	check_prog_size(champ, shift);
-//	check_program(champ, content, shift);
-//}
 
 void	manage_file(t_data *data, char *argv, int nb)
 {
@@ -60,12 +40,9 @@ void	manage_file(t_data *data, char *argv, int nb)
 	lseek(fd, 0, SEEK_SET);
 	if (size < 0)
 		champ_error_handler("File is not valid", argv);
-//	if (data->champs[nb].nb_set == 0)
-//		set_default_num(data, nb, -1);
 	content = ft_strnew((size_t)size);
 	read(fd, content, (size_t)size);
 	data->champs[nb].nb = nb + 1;
-//	set_start_pos(data, &data->champs[nb], nb);
 	data->champs->file_name = argv;
 	data->champs[nb].real_prog_size = (size_t)size;
 	champ_check(&data->champs[nb], content);

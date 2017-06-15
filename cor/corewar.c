@@ -19,7 +19,6 @@ void	manage_corewar(t_data *data)
 	current = data->carr;
 	while (current != NULL)
 	{
-//		if (current->op.cycles);
 		carriage_cycle(data, current);
 		current = current->next;
 	}

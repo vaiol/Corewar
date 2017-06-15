@@ -20,7 +20,7 @@ void	error_handler(char *str)
 
 void	champ_error_handler(char *str, char *champion)
 {
-	ft_printf("Error : %s %s\n", champion, str);
+	ft_printf("Error : %s %s\n", str, champion);
 	exit(1);
 }
 

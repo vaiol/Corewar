@@ -32,34 +32,44 @@ void	clear_op(t_carr *carr)
 	carr->op.label_size = 0;
 }
 
-//void	kill_carriage(t_data *data, t_carr *carr)
-//{
-//	t_carr *head;
-//	t_carr *del;
-//	t_carr *prev;
-//
-//	data->map[carr->index].carriage = 0;
-//	head = data->carr;
-//	if (head == carr)
-//	{
-//		if (data->carr->next == NULL)
-//		{
-//			free(data->carr);
-//			data->carr = NULL;
-//			return ;
-//		}
-//		head = data->carr;
-//		data->carr = data->carr->next;
-//		free(head);
-//		return ;
-//	}
-//	prev = data->carr;
-//	while (prev->next != NULL && prev->next != carr)
-//		prev = prev->next;
-//	del = prev->next;
-//	prev->next = prev->next->next;
-//	free(del);
-//}
+void	headshot(t_data *data)
+{
+	t_carr	*tmp;
+
+	while (data->carr && data->carr->live == 0)
+	{
+		tmp = data->carr;
+		data->carr = data->carr->next;
+		free(tmp);
+	}
+}
+
+void	kill_carriage(t_data *data)
+{
+	t_carr	*current;
+	t_carr	*prev;
+	t_carr	*tmp;
+
+	headshot(data);
+	if (data->carr == NULL)
+		return ;
+	prev = data->carr;
+	prev->live = 0;
+	current = data->carr->next;
+	while (current != NULL)
+	{
+		if (current->live == 0)
+		{
+			tmp = current;
+			prev->next = current->next;
+			current = prev;
+			free(tmp);
+		}
+		prev = current;
+		current->live = 0;
+		current = current->next;
+	}
+}
 
 void	fork_carriage(t_data *data, t_carr *carr, int index)
 {

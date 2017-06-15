@@ -156,7 +156,6 @@ typedef struct		s_data
 	t_fl			fl;
 	t_champ			*champs;
 	t_carr			*carr;
-//	t_map			map[MEM_SIZE];
 	t_map			*map;
 	t_print			print;
 }					t_data;
@@ -165,8 +164,8 @@ typedef struct		s_data
  ** carriage.c
 */
 void				clear_op(t_carr *carr);
+void				kill_carriage(t_data *data);
 void				fork_carriage(t_data *data, t_carr *carr, int index);
-//void				kill_carriage(t_data *data, t_carr *carr);
 
 /*
  ** carriage_func.c
@@ -184,7 +183,7 @@ void				manage_corewar(t_data *data);
 
 /*
  ** count_champs.c
- */
+*/
 void				count_champs(t_data *data, char **argv);
 
 /*
@@ -328,14 +327,14 @@ void				time_to_die(t_data *data);
 */
 void				set_default_num(t_data *data, int nb, int number);
 void				set_start_pos(t_data *data, t_champ *champ, int nb);
+void				set_player_nbr(t_data *data, int argc, char **argv);
 
 /*
  ** champ_checks
 */
 void				check_magic(t_champ *champ, char *content);
 int					check_prog_name(t_champ *champ, char *content, size_t sh);
-//void				check_prog_size(t_champ *champ, size_t shift);
-int					check_prog_size(t_champ *champ, char *content, size_t shift);
+int					check_prog_size(t_champ *champ, char *content, size_t sh);
 
 int					check_comment(t_champ *champ, char *content, size_t shift);
 void				check_program(t_champ *champ, char *content, size_t shift);

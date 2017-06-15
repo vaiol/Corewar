@@ -49,7 +49,7 @@ $(NAME): $(OBJS)
 	@printf "[CC] %s\n" $(NAME)
 
 .c.o:
-	@printf "[CC] %s\n" $<
+	@printf "[CC] %s                                                  \r" $<
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

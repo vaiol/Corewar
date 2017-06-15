@@ -79,10 +79,7 @@ int		main(int argc, char **argv)
 	check_champ_nb(&data);
 	n = -1;
 	while (++n < data.count)
-	{
 		set_start_pos(&data, &data.champs[n], n);
-		ft_printf("nbset = %i start pos = %i\n", data.champs[n].nb_set, data.champs[n].start_pos);
-	}
 	init_corewar(&data);
 	corewar(&data);
 	return (0);
