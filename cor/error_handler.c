@@ -26,6 +26,16 @@ void	champ_error_handler(char *str, char *champion)
 
 void	error_handler_usage(void)
 {
-	ft_printf("usage: corewar [-alv] [file ...]\n");
+	ft_printf("usage :\n");
+	ft_printf("corewar [-a] [-dump nbr] [-l] [-v] [-n nbr] [champion.cor]\n");
+	ft_printf("flags :\n");
+	ft_printf("%-15s: Graphic interface\n", "-v");
+	ft_printf("%-15s: ", "-a");
+	ft_printf("Prints output from \"aff\" (Default is to hide it)\n");
+	ft_printf("%-15s: Display logs\n", "-l");
+	ft_printf("%-15s: ", "-n nbr");
+	ft_printf("Sets the number of the next player\n");
+	ft_printf("%-15s: ", "-dump nbr");
+	ft_printf("Dump the memory on the standard output at [nbr] cycle\n");
 	exit(1);
 }
