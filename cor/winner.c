@@ -46,7 +46,7 @@ void	print_winner(t_data *data)
 	{
 		name = data->champs[winner].prog_name;
 		nbr = data->champs[winner].nb_set;
-		ft_printf("Contestant %i, \"%s\", has won !\n", nbr, name);
+		ft_printf("Contestant %i, \"%s\", has won !\n", -nbr, name);
 		shut_down_nc(data);
 	}
 }
