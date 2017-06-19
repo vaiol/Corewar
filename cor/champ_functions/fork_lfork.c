@@ -20,7 +20,13 @@ void	function_fork(t_data *data, t_carr *carr, unsigned opcode)
 	if (opcode == 12)
 		index = (carr->index - carr->t_ind) + (carr->op.args[0] % IDX_MOD);
 	if (opcode == 15)
+	{
 		index = (carr->index - carr->t_ind) + carr->op.args[0];
+		if (index > 0)
+			index = index % MEM_SIZE;
+		if (index < 0)
+			index = MEM_SIZE + (index % MEM_SIZE);
+	}
 	if (index > MEM_SIZE)
 		index = index % MEM_SIZE;
 	print_function(data, carr);
