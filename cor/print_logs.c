@@ -41,7 +41,8 @@ void	print_movements(t_data *data, t_carr *carr)
 
 void	print_func_data(t_carr *carr)
 {
-	int arg;
+	int arg1;
+	int arg2;
 	int index;
 
 	if (carr->op.opcode == 12)
@@ -53,13 +54,16 @@ void	print_func_data(t_carr *carr)
 		ft_printf("(%i)", carr->index - carr->t_ind + carr->op.args[0]);
 	else if (carr->op.opcode == 11)
 	{
-		arg = carr->op.args[2];
+		arg1 = carr->op.args[1];
+		arg2 = carr->op.args[2];
+		if (carr->arg_type[1] == T_REG)
+			arg1 = carr->reg[carr->op.args[1]];
 		if (carr->arg_type[2] == T_REG)
-			arg = carr->reg[carr->op.args[2]];
-		ft_printf("\n%8c -> store to %i + %i ", '|', carr->op.args[1], arg);
-		ft_printf("= %i ", carr->op.args[1] + arg);
+			arg2 = carr->reg[carr->op.args[2]];
+		ft_printf("\n%8c -> store to %i + %i ", '|', arg1, arg2);
+		ft_printf("= %i ", arg1 + arg2);
 		ft_printf("(with pc and mod ");
-		ft_printf("%i) ", carr->index + (carr->op.args[1] + arg % IDX_MOD));
+		ft_printf("%i) ", carr->index + ((arg1 + arg2) % IDX_MOD));
 	}
 }
 

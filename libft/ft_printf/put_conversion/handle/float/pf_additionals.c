@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pf_additionals.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: astepano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/20 16:19:49 by astepano          #+#    #+#             */
+/*   Updated: 2017/06/20 16:24:04 by astepano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pf_float.h"
 
 void	pf_out(char **sp, const char *s, size_t l)
@@ -23,7 +35,7 @@ void	pf_pad(char **sp, char c, int w, int l)
 		pf_out(sp, pad, sizeof(pad));
 		l -= (int)sizeof(pad);
 	}
-	pf_out(sp, pad, (size_t) l);
+	pf_out(sp, pad, (size_t)l);
 }
 
 char	*pf_fmt_unsigned(uintmax_t x, char *s)
@@ -56,7 +68,7 @@ int		pf_infinite(long double nbr, int t, char *copy, t_indecies *i)
 			s = (t & 32) ? "nan\0" : "NAN\0";
 			i->pl = 0;
 		}
-		pf_out(&copy, i->prefix, (size_t) i->pl);
+		pf_out(&copy, i->prefix, (size_t)i->pl);
 		pf_out(&copy, s, 4);
 		return (1);
 	}

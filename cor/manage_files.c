@@ -43,7 +43,7 @@ void	manage_file(t_data *data, char *argv, int nb)
 	content = ft_strnew((size_t)size);
 	read(fd, content, (size_t)size);
 	data->champs[nb].nb = nb + 1;
-	data->champs->file_name = argv;
+	data->champs[nb].file_name = argv;
 	data->champs[nb].real_prog_size = (size_t)size;
 	champ_check(&data->champs[nb], content);
 	free(content);

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi_base.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: astepano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/20 16:18:44 by astepano          #+#    #+#             */
+/*   Updated: 2017/06/20 16:21:59 by astepano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-static int check_base(const int base, char nbr)
+static int	check_base(const int base, char nbr)
 {
 	char	*basement;
 	int		i;
@@ -16,7 +28,7 @@ static int check_base(const int base, char nbr)
 	return (-1);
 }
 
-int		ft_atoi_base(const char *str, const int base)
+int			ft_atoi_base(const char *str, const int base)
 {
 	unsigned long int	result;
 	int					minus;
@@ -25,8 +37,8 @@ int		ft_atoi_base(const char *str, const int base)
 	i = 0;
 	minus = 1;
 	while (str[i] == ' ' || str[i] == '\t'
-		   || str[i] == '\n' || str[i] == '\v'
-		   || str[i] == '\f' || str[i] == '\r')
+			|| str[i] == '\n' || str[i] == '\v'
+			|| str[i] == '\f' || str[i] == '\r')
 		i++;
 	if (str[i] == '-')
 		minus = -1;

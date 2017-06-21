@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pf_float.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: astepano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/20 16:19:57 by astepano          #+#    #+#             */
+/*   Updated: 2017/06/20 16:19:59 by astepano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pf_float.h"
 
 static void	pre_parse(long double *nbr, t_arrays *a)
@@ -101,7 +113,7 @@ void		pf_next_function(t_indecies *i, t_arrays *a, t_conversion *c)
 		*(--estr) = (char)(i->e < 0 ? '-' : '+');
 		*(--estr) = (char)c->type;
 	}
-	pf_out(&(a->copy), i->prefix, (size_t) i->pl);
+	pf_out(&(a->copy), i->prefix, (size_t)i->pl);
 	if ((c->type | 32) == 'f')
 		pf_handle_f(a, c->precision, bufs, c->hashtag);
 	else

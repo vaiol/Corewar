@@ -21,7 +21,7 @@
 # define MSG_USAGE3 "version of the code to the standard output\n"
 
 # include "../libft/libft.h"
-# include "../op.h"
+# include "op.h"
 # include <fcntl.h>
 
 typedef enum		e_err_type

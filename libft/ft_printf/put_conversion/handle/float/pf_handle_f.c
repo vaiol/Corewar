@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pf_handle_f.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: astepano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/20 16:20:30 by astepano          #+#    #+#             */
+/*   Updated: 2017/06/20 16:26:37 by astepano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pf_float.h"
 
 static void	handle_f2(int *p, t_arrays *a, t_bufs *bufs)
@@ -7,7 +19,7 @@ static void	handle_f2(int *p, t_arrays *a, t_bufs *bufs)
 	s = pf_fmt_unsigned(*(a->d), bufs->buf + 9);
 	while (s > bufs->buf)
 		*--s = '0';
-	pf_out(&(a->copy), s, (size_t) MIN(9, *p));
+	pf_out(&(a->copy), s, (size_t)MIN(9, *p));
 	a->d++;
 	*p -= 9;
 }

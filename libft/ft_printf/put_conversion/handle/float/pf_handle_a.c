@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pf_handle_a.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: astepano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/20 16:20:15 by astepano          #+#    #+#             */
+/*   Updated: 2017/06/20 16:20:16 by astepano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pf_float.h"
 
 static unsigned long	ftohex(long double f, unsigned b, unsigned eb, int *e)
@@ -28,7 +40,7 @@ static unsigned long	ftohex(long double f, unsigned b, unsigned eb, int *e)
 	return (((long long)(1 + ((1 << (eb)) - 1)) << (b - eb - 1)) | sgn);
 }
 
-static char		*get_exponent(int e, t_conversion *c)
+static char				*get_exponent(int e, t_conversion *c)
 {
 	char	*result;
 	char	*postfix;
@@ -41,7 +53,7 @@ static char		*get_exponent(int e, t_conversion *c)
 	return (result);
 }
 
-static char		*get_prefix(unsigned long long n, t_conversion *c, char *s)
+static char				*get_pf(unsigned long long n, t_conversion *c, char *s)
 {
 	char	*prefix;
 
@@ -55,7 +67,7 @@ static char		*get_prefix(unsigned long long n, t_conversion *c, char *s)
 	return (prefix);
 }
 
-static char		*get_value(unsigned long long hex, t_conversion *c)
+static char				*get_value(unsigned long long hex, t_conversion *c)
 {
 	int		len;
 	char	*str;
@@ -67,7 +79,7 @@ static char		*get_value(unsigned long long hex, t_conversion *c)
 	free(tmp);
 	str = pf_zerocut(str);
 	len = (int)ft_strlen(str);
-	str = ft_strfjoin(get_prefix(hex, c, str), str, SECOND);
+	str = ft_strfjoin(get_pf(hex, c, str), str, SECOND);
 	if (c->precision > len)
 		str = pf_strjoinchr(str, '0', c->precision - len, END);
 	else if (c->precision < len)
@@ -75,7 +87,7 @@ static char		*get_value(unsigned long long hex, t_conversion *c)
 	return (str);
 }
 
-char			*pf_handle_a(long double nbr, t_conversion *c)
+char					*pf_handle_a(long double nbr, t_conversion *c)
 {
 	unsigned long long	hex;
 	int					sign;

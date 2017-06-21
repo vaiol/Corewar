@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pf_float.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: astepano <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/20 16:20:05 by astepano          #+#    #+#             */
+/*   Updated: 2017/06/20 16:23:23 by astepano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PF_FLOAT_H
 # define PF_FLOAT_H
 
@@ -42,12 +54,12 @@ char			*pf_round_hex_cut(char *nbr, t_conversion *c);
 void			pf_handle_g(t_arrays *a, t_indecies *i, t_conversion *c);
 void			pf_handle_f(t_arrays *a, int p, t_bufs *bufs, int hash);
 void			pf_handle_e(t_arrays *a, char *es, t_bufs *bufs,
-							t_conversion *c);
+		t_conversion *c);
 void			pf_out(char **sp, const char *s, size_t l);
 void			pf_pad(char **sp, char c, int w, int l);
 char			*pf_fmt_unsigned(uintmax_t x, char *s);
 int				pf_infinite(long double nbr, int t, char *copy,
-							   t_indecies *i);
+		t_indecies *i);
 char			*pf_infin(long double nbr, t_conversion *c, int sign);
 void			pf_parse_int(t_indecies *i, t_arrays *a);
 void			pf_parse_fract(t_indecies *i, t_arrays *a, int t, int p);
